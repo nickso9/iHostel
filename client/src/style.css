@@ -15,15 +15,31 @@ a {
   color: unset;
 }
 
-button,
-input[type="submit"] {
+button{
     border: none;
     background: none;
     color: unset;
     cursor: pointer;
 }
 
+input {
+  border: none;
+  background: none;
+  color: unset;
+}
 
+input:focus {
+  outline: 1px solid  #171C24 !important;
+  border: none;
+}
+
+input[type="date"]::before { 
+  content: attr(data-placeholder);
+  width: 100%;
+}
+
+input[type="date"]:focus::before,
+input[type="date"]:valid::before { display: none }
 
 /* Navbar/Header */
 
@@ -59,7 +75,8 @@ input[type="submit"] {
 /* Home */
 
 #carousel-wrapper {
-  max-width: 600px;
+  max-width: 900px;
   max-height: 300px;
   margin: auto;
 }
+

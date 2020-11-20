@@ -11,14 +11,12 @@ const Carousels = () => {
         'https://placeimg.com/400/280/arch'
     ]   
 
-
-
     return (
         <div id='carousel-wrapper'>
-            <Carousel >
+            <Carousel className="d-block w-100">
                 {picArray.map((picture, index) => {
                     return (
-                        <Carousel.Item interval={5000}>
+                        <Carousel.Item interval={5000} key={index}>
                         <img
                         className="d-block w-100"
                         src={picture}
