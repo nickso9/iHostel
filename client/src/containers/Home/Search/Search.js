@@ -15,10 +15,9 @@ const SearchBar = () => {
         }
       ]);
     const [showCalender, setShowCalender] = useState(false)
-      console.log(showCalender)
-
-   
-
+    
+    console.log(timeState[0].startDate)
+    console.log(timeState[0].endDate)
 
     return (
             <Form.Group className='m-5 form-row'>
@@ -27,32 +26,38 @@ const SearchBar = () => {
                     size="lg" 
                     type="text" 
                     placeholder="Where are you going?" 
-                    className="text-danger rounded bg-light"
+                    className="text-dark rounded bg-light border-secondary"
                 />
                     
                 </div>
-                    <div className="col-md-3">
-                    <button onClick={() => setShowCalender(!showCalender)}>Select Dates</button>
+                    <div className="col-md-4">
+                    <button 
+                        className="w-100 border border-secondary btn-lg 
+                        text-secondary d-flex justify-content-between" 
+                        onClick={() => setShowCalender(!showCalender)}>
+                            <span >Check dates</span>
+                            <span className="glyphicon">&#xe109;</span>
+                            </button>
 
                     { showCalender && (
                         <DateRange
-                        editableDateInputs={true}
-                        onChange={item => setTimeState([item.selection])}
-                        moveRangeOnFirstSelection={true}
-                        ranges={timeState}
-                        minDate={new Date()}
-                        direction="vertical"
-                        months={2}
-                        dateformat="MM/DD/YYYY"
-                    />
+                            style={{zIndex: '1000'}}
+                            className="bg-light"
+                            editableDateInputs={true}
+                            onChange={item => setTimeState([item.selection])}
+                            moveRangeOnFirstSelection={true}
+                            ranges={timeState}
+                            minDate={new Date()}
+                            direction="vertical"
+                            months={2}
+                            dateformat="MM/DD/YYYY"
+                        />
                     )}
 
 
-
-
                     </div>
-                    <div className="col-md-3">
-                        
+                    <div className="col-md-2">
+                        <button className="w-100 border border-secondary btn-lg text-dark">Search</button>
                     </div>
                 
            
