@@ -18,8 +18,8 @@ const SearchBar = () => {
     
 
     const timeHandler = () => {
-        let convertedStartDate = format(timeState[0].startDate, 'MM/dd/yyyy')
-        let convertedEndDate = format(timeState[0].endDate, 'MM/dd/yyyy')
+        let convertedStartDate = format(timeState[0].startDate, 'MMM/d/yyyy')
+        let convertedEndDate = format(timeState[0].endDate, 'MMM/d/yyyy')
         let dateOne = new Date(convertedStartDate)
         let dateTwo = new Date(convertedEndDate)
         let differenceInTime = dateTwo - dateOne
@@ -53,13 +53,17 @@ const SearchBar = () => {
                             style={{zIndex: '1000'}}
                             className="bg-light"
                             editableDateInputs={true}
-                            onChange={item => setTimeState([item.selection])}
+                            onChange={item => {
+                                setTimeState([item.selection])
+                                console.log(item) 
+                                // setShowCalender(false) 
+                            }}
                             moveRangeOnFirstSelection={false}
                             ranges={timeState}
                             minDate={new Date()}
                             direction="vertical"
-                            months={2}
-                            // dateFormat="MMM/d/yyyy"
+                            // months={2}
+                            dateFormat="MMM/d/yyyy"
                             // disabledDates={[new Date('Nov 21, 2020'), new Date('Nov 22, 2020'), new Date('Nov 23, 2020')]}
                         />
                     )}

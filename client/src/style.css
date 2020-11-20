@@ -82,6 +82,12 @@ input[type="date"]:valid::before { display: none }
 
 /* Search */
 
-.button-search {
-  height: 50px;
+/* .rdrCalendarWrapper {
+    opacity: 1 !important;
+    background-color: aquamarine !important;
+} */
+
+.date-range-class {
+  opacity: 1 !important;
+    background-color: aquamarine !important;
 }
