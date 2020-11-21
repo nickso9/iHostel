@@ -23,9 +23,10 @@ const AddImage = () => {
 
         const file = await res.json()
         setImages([...images, file.secure_url])
+
+        document.getElementById("image").value = ''
     }
 
-    
 
         return (
             <>
@@ -56,9 +57,9 @@ const AddImage = () => {
                                         }}/></div>
                             }
                         })}
-                        <div className="mt-3 border justify-content-around d-inline-flex">
-         
-                                <input type='file' name='file' id="image" onChange={uploadImage}/> 
+                        <div className="mt-5 border justify-content-around d-inline-flex">
+                            
+                                <input className="" type='file' name='file' id="image" onChange={uploadImage} accept="image/*" />
                            
 
 
