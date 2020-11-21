@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { HostContext } from '../../contexts/HostContext'
 import Calender from '../../components/Calender/Calender';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import AddAddress from './AddAddress/AddAddress';
 import AddImage from './AddImage/AddImage';
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 
 const Host = () => {
+
+    const { host, setHost } = useContext(HostContext)
 
     const [creationState, setCreationState] = useState(1);
     const [timeState, setTimeState] = useState([
@@ -17,7 +20,18 @@ const Host = () => {
         }
       ]);
 
+    
+      console.log(host)
+      console.log(setHost)
 
+    const updater = (event) => {
+        setHost(prevState => ({
+                ...prevState,
+                [event.target.name]: event.target.value
+            }   
+        ))
+    
+    }
         // let convertedStartDate = format(timeState[0].startDate, 'MMM/d/yyyy')
         // let convertedEndDate = format(timeState[0].endDate, 'MMM/d/yyyy')
         // console.log(convertedStartDate)
@@ -28,6 +42,32 @@ const Host = () => {
       if (creationState === 1) {
         currentState =  (    
             <div className="w-100 mt-3 pb-5">
+                <h4 className="text-center">Title, Description & Rates </h4>
+                <hr />
+                <Form.Control 
+                    name='price'
+                    type="number"
+                    placeholder="Rate per night"
+                    onChange={ele => {
+                        console.log(ele)
+                        updater(ele)
+                    }}
+                    value={!host.price ? '' : host.price}
+                />
+                <br />
+                <Form.Control 
+                    name='title' 
+                    size="md" 
+                    type="text" 
+                    placeholder="Title" 
+                    onChange={ele => {
+                        // updater(ele)
+                    }} 
+                />
+                <Form.Group controlId="exampleForm.ControlTextarea1">       
+                    <Form.Label></Form.Label>
+                    <Form.Control as="textarea" rows={3} placeholder="Description of home" />
+                </Form.Group>
                 <h4 className="text-center">Pick avaiable date range.</h4>
                 <hr />
                     <div className="text-center">
@@ -100,11 +140,7 @@ const Host = () => {
     return (
         <>
             <div className='host-container bg-light mb-5 pb-5'> 
-            
-                
-                    {currentState}      
-                
-                
+                {currentState}       
             </div>  
         </>   
     )

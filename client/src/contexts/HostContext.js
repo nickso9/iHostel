@@ -1,14 +1,13 @@
 import React, { createContext, useState } from 'react';
 
+export const HostContext = createContext()
 
-export const newHost = createContext()
-
-
-
-const hostContextProvider = (props) => {
+export const HostContextProvider = (props) => {
     const [host, setHost] = useState({
         hostId: null,
-        price: null,
+        price: '5678',
+        description: null,
+        title: null,
         address: {
             addressOne: null,
             addressTwo: null,
@@ -16,17 +15,17 @@ const hostContextProvider = (props) => {
             state: null,
             zip: null
         },
+        geoLocation: null,
         images: [],
-        dates: []
+        dates: [],
     })
 
     return (
-        <newHost.Provider value={host}>
-
-        </newHost.Provider>
+        <HostContext.Provider value={{ host, setHost}}>
+            {props.children}
+        </HostContext.Provider>
     )
-
 
 }
 
-export default hostContextProvider
+export default HostContext
