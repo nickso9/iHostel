@@ -1,19 +1,45 @@
-import React from 'react'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form' 
+import React, { useState } from 'react'
+// import Button from 'react-bootstrap/Button';
+// import Form from 'react-bootstrap/Form' 
 
-const images = [
-    'https://placeimg.com/400/280/arch',
-    'https://placeimg.com/400/280/tech',
-    'https://placeimg.com/400/280/people'
-]
+
 
 const AddImage = () => {
+
+    const [images, setImages] = useState([
+        'https://placeimg.com/400/280/arch',
+        'https://placeimg.com/400/280/tech',
+        'https://placeimg.com/400/280/people'
+    ])
+    const [loading, setLoading] = useState(false)
+
+    const uploadImage = async image => {
+        const files = image.target.files;
+        const data = new FormData();
+        data.append('file', files[0]);
+        data.append('upload_preset', 'wh7prbnn')
+        setLoading(true)
+        console.log(data)
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/dv1oijudu/image/upload',
+            {
+            method: 'POST',
+            body: data  
+            }
+        )
+
+        const file = await res.json()
+        console.log(file)
+        setImages(file.secure_url)
+        setLoading(false)
+    }
+
+
 
         return (
             <>
                 <hr />
-                <div className='host-images-container mb-3'>
+                <div className='host-images-container mb-2'>
                     
                         {images.map((images, index) => {
                             if (index === 0) {
@@ -30,7 +56,6 @@ const AddImage = () => {
                                                 alt: document.getElementById('main-image-src').getAttribute('alt'),
                                                 src: document.getElementById('main-image-src').getAttribute('src'),
                                             }
-                                            // console.log(mainImage)
                                             document.getElementById('main-image-src').setAttribute('src', `${e.target.src}`)
                                             document.getElementById('main-image-src').setAttribute('alt', `${e.target.alt}`)
 
@@ -41,10 +66,13 @@ const AddImage = () => {
                             }
                         })}
                         <div className="mt-3 border justify-content-around d-inline-flex">
-                            <Form.File id="formcheck-api-regular" className="d-inline-flex">
-                            <Form.File.Input />
-                            <Button className="btn btn-sm btn-dark pr-3 pl-3">Upload</Button>
-                            </Form.File>
+                            {/* <Form.File className="d-inline-flex" type='file' onChange={uploadImage} >
+                            </Form.File> */}
+                                
+                                <input type='file' name='file' id="image" onChange={uploadImage}/> 
+                           
+
+
                         </div>
                 </div>  
             </>

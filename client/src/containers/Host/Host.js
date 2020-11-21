@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Calender from '../../components/Calender/Calender';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import AddAddress from './AddAddress/AddAddress'
-import AddImage from './AddImage/AddImage'
-
+import AddAddress from './AddAddress/AddAddress';
+import AddImage from './AddImage/AddImage';
+import { format } from 'date-fns'
 
 const Host = () => {
 
@@ -16,6 +16,13 @@ const Host = () => {
           key: 'selection',
         }
       ]);
+
+
+        // let convertedStartDate = format(timeState[0].startDate, 'MMM/d/yyyy')
+        // let convertedEndDate = format(timeState[0].endDate, 'MMM/d/yyyy')
+        // console.log(convertedStartDate)
+        // console.log(convertedEndDate)
+
 
       let currentState;
       if (creationState === 1) {
@@ -63,8 +70,10 @@ const Host = () => {
       } else {
         currentState = (
         <>
-            <h4 className="text-center">Location of rental.</h4>
+            <h4 className="text-center">Location.</h4>
+            <Form>
             <AddAddress />
+            </Form>
             <hr />
             <Button 
                 className="pr-4 pl-4 btn-dark mt-3 ml-auto" 
@@ -74,7 +83,7 @@ const Host = () => {
                 }}
             >Back</Button>
             <Button 
-                className="bg-dark pr-4 pl-4 mt-3 float-right" 
+                className="bg-light pr-4 pl-4 mt-3 float-right text-info border-info" 
                 variant="primary" 
                 type="submit" 
                 onClick={e => {
@@ -89,12 +98,15 @@ const Host = () => {
 
 
     return (
-        <div className='host-container bg-light mb-5 pb-5'> 
-            <Form>
-                {currentState}      
-            </Form>
+        <>
+            <div className='host-container bg-light mb-5 pb-5'> 
             
-        </div>     
+                
+                    {currentState}      
+                
+                
+            </div>  
+        </>   
     )
     
 }

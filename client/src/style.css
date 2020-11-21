@@ -108,8 +108,7 @@ input[type="date"]:valid::before { display: none }
 
 .main-image-container {
   margin: auto;
-  /* border: 1px solid black; */
-  max-width: 500px;
+  width: 500px;
   height: 300px;
   padding-right: -5px;
   padding-left: -5px;
