@@ -82,12 +82,61 @@ input[type="date"]:valid::before { display: none }
 
 /* Search */
 
-/* .rdrCalendarWrapper {
-    opacity: 1 !important;
-    background-color: aquamarine !important;
-} */
 
-.date-range-class {
-  opacity: 1 !important;
-    background-color: aquamarine !important;
+
+
+
+
+/* Host */
+
+.host-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 40px;
+  box-shadow: 0 0 2px;
+  margin-top: 30px;
+}
+
+.host-images-container {
+  max-width: 550px;
+  margin: auto;
+  height: 400px;
+  box-shadow: 0 0 2px;
+  padding: 20px
+}
+
+
+.main-image-container {
+  margin: auto;
+  /* border: 1px solid black; */
+  max-width: 500px;
+  height: 300px;
+  padding-right: -5px;
+  padding-left: -5px;
+}
+
+.main-image-container img{
+  width: 100%;
+  height: 100%;
+}
+
+.small-image-container {
+  height: 50px;
+  width: 50px;
+  display: inline-flex;
+
+  justify-content: space-between;
+}
+
+.small-image-container img{
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 500px) {
+  .host-container {
+    margin: 0;
+    padding: 10px;
+    font-size: 12px;
+  }
 }

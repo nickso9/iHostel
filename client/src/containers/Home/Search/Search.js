@@ -29,8 +29,8 @@ const SearchBar = () => {
 
 
     return (
-            <Form.Group className='m-5 form-row'>
-                <div className='col-md-6'>
+            <Form.Group className='mt-5 mb-4 form-row search-form-container'>
+                <div className='col-md-6 mt-2'>
                 <Form.Control 
                     size="lg" 
                     type="text" 
@@ -39,7 +39,7 @@ const SearchBar = () => {
                 />
                     
                 </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 mt-2">
                     <button 
                         className="w-100 border border-secondary btn-lg 
                         text-secondary d-flex justify-content-between" 
@@ -51,7 +51,7 @@ const SearchBar = () => {
                     { showCalender && (
                         <DateRange
                             style={{zIndex: '1000'}}
-                            className="bg-light"
+                            className="bg-light ml-3"
                             editableDateInputs={true}
                             onChange={item => {
                                 setTimeState([item.selection])
@@ -70,9 +70,10 @@ const SearchBar = () => {
 
 
                     </div>
-                    <div className="col-md-2">
+                    <div className="col-md-2 mt-2">
                         <button 
-                        className="w-100 border border-secondary btn-lg text-dark"
+                        style={{backgroundColor: '#171C24'}}
+                        className="w-100 border border-secondary btn-lg text-light"
                         onClick={timeHandler}
                         >Search</button>
                     </div>
