@@ -11,8 +11,10 @@ const images = [
 const AddImage = () => {
 
         return (
-            
-                <div className='host-images-container mb-5'>
+            <>
+                <hr />
+                <div className='host-images-container mb-3'>
+                    
                         {images.map((images, index) => {
                             if (index === 0) {
                                 return <div className='main-image-container' key={index}><img id='main-image-src' alt={images} src={images} /></div>
@@ -45,6 +47,7 @@ const AddImage = () => {
                             </Form.File>
                         </div>
                 </div>  
+            </>
         )
 }
 

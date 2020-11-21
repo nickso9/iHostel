@@ -9,7 +9,7 @@ const AddAddress = () => {
 
 return (  
      <>
-        <br /><hr />
+        <hr />
         <Form.Group controlId="formGridAddress1" >
             <Form.Label>Address</Form.Label>
             <Form.Control placeholder="1234 Main St" />
