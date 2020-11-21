@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Calender from '../../components/Calender/Calender';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col' 
@@ -12,12 +13,19 @@ const Host = () => {
         'https://placeimg.com/400/280/people'
     ]
 
+    const [timeState, setTimeState] = useState([
+        {
+          startDate: new Date(),
+          endDate: null,
+          key: 'selection',
+        }
+      ]);
 
-
-
+    const [showCalender, setShowCalender] = useState(false)
 
     return (
         <div className='host-container bg-light mb-5'>
+            <p>Host creation page</p>
             <Form>
                 <div className='host-images-container mb-5'>
                     {images.map((images, index) => {
@@ -55,8 +63,27 @@ const Host = () => {
                     </Form.File>
                 </div>
                 </div>  
-                <br /><br /><hr />
-                    <Form.Group controlId="formGridAddress1" className='mt-3'>
+                    <br />
+                <div className="w-100">
+                    <button 
+                        className="w-100 border border-secondary btn-lg 
+                        text-secondary d-flex justify-content-between" 
+                        onClick={e => {
+                            e.preventDefault()
+                            setShowCalender(!showCalender)
+                        }}>
+                            <span>Click here to set available dates.</span>
+                            <span className="glyphicon">&#xe109;</span>
+                            </button>
+
+                    { showCalender && (
+                        <Calender timeState={timeState} setTimeState={setTimeState}/>
+                    )}
+
+                    </div>
+
+                <br /><hr />
+                    <Form.Group controlId="formGridAddress1" >
                         <Form.Label>Address</Form.Label>
                         <Form.Control placeholder="1234 Main St" />
                     </Form.Group>
