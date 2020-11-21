@@ -17,9 +17,9 @@ const Host = () => {
 
 
     return (
-        <div className='host-container'>
+        <div className='host-container bg-light mb-5'>
             <Form>
-                <div className='host-images-container'>
+                <div className='host-images-container mb-5'>
                     {images.map((images, index) => {
                         if (index === 0) {
                             return <div className='main-image-container' key={index}><img id='main-image-src' alt={images} src={images} /></div>
@@ -48,8 +48,14 @@ const Host = () => {
                                     }}/></div>
                         }
                     })}
-         
+                <div className="mt-3 border justify-content-around d-inline-flex">
+                    <Form.File id="formcheck-api-regular" className="d-inline-flex">
+                    <Form.File.Input />
+                    <Button className="btn btn-sm btn-dark pr-3 pl-3">Upload</Button>
+                    </Form.File>
                 </div>
+                </div>  
+                <br /><br /><hr />
                     <Form.Group controlId="formGridAddress1" className='mt-3'>
                         <Form.Label>Address</Form.Label>
                         <Form.Control placeholder="1234 Main St" />
@@ -130,13 +136,10 @@ const Host = () => {
                         </Form.Group>
                     </Form.Row>
 
-        
-
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
+                    <Button className="bg-dark pr-4 pl-4" variant="primary" type="submit">Host</Button>
+                
             </Form>
-
+            
         </div>
         
     )

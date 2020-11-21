@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css'; 
-import 'react-date-range/dist/theme/default.css';
+import Calender from '../../../components/Calender/Calender'
 import { format } from 'date-fns'
 
 const SearchBar = () => {
@@ -25,6 +23,8 @@ const SearchBar = () => {
         let differenceInTime = dateTwo - dateOne
         let totalDaysBetween = differenceInTime / (1000 * 3600 * 24)
         console.log(totalDaysBetween)
+        console.log(convertedStartDate)
+        console.log(convertedEndDate)
     }
 
 
@@ -36,8 +36,7 @@ const SearchBar = () => {
                     type="text" 
                     placeholder="Where are you going?" 
                     className="text-dark rounded bg-light border-secondary"
-                />
-                    
+                />           
                 </div>
                     <div className="col-md-4 mt-2">
                     <button 
@@ -49,25 +48,8 @@ const SearchBar = () => {
                             </button>
 
                     { showCalender && (
-                        <DateRange
-                            style={{zIndex: '1000'}}
-                            className="bg-light ml-3"
-                            editableDateInputs={true}
-                            onChange={item => {
-                                setTimeState([item.selection])
-                                console.log(item) 
-                                // setShowCalender(false) 
-                            }}
-                            moveRangeOnFirstSelection={false}
-                            ranges={timeState}
-                            minDate={new Date()}
-                            direction="vertical"
-                            // months={2}
-                            dateFormat="MMM/d/yyyy"
-                            // disabledDates={[new Date('Nov 21, 2020'), new Date('Nov 22, 2020'), new Date('Nov 23, 2020')]}
-                        />
+                        <Calender timeState={timeState} setTimeState={setTimeState}/>
                     )}
-
 
                     </div>
                     <div className="col-md-2 mt-2">
@@ -76,15 +58,30 @@ const SearchBar = () => {
                         className="w-100 border border-secondary btn-lg text-light"
                         onClick={timeHandler}
                         >Search</button>
-                    </div>
-                
-           
-            </Form.Group>
-
-        
+                    </div>        
+            </Form.Group>      
     )   
 }
 
 
 
 export default SearchBar
+
+
+// <DateRange
+                        //     style={{zIndex: '1000'}}
+                        //     className="bg-light ml-3"
+                        //     editableDateInputs={true}
+                        //     onChange={item => {
+                        //         setTimeState([item.selection])
+                        //         console.log(item) 
+                        //         // setShowCalender(false) 
+                        //     }}
+                        //     moveRangeOnFirstSelection={false}
+                        //     ranges={timeState}
+                        //     minDate={new Date()}
+                        //     direction="vertical"
+                        //     // months={2}
+                        //     dateFormat="MMM/d/yyyy"
+                        //     // disabledDates={[new Date('Nov 21, 2020'), new Date('Nov 22, 2020'), new Date('Nov 23, 2020')]}
+                        // />
