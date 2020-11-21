@@ -1,40 +1,31 @@
 import React, { useState } from 'react'
-// import Button from 'react-bootstrap/Button';
-// import Form from 'react-bootstrap/Form' 
-
-
 
 const AddImage = () => {
 
     const [images, setImages] = useState([
-        'https://placeimg.com/400/280/arch',
-        'https://placeimg.com/400/280/tech',
-        'https://placeimg.com/400/280/people'
+        // 'https://placeimg.com/400/280/arch',
+        // 'https://placeimg.com/400/280/tech',
+        // 'https://placeimg.com/400/280/people'
     ])
-    const [loading, setLoading] = useState(false)
+   
 
     const uploadImage = async image => {
         const files = image.target.files;
         const data = new FormData();
         data.append('file', files[0]);
         data.append('upload_preset', 'wh7prbnn')
-        setLoading(true)
-        console.log(data)
         const res = await fetch(
             'https://api.cloudinary.com/v1_1/dv1oijudu/image/upload',
             {
             method: 'POST',
-            body: data  
-            }
-        )
+            body: data
+            })
 
         const file = await res.json()
-        console.log(file)
-        setImages(file.secure_url)
-        setLoading(false)
+        setImages([...images, file.secure_url])
     }
 
-
+    
 
         return (
             <>
@@ -66,9 +57,7 @@ const AddImage = () => {
                             }
                         })}
                         <div className="mt-3 border justify-content-around d-inline-flex">
-                            {/* <Form.File className="d-inline-flex" type='file' onChange={uploadImage} >
-                            </Form.File> */}
-                                
+         
                                 <input type='file' name='file' id="image" onChange={uploadImage}/> 
                            
 
