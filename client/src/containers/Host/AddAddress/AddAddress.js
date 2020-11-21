@@ -1,14 +1,13 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+
 import Col from 'react-bootstrap/Col' 
 
 
 
 const AddAddress = () => {
 
-return (
-    
+return (  
      <>
         <br /><hr />
         <Form.Group controlId="formGridAddress1" >
@@ -91,7 +90,9 @@ return (
             </Form.Group>
         </Form.Row>
 
-        <Button className="bg-dark pr-4 pl-4 mt-3" variant="primary" type="submit">Host</Button>
+        
+
+
 
         </>
 
