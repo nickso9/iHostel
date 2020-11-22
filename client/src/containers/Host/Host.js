@@ -71,8 +71,8 @@ const Host = () => {
                     }}
                     value={!host.title ? '' : host.title}
                 />
+                <br />
                 <Form.Group controlId="exampleForm.ControlTextarea1">       
-                    <Form.Label></Form.Label>
                     <Form.Control 
                         name="description"
                         as="textarea" 

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { HostContext } from '../../../contexts/HostContext'
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col' 
 
@@ -6,29 +7,71 @@ import Col from 'react-bootstrap/Col'
 
 const AddAddress = () => {
 
+    const { host, setHost } = useContext(HostContext)
+
+    const updater = (event) => {
+        
+        setHost(prevState => ({
+                ...prevState,
+                address: {
+                    ...prevState.address,
+                    [event.target.name]: event.target.value
+                }
+            }   
+        ))
+    
+    }
+
 return (  
      <>
         <hr />
         <Form.Group controlId="formGridAddress1" >
             <Form.Label>Address</Form.Label>
-            <Form.Control placeholder="1234 Main St" />
+            <Form.Control 
+                placeholder="1234 Main St" 
+                name="addressOne"
+                onChange={ele => {
+                    updater(ele)
+                }}
+                value={!host.address.addressOne ? '' : host.address.addressOne}
+            />
         </Form.Group>
 
         <Form.Group controlId="formGridAddress2">
             <Form.Label>Address 2</Form.Label>
-            <Form.Control placeholder="Apartment, studio, or floor" />
+            <Form.Control 
+                placeholder="Apartment, studio, or floor" 
+                name="addressTwo"
+                onChange={ele => {
+                    updater(ele)
+                }}
+                value={!host.address.addressTwo ? '' : host.address.addressTwo}
+            />
         </Form.Group>
 
         <Form.Row>
             <Form.Group as={Col} controlId="formGridCity">
             <Form.Label>City</Form.Label>
-            <Form.Control />
+            <Form.Control 
+                name="city"
+                onChange={ele => {
+                    updater(ele)
+                }}
+                value={!host.address.city ? '' : host.address.city}
+            />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridState">
             <Form.Label>State</Form.Label>
-            <Form.Control as="select" defaultValue="Choose...">
-                <option>Choose...</option>
+            <Form.Control 
+                as="select" 
+                defaultValue={!host.address.state ? "Choose..." : host.address.state}
+                name="state"
+                onChange={ele => {
+                    updater(ele)
+                }}      
+            >
+                <option value="choose">Choose...</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
@@ -85,7 +128,13 @@ return (
 
             <Form.Group as={Col} controlId="formGridZip">
             <Form.Label>Zip</Form.Label>
-            <Form.Control />
+            <Form.Control 
+                name="zip"
+                onChange={ele => {
+                    updater(ele)
+                }}
+                value={!host.address.zip ? '' : host.address.zip}
+            />
             </Form.Group>
         </Form.Row>
 
