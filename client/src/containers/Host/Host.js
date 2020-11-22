@@ -13,11 +13,12 @@ const Host = () => {
     const { host, setHost } = useContext(HostContext)
 
     const [creationState, setCreationState] = useState(1);
+    const [errorHandler, setErrorHandler] = useState('')
     const [timeState, setTimeState] = useState([
         {
-          startDate: new Date(),
-          endDate: null,
-          key: 'selection',
+            startDate: new Date(),
+            endDate: new Date(),
+            key: 'selection',
         }
       ]);
 
@@ -114,9 +115,17 @@ const Host = () => {
                 onClick={e => {
                     e.preventDefault()
                     timeHandler()
-                    setCreationState(2)
+
+                    
+                    if (!host.title || !host.description || !host.price) {
+                        setErrorHandler('All fields required')
+                    } else {
+                        setErrorHandler('')
+                        setCreationState(2)
+                    }
                 }}
                 >Next</Button>
+                <p className="text-danger">{errorHandler}</p>
             </div>           
         )
 
@@ -131,6 +140,7 @@ const Host = () => {
             className="pr-4 pl-4 btn-dark mt-5 ml-auto" 
             onClick={e => {
                 e.preventDefault()
+                setErrorHandler('')
                 setCreationState(1)
             }}
             >Back</Button>
@@ -138,9 +148,16 @@ const Host = () => {
             className="pr-4 pl-4 btn-dark mt-5 ml-auto float-right" 
             onClick={e => {
                 e.preventDefault()
-                setCreationState(3)
+                console.log(host.images.length)
+                if (host.images.length <= 0) {
+                    setErrorHandler('Image required.')
+                } else {
+                    setErrorHandler('')
+                    setCreationState(3)
+                }         
             }}
             >Next</Button>
+            <p className="text-danger">{errorHandler}</p>
             </>
             )
       } else {
@@ -155,6 +172,7 @@ const Host = () => {
                 className="pr-4 pl-4 btn-dark mt-3 ml-auto" 
                 onClick={e => {
                     e.preventDefault()
+                    setErrorHandler('')
                     setCreationState(2)
                 }}
             >Back</Button>
@@ -164,10 +182,16 @@ const Host = () => {
                 type="submit" 
                 onClick={e => {
                 e.preventDefault()
-                findGeoData()
-                console.log(host)
+                if (!host.address.addressOne || !host.address.state || !host.address.zip || !host.address.city) {
+                    setErrorHandler('More information required.')
+                } else {
+                    setErrorHandler('')
+                    findGeoData()
+                    console.log(host)
+                }
                 }}
             >Host</Button>
+            <p className="text-danger">{errorHandler}</p>
         </>
         )
       }
