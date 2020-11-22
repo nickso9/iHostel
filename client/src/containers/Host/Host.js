@@ -45,7 +45,7 @@ const Host = () => {
     }
 
 
-    const findGeoData = () => {
+    const findGeoData = async () => {
         let address = {
             address: host.address.addressOne,
             city: host.address.city,
@@ -54,11 +54,14 @@ const Host = () => {
         }
         console.log(address)
 
-        axios.get('http://localhost:5000/users/api/geo', {
+        return await axios.get('http://localhost:5000/users/api/geo', {
             params: { address }
         }) 
-        .then(response => console.log(response.data))
-        .catch(error => console.log(error))
+        // .then(response => {
+        
+        //     return 
+        // })
+        // .catch(error => console.log(error))
     }
 
 
@@ -186,8 +189,20 @@ const Host = () => {
                     setErrorHandler('More information required.')
                 } else {
                     setErrorHandler('')
-                    findGeoData()
-                    console.log(host)
+                    const geoLoco = findGeoData()
+                        .then(response=> {
+                            setHost(prevState => ({
+                                ...prevState,
+                                geoLocation: response.data
+                                }   
+                            ))
+
+                        })
+                        .catch(error => console.log(error))
+
+                        console.log(geoLoco)
+                    
+
                 }
                 }}
             >Host</Button>
