@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import axios from 'axios'
 import { HostContext } from '../../contexts/HostContext'
 import Calender from '../../components/Calender/Calender';
 import Form from 'react-bootstrap/Form';
@@ -33,15 +34,30 @@ const Host = () => {
     const timeHandler = () => {
         let convertedStartDate = format(timeState[0].startDate, 'MMM/d/yyyy')
         let convertedEndDate = format(timeState[0].endDate, 'MMM/d/yyyy')
-        setHost(prevState => ({
-            ...prevState,
-            dates: [
-                convertedStartDate,
-                convertedEndDate
-            ]
-        }   
-    ))
+            setHost(prevState => ({
+                ...prevState,
+                dates: [
+                    convertedStartDate,
+                    convertedEndDate
+                ]
+            }))   
+    }
 
+
+    const findGeoData = () => {
+        let address = {
+            address: host.address.addressOne,
+            city: host.address.city,
+            state: host.address.state,
+            zip: host.address.zip
+        }
+        console.log(address)
+
+        axios.get('http://localhost:5000/users/api/geo', {
+            params: { address }
+        }) 
+        .then(response => console.log(response.data))
+        .catch(error => console.log(error))
     }
 
 
@@ -148,7 +164,7 @@ const Host = () => {
                 type="submit" 
                 onClick={e => {
                 e.preventDefault()
-                
+                findGeoData()
                 console.log(host)
                 }}
             >Host</Button>

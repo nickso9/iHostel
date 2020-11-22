@@ -29,4 +29,4 @@ app.listen(PORT, () => {
 });
 
 
-app.use('/users/', require('./routes/userImages'))
+app.use('/users', require('./routes/geoRoutes'))
