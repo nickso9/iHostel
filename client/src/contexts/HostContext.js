@@ -1,11 +1,10 @@
 import React, { createContext, useState } from 'react';
 
 export const HostContext = createContext()
-
 export const HostContextProvider = (props) => {
     const [host, setHost] = useState({
         hostId: null,
-        price: '5678',
+        price: null,
         description: null,
         title: null,
         address: {

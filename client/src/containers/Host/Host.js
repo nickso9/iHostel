@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import AddAddress from './AddAddress/AddAddress';
 import AddImage from './AddImage/AddImage';
-// import { format } from 'date-fns'
+import { format } from 'date-fns'
 
 const Host = () => {
 
@@ -20,9 +20,6 @@ const Host = () => {
         }
       ]);
 
-    
-      console.log(host)
-      console.log(setHost)
 
     const updater = (event) => {
         setHost(prevState => ({
@@ -32,10 +29,20 @@ const Host = () => {
         ))
     
     }
-        // let convertedStartDate = format(timeState[0].startDate, 'MMM/d/yyyy')
-        // let convertedEndDate = format(timeState[0].endDate, 'MMM/d/yyyy')
-        // console.log(convertedStartDate)
-        // console.log(convertedEndDate)
+
+    const timeHandler = () => {
+        let convertedStartDate = format(timeState[0].startDate, 'MMM/d/yyyy')
+        let convertedEndDate = format(timeState[0].endDate, 'MMM/d/yyyy')
+        setHost(prevState => ({
+            ...prevState,
+            dates: [
+                convertedStartDate,
+                convertedEndDate
+            ]
+        }   
+    ))
+
+    }
 
 
       let currentState;
@@ -49,7 +56,6 @@ const Host = () => {
                     type="number"
                     placeholder="Rate per night"
                     onChange={ele => {
-                        console.log(ele)
                         updater(ele)
                     }}
                     value={!host.price ? '' : host.price}
@@ -61,23 +67,37 @@ const Host = () => {
                     type="text" 
                     placeholder="Title" 
                     onChange={ele => {
-                        // updater(ele)
-                    }} 
+                        updater(ele)
+                    }}
+                    value={!host.title ? '' : host.title}
                 />
                 <Form.Group controlId="exampleForm.ControlTextarea1">       
                     <Form.Label></Form.Label>
-                    <Form.Control as="textarea" rows={3} placeholder="Description of home" />
+                    <Form.Control 
+                        name="description"
+                        as="textarea" 
+                        rows={3} 
+                        placeholder="Description of home" 
+                        onChange={ele => {
+                            updater(ele)
+                        }}
+                        value={!host.description ? '' : host.description}
+                    />
                 </Form.Group>
                 <h4 className="text-center">Pick avaiable date range.</h4>
                 <hr />
                     <div className="text-center">
-                    <Calender timeState={timeState} setTimeState={setTimeState}/>
+                    <Calender 
+                        timeState={timeState} 
+                        setTimeState={setTimeState}
+                        />
                     </div>
                 <hr />
                 <Button 
                 className="pr-4 pl-4 btn-dark mt-3 float-right" 
                 onClick={e => {
                     e.preventDefault()
+                    timeHandler()
                     setCreationState(2)
                 }}
                 >Next</Button>
@@ -128,7 +148,8 @@ const Host = () => {
                 type="submit" 
                 onClick={e => {
                 e.preventDefault()
-                console.log(e)
+                
+                console.log(host)
                 }}
             >Host</Button>
         </>

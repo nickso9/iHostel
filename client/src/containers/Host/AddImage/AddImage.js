@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react';
+import { HostContext } from '../../../contexts/HostContext'
 
 const AddImage = () => {
-
-    const [images, setImages] = useState([
-        // 'https://placeimg.com/400/280/arch',
-        // 'https://placeimg.com/400/280/tech',
-        // 'https://placeimg.com/400/280/people'
-    ])
-   
+  
+    const { host, setHost } = useContext(HostContext)
 
     const uploadImage = async image => {
         const files = image.target.files;
@@ -22,18 +18,24 @@ const AddImage = () => {
             })
 
         const file = await res.json()
-        setImages([...images, file.secure_url])
+        const newImageArray = [...host.images]
+        newImageArray.push(file.secure_url)
+        setHost(prevState => ({
+            ...prevState,
+            images: newImageArray
+        } 
 
+    ))
         document.getElementById("image").value = ''
+        
     }
-
 
         return (
             <>
                 <hr />
                 <div className='host-images-container mb-2'>
                     
-                        {images.map((images, index) => {
+                        {host.images.map((images, index) => {
                             if (index === 0) {
                                 return <div className='main-image-container' key={index}><img id='main-image-src' alt={images} src={images} /></div>
                             } else {
@@ -57,12 +59,8 @@ const AddImage = () => {
                                         }}/></div>
                             }
                         })}
-                        <div className="mt-5 border justify-content-around d-inline-flex">
-                            
+                        <div className="mt-5 border justify-content-around d-inline-flex">                  
                                 <input className="" type='file' name='file' id="image" onChange={uploadImage} accept="image/*" />
-                           
-
-
                         </div>
                 </div>  
             </>
