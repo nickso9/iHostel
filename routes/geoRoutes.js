@@ -16,7 +16,7 @@ router.get('/api/geo', async (req, res) => {
         .then(response => {
             const lat = response.data.results[0].geometry.location.lat
             const lng = response.data.results[0].geometry.location.lng
-            res.json(lat+ ','+ lng)
+            res.json(lng+ ','+ lat)
         })
     } catch (error) {
         res.json(error)

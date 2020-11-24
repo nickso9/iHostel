@@ -189,23 +189,39 @@ const Host = () => {
                     
                     findGeoData()
                         .then(response=> {
-  
+                            
+                            
                             const hostDataToPost = {
-                                id: userData.user.id,
-                                dates: host.dates,
+                                userId: userData.user.id,
+                                range: host.dates,
                                 title: host.title,
                                 description: host.description,
                                 price: host.price,
                                 images: host.images,
                                 address: {
-                                    street: host.address.addressOne,
+                                    street: host.address.addressOne + ' ' + host.address.addressTwo,
                                     city: host.address.city,
                                     state: host.address.state,
                                     zip: host.address.zip
                                 },
-                                geo: response.data                  
+                                loc: {
+                                    coordinates: [response.data]  
+                                }                    
                             }
-                            console.log(hostDataToPost)
+                            
+                            const authToken = localStorage.getItem('auth-token')
+                            
+                            axios({
+                                method: 'POST',
+                                url: 'http://localhost:5000/users/host',
+                                data: hostDataToPost,
+                                headers: {
+                                    'x-auth-token': authToken
+                                }
+
+                            })
+                            .then(response => console.log(response))
+                            .catch(error => console.log(error))
 
                         })
                         .catch(error => console.log(error))

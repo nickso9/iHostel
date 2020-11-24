@@ -8,7 +8,7 @@ export const HostContextProvider = (props) => {
         title: null,
         address: {
             addressOne: null,
-            addressTwo: null,
+            addressTwo: '',
             city: null,
             state: null,
             zip: null
