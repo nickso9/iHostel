@@ -22,6 +22,10 @@ button{
     cursor: pointer;
 }
 
+.active {
+  text-decoration: underline;
+}
+
 input {
   border: none;
   background: none;
@@ -70,6 +74,15 @@ input[type="date"]:valid::before { display: none }
   padding: 5px 5px;
   font-size: 15px;
   
+}
+
+
+
+.navBarLinks {
+  padding: 5px 5px;
+  font-size: 15px;
+  color: white;
+  text-decoration: none !important;
 }
 
 /* Home */

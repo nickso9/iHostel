@@ -56,19 +56,20 @@ function App() {
       <UserContext.Provider value={{userData, setUserData}}>
           <Navbar />
           <Switch>
-            <Route exact path='/' component={Home} /> 
-            <Route path='/login' component={Login} />
-            <Route path='/register' component={Register} />
-            
+              <Route exact path='/host'>
                 <HostContextProvider>
-                  <PrivateRoute 
-                    exact
-                    path='/host'
+                  <PrivateRoute
                     component={Host}
                     loggedIn={userData}
                   />
-                </HostContextProvider>
-         
+                </HostContextProvider> 
+            </Route> 
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
+                
+            <Route path='/' component={Home} /> 
+            
+
             </Switch>
       </UserContext.Provider>
    </BrowserRouter>
