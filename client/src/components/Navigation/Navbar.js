@@ -6,11 +6,12 @@ import Logo from '../../assets/images/LogoO.png'
 const Navbar = () => {
     return (
         <header id='header'>
-            <Link to='/'><img alt='logo' src={Logo} /><span>ibnb</span></Link>
+            <Link to='/' className='logoLink' ><img alt='logo' src={Logo} /><span>ibnb</span></Link>
             <AuthOptions />
         </header>
     )
 }
+
 
 
 export default Navbar

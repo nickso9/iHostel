@@ -15,6 +15,7 @@ a {
   color: unset;
 }
 
+
 button{
     border: none;
     background: none;
@@ -23,8 +24,13 @@ button{
 }
 
 .active {
-  text-decoration: underline;
-  text-decoration-color: white;
+  text-decoration: underline !important;
+  text-decoration-color: white !important;
+}
+
+.nav a:hover {
+  text-decoration: none;
+  color: red !important;
 }
 
 input {
@@ -52,6 +58,16 @@ input[type="date"]:valid::before { display: none }
   width: 40px;
   height: 40px;
 
+}
+
+#header a{
+  text-decoration: none;
+  color: white;
+}
+
+#header a:hover{
+  background-color: unset !important;
+  color: unset !important;
 }
 
 #header {
