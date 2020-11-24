@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios'
-import { HostContext } from '../../contexts/HostContext'
+import axios from 'axios';
+import { HostContext } from '../../contexts/HostContext';
+import UserContext from '../../contexts/UserContext'
 import Calender from '../../components/Calender/Calender';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -11,7 +12,7 @@ import { format } from 'date-fns'
 const Host = () => {
 
     const { host, setHost } = useContext(HostContext)
-
+    const { userData } = useContext(UserContext)
     const [creationState, setCreationState] = useState(1);
     const [errorHandler, setErrorHandler] = useState('')
     const [timeState, setTimeState] = useState([
@@ -52,16 +53,12 @@ const Host = () => {
             state: host.address.state,
             zip: host.address.zip
         }
-        console.log(address)
+        
 
         return await axios.get('http://localhost:5000/users/api/geo', {
             params: { address }
         }) 
-        // .then(response => {
         
-        //     return 
-        // })
-        // .catch(error => console.log(error))
     }
 
 
@@ -189,18 +186,31 @@ const Host = () => {
                     setErrorHandler('More information required.')
                 } else {
                     setErrorHandler('')
-                    const geoLoco = findGeoData()
+                    
+                    findGeoData()
                         .then(response=> {
-                            setHost(prevState => ({
-                                ...prevState,
-                                geoLocation: response.data
-                                }   
-                            ))
+  
+                            const hostDataToPost = {
+                                id: userData.user.id,
+                                dates: host.dates,
+                                title: host.title,
+                                description: host.description,
+                                price: host.price,
+                                images: host.images,
+                                address: {
+                                    street: host.address.addressOne,
+                                    city: host.address.city,
+                                    state: host.address.state,
+                                    zip: host.address.zip
+                                },
+                                geo: response.data                  
+                            }
+                            console.log(hostDataToPost)
 
                         })
                         .catch(error => console.log(error))
 
-                        console.log(geoLoco)
+                        
                     
 
                 }

@@ -3,7 +3,6 @@ import React, { createContext, useState } from 'react';
 export const HostContext = createContext()
 export const HostContextProvider = (props) => {
     const [host, setHost] = useState({
-        hostId: null,
         price: null,
         description: null,
         title: null,
@@ -14,7 +13,6 @@ export const HostContextProvider = (props) => {
             state: null,
             zip: null
         },
-        geoLocation: null,
         images: [],
         dates: [],
     })
