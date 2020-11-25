@@ -45,6 +45,24 @@ const Host = () => {
             }))   
     }
 
+    const clearState = () => {
+        setCreationState(1)
+        setHost({
+            price: null,
+            description: null,
+            title: null,
+            address: {
+                addressOne: null,
+                addressTwo: '',
+                city: null,
+                state: null,
+                zip: null
+            },
+            images: [],
+            dates: [],
+        })
+    }
+
 
       let currentState;
       if (creationState === 1) {
@@ -166,37 +184,38 @@ const Host = () => {
                 type="submit" 
                 onClick={e => {
                 e.preventDefault()
-                if (!host.address.addressOne || !host.address.state || !host.address.zip || !host.address.city) {
-                    setErrorHandler('More information required.')
-                } else {
-                    setErrorHandler('')
-                    
-                            const hostDataToPost = {
-                                userId: userData.user.id,
-                                range: host.dates,
-                                title: host.title,
-                                description: host.description,
-                                price: host.price,
-                                images: host.images,
-                                address: host.address.addressOne + ' ' + host.address.addressTwo + ', ' +
-                                    host.address.city + ', ' + host.address.state + ' ' + host.address.zip                  
-                            }
-                            
-                            const authToken = localStorage.getItem('auth-token')
-                            
-                            axios({
-                                method: 'POST',
-                                url: 'http://localhost:5000/users/host',
-                                data: hostDataToPost,
-                                headers: {
-                                    'x-auth-token': authToken
+                    if (!host.address.addressOne || !host.address.state || !host.address.zip || !host.address.city) {
+                        setErrorHandler('More information required.')
+                    } else {
+                        setErrorHandler('')
+                        
+                                const hostDataToPost = {
+                                    userId: userData.user.id,
+                                    range: host.dates,
+                                    title: host.title,
+                                    description: host.description,
+                                    price: host.price,
+                                    images: host.images,
+                                    address: host.address.addressOne + ' ' + host.address.addressTwo + ', ' +
+                                        host.address.city + ', ' + host.address.state + ' ' + host.address.zip                  
                                 }
+                                
+                                const authToken = localStorage.getItem('auth-token')
+                                
+                                axios({
+                                    method: 'POST',
+                                    url: 'http://localhost:5000/users/host',
+                                    data: hostDataToPost,
+                                    headers: {
+                                        'x-auth-token': authToken
+                                    }
 
-                            })
-                            .then(response => console.log(response))
-                            .catch(error => console.log(error))
+                                })
+                                .then(response => console.log(response))
+                                .catch(error => console.log(error))
 
-                }
+                            clearState()
+                    } 
                 }}
             >Host</Button>
             <p className="text-danger">{errorHandler}</p>
