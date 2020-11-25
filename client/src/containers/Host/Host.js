@@ -150,7 +150,6 @@ const Host = () => {
             className="pr-4 pl-4 btn-dark mt-5 ml-auto float-right" 
             onClick={e => {
                 e.preventDefault()
-                console.log(host.images.length)
                 if (host.images.length <= 0) {
                     setErrorHandler('Image required.')
                 } else {
@@ -214,6 +213,7 @@ const Host = () => {
                                 .then(response => console.log(response))
                                 .catch(error => console.log(error))
 
+                            
                             clearState()
                     } 
                 }}

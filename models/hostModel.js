@@ -19,20 +19,23 @@ const hostSchema = new mongoose.Schema({
         minlength: 1
     },
     range: [String],
-    bookedRage: [String],
+    bookedRange: [String],
     images: [String],
     address: {
             type: String,
             trim: true
     },
-    location: {
+    loc: {
         type: {
             type: String,
             enum: ['Point'],
         },
         coordinates: {
             type: [Number],
-            index: '2dsphere'
+            index: { 
+                type: '2d', 
+                sparse: true 
+            }
         },
         formattedAddress: String,
     }, 
@@ -40,18 +43,15 @@ const hostSchema = new mongoose.Schema({
 });
 
 hostSchema.pre('save', async function(next) {
-    console.log(this.address)
     const loc = await geocoder.geocode(this.address)
-    console.log(loc)
-    this.location = {
+    this.loc = {
         type: 'Point',
         coordinates: [loc[0].longitude, loc[0].latitude], 
         formattedAddress: loc[0].formattedAddress
     }
-
     this.address = undefined
     next()
 })
 
 
-module.exports = User = mongoose.model('host', hostSchema)
+module.exports = Host = mongoose.model('host', hostSchema)
