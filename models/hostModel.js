@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const geocoder = require('../utils/geocoder')
 
 const hostSchema = new mongoose.Schema({
     userId: {
@@ -21,18 +22,36 @@ const hostSchema = new mongoose.Schema({
     bookedRage: [String],
     images: [String],
     address: {
-        street: { type: String },
-        city: { type: String },
-        state: { type: String },
-        zip: { type: String },
+            type: String,
+            trim: true
     },
-    loc: {
-        type: { 
-            type: String 
+    location: {
+        type: {
+            type: String,
+            enum: ['Point'],
         },
-        coordinates: []
+        coordinates: {
+            type: [Number],
+            index: '2dsphere'
+        },
+        formattedAddress: String,
     }, 
 
 });
+
+hostSchema.pre('save', async function(next) {
+    console.log(this.address)
+    const loc = await geocoder.geocode(this.address)
+    console.log(loc)
+    this.location = {
+        type: 'Point',
+        coordinates: [loc[0].longitude, loc[0].latitude], 
+        formattedAddress: loc[0].formattedAddress
+    }
+
+    this.address = undefined
+    next()
+})
+
 
 module.exports = User = mongoose.model('host', hostSchema)

@@ -46,22 +46,6 @@ const Host = () => {
     }
 
 
-    const findGeoData = async () => {
-        let address = {
-            address: host.address.addressOne,
-            city: host.address.city,
-            state: host.address.state,
-            zip: host.address.zip
-        }
-        
-
-        return await axios.get('http://localhost:5000/users/api/geo', {
-            params: { address }
-        }) 
-        
-    }
-
-
       let currentState;
       if (creationState === 1) {
         currentState =  (    
@@ -187,10 +171,6 @@ const Host = () => {
                 } else {
                     setErrorHandler('')
                     
-                    findGeoData()
-                        .then(response=> {
-                            
-                            
                             const hostDataToPost = {
                                 userId: userData.user.id,
                                 range: host.dates,
@@ -198,15 +178,8 @@ const Host = () => {
                                 description: host.description,
                                 price: host.price,
                                 images: host.images,
-                                address: {
-                                    street: host.address.addressOne + ' ' + host.address.addressTwo,
-                                    city: host.address.city,
-                                    state: host.address.state,
-                                    zip: host.address.zip
-                                },
-                                loc: {
-                                    coordinates: [response.data]  
-                                }                    
+                                address: host.address.addressOne + ' ' + host.address.addressTwo + ', ' +
+                                    host.address.city + ', ' + host.address.state + ' ' + host.address.zip                  
                             }
                             
                             const authToken = localStorage.getItem('auth-token')
@@ -222,12 +195,6 @@ const Host = () => {
                             })
                             .then(response => console.log(response))
                             .catch(error => console.log(error))
-
-                        })
-                        .catch(error => console.log(error))
-
-                        
-                    
 
                 }
                 }}

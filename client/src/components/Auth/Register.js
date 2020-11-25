@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-// import ErrorHandler from '../misc/ErrorHandler';
+
 
 
 export default function Register() {
@@ -14,36 +14,35 @@ export default function Register() {
     const [passwordCheck, setPasswordCheck] = useState();
     const [userName, setUserName] = useState();
     const { setUserData } = useContext(UserContext);
-    // const [error, setError] = useState()
     const history = useHistory();
 
     const submit = async (e) => {
         e.preventDefault()
         
-    // try {
+    try {
 
         const newUser = {email, password, passwordCheck, userName }
         console.log(newUser)
-    //     await axios.post(
-    //         'http://localhost:5000/users/register', 
-    //         newUser
-    //     );
+        await axios.post(
+            'http://localhost:5000/users/register', 
+            newUser
+        );
         
-    //     const loginRes = await axios.post(
-    //         'http://localhost:5000/users/login', {
-    //         email,
-    //         password
-    //     });
-    //     setUserData({
-    //         token: loginRes.data.token,
-    //         user: loginRes.data.user
-    //     })
-    //     localStorage.setItem('auth-token', loginRes.data.token)
-    //     history.push('/')
+        const loginRes = await axios.post(
+            'http://localhost:5000/users/login', {
+            email,
+            password
+        });
+        setUserData({
+            token: loginRes.data.token,
+            user: loginRes.data.user
+        })
+        localStorage.setItem('auth-token', loginRes.data.token)
+        history.push('/')
 
-    // } catch (error) {
-    //     // error.response.data.msg && setError(error.response.data.msg)
-    // }
+    } catch (error) {
+        console.log(error)
+    }
     };
     
 
@@ -52,9 +51,7 @@ export default function Register() {
     <div className='register-login-wrapper bg-light'>
         <h2 className="mb-4">Register</h2>
 
-        {/* {
-        error && <ErrorHandler message={error} clearError={() => setError(undefined)} />
-        } */}
+        
 
 
         <Form onSubmit={submit}>
