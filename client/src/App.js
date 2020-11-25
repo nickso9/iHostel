@@ -7,6 +7,7 @@ import Host from './containers/Host/Host';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register'
 import PrivateRoute from './components/Auth/Private'
+import Rent from './containers/Rent/Rent'
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HostContextProvider } from './contexts/HostContext';
@@ -56,14 +57,22 @@ function App() {
       <UserContext.Provider value={{userData, setUserData}}>
           <Navbar />
           <Switch>
-              <Route exact path='/host'>
+            <Route exact path='/host'>
                 <HostContextProvider>
                   <PrivateRoute
                     component={Host}
                     loggedIn={userData}
                   />
                 </HostContextProvider> 
-            </Route> 
+            </Route>
+            <Route exact path='/rent'>
+
+                  <PrivateRoute
+                    component={Rent}
+                    loggedIn={userData}
+                  />       
+                  
+            </Route>  
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
                 

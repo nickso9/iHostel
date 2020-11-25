@@ -21,7 +21,7 @@ export default function AuthOptions() {
                 userData.user ? 
                 (   
                     <>                
-                    <NavLink exact activeClassName="active" to="/"><span className='navBarLinks'>Rent</span></NavLink>
+                    <NavLink exact activeClassName="active" to="/rent"><span className='navBarLinks'>Rent</span></NavLink>
                     <NavLink exact activeClassName="active" to="/host"><span className='navBarLinks'>Host</span></NavLink>
                     <NavLink to="/logout"><span onClick={logout} className='navBarLinks'>Logout</span></NavLink>           
                     </>

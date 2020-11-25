@@ -5,6 +5,9 @@ const hostSchema = new mongoose.Schema({
     userId: {
         type: String
     },
+    userName: {
+        type: String
+    },
     price: {
         type: Number,
         require: true,
@@ -25,6 +28,10 @@ const hostSchema = new mongoose.Schema({
             type: String,
             trim: true
     },
+    usersYes: {
+        type: String,
+    },
+    usersNo: [String],
     loc: {
         type: {
             type: String,

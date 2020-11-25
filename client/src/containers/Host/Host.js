@@ -22,7 +22,7 @@ const Host = () => {
             key: 'selection',
         }
       ]);
-
+     
 
     const updater = (event) => {
         setHost(prevState => ({
@@ -189,6 +189,7 @@ const Host = () => {
                         setErrorHandler('')
                         
                                 const hostDataToPost = {
+                                    userName: userData.user.userName,
                                     userId: userData.user.id,
                                     range: host.dates,
                                     title: host.title,

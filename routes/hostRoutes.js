@@ -19,14 +19,14 @@ router.post('/host', auth, async (req, res) => {
 })
  
 
-router.get('/host', async (req, res) => {
+router.get('/rent', async (req, res) => {
 
     let limit = 10;
-    let maxDistance = (90/3963)
-    let coords = []
-    coords[0] = req.body.longitude
-    coords[1] = req.body.latitude
-    console.log(coords)
+    let maxDistance = (25/3963)
+    let coords = ["-121.478851", "38.575764"]
+    // coords[0] = req.body.longitude
+    // coords[1] = req.body.latitude
+   
     
     Host.find({
         "loc.coordinates": {
