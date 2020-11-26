@@ -25,7 +25,7 @@ router.get('/rent', async (req, res) => {
     let coords = ["-121.478851", "38.575764"]
     // coords[0] = req.body.longitude
     // coords[1] = req.body.latitude
-    
+  
     Host.find({
         $and: [ {
         "loc.coordinates": {
@@ -40,6 +40,7 @@ router.get('/rent', async (req, res) => {
         }
         ] } )
        .then(response => {
+           console.log(response)
            res.json(response)   
         })
        .catch(error => res.json(error))
@@ -49,7 +50,7 @@ router.get('/rent', async (req, res) => {
 router.post('/rent/:id', async (req, res) => {
     const userSaysNo = req.body.userSaysNo
     const placeDenied = req.params.id
-    Host.updateOne({
+    await Host.updateOne({
         _id: placeDenied
     },
     {$push: {usersNo: userSaysNo}}

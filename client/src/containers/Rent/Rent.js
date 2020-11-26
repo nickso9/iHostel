@@ -3,6 +3,7 @@ import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import { format } from 'date-fns'
 import UserContext from '../../contexts/UserContext'
+import Slider from '../../components/Swipe/Swipe'
 
 const Rent = () => {
 
@@ -31,12 +32,16 @@ const Rent = () => {
         const userSaysNo = userData.user.id
         const placeDenied = place
         await axios.post(`http://localhost:5000/users/rent/${placeDenied}`, {userSaysNo})
-            .then(response => console.log(response))
+            .then(response => {
+                setLoading(false)
+                console.log(response)
+            })
             .catch(error => console.log(error))
 
+  
         // let convertedDate = format(new Date(), 'MMM d, yyyy')
         // console.log(convertedDate)
-        setLoading(true)
+        
     }
 
     const userSaysYes = () => {
@@ -64,7 +69,8 @@ const Rent = () => {
                     className="px-4" 
                     variant="danger" 
                     onClick={() => { 
-                        userSaysNo(_id)      
+                        setLoading(true)
+                        userSaysNo(_id)   
                     }}   
                 >no</Button>
                 <Button className="px-4" variant="success" onClick={userSaysYes}>rent</Button>
@@ -88,7 +94,7 @@ const Rent = () => {
     return (
         
         <div className="rent-wrapper">
-            {renterOption}     
+            <Slider>{renterOption} </Slider>    
         </div>
     )
 
