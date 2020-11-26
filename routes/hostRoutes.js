@@ -20,7 +20,6 @@ router.post('/host', auth, async (req, res) => {
 
 router.get('/rent', async (req, res) => {
     const userId = req.query.user
-    console.log(userId)
     let limit = 10;
     let maxDistance = (25/3963)
     let coords = ["-121.478851", "38.575764"]

@@ -13,7 +13,6 @@ const Rent = () => {
     
     useEffect(() => {
         const searchLocation = () => {
-            console.log(userData.user.id)
             axios.get('http://localhost:5000/users/rent',
              { 
                  params: { 
@@ -25,26 +24,19 @@ const Rent = () => {
             })
             .catch(error => console.log(error))
         }
-
         searchLocation()
+    }, [userData.user.id, loading]);
 
-    }, []);
-
-    const userSaysNo = async (place, indexNum) => {
-        // const userSaysNo = userData.user.id
-        // const placeDenied = place
-
-        // await axios.post(`http://localhost:5000/users/rent/${placeDenied}`, {userSaysNo})
-        //     .then(response => console.log(response))
-        //     .catch(error => console.log(error))
+    const userSaysNo = async (place) => {
+        const userSaysNo = userData.user.id
+        const placeDenied = place
+        await axios.post(`http://localhost:5000/users/rent/${placeDenied}`, {userSaysNo})
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
 
         // let convertedDate = format(new Date(), 'MMM d, yyyy')
         // console.log(convertedDate)
-        // console.log('before ' + rentPlaces.length)
-        let updatedArray = rentPlaces.filter((a, i) => indexNum !== i)
-        console.log(updatedArray)
-        await setRentPlaces(updatedArray)
-        // console.log('after ' + rentPlaces.length)
+        setLoading(true)
     }
 
     const userSaysYes = () => {
@@ -54,10 +46,8 @@ const Rent = () => {
 
     
     const loadOption = () => {
-        console.log(rentPlaces.length)
         let randomNum = Math.floor(Math.random()*rentPlaces.length)   
         const { description, price, title, images, userName, _id } = rentPlaces[randomNum]
-        console.log(rentPlaces[randomNum])
         return (
             <div className="renter-option-div text-center" id={userName + randomNum}>
                 <div>{userName}</div>
@@ -74,9 +64,7 @@ const Rent = () => {
                     className="px-4" 
                     variant="danger" 
                     onClick={() => { 
-                        userSaysNo(_id, randomNum)
-                        document.getElementById(userName + randomNum).remove()
-                        
+                        userSaysNo(_id)      
                     }}   
                 >no</Button>
                 <Button className="px-4" variant="success" onClick={userSaysYes}>rent</Button>
@@ -88,9 +76,13 @@ const Rent = () => {
     
     
     if (!loading) {
-        renterOption = loadOption()
+        if (rentPlaces.length > 0) {
+            renterOption = loadOption()
+        } else {
+            renterOption = <div>no matches</div>
+        }
     } else {
-        renterOption = <div>loading....</div>
+        // renterOption = <div>loading....</div>
     }
     
     return (

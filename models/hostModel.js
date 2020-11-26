@@ -33,7 +33,6 @@ const hostSchema = new mongoose.Schema({
     },
     usersNo: {
         type: [String],
-        unique: true
     },
     loc: {
         type: {
