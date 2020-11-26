@@ -31,13 +31,17 @@ const Rent = () => {
     const userSaysNo = async (place) => {
         console.log('user says no')
         const userSaysNo = userData.user.id
-        const placeDenied = document.getElementsByClassName("renter-option-div")[0].id
+        // const placeDenied = document.getElementsByClassName("renter-option-div")[0].id
  
-        await axios.post(`http://localhost:5000/users/rent/${placeDenied}`, {userSaysNo})
-            .then(response => {
+        await axios.post(`http://localhost:5000/users/rent/${place}`, {userSaysNo})
+            .then(() => {
+                
                 setLoading(false)
+                
+                
             })
             .catch(error => console.log(error))
+        
         
   
         // let convertedDate = format(new Date(), 'MMM d, yyyy')
