@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { json } = require('express');
 const auth = require('../auth/auth');
 const Host = require('../models/HostModel')
 
@@ -20,30 +19,46 @@ router.post('/host', auth, async (req, res) => {
  
 
 router.get('/rent', async (req, res) => {
-
+    const userId = req.query.user
+    console.log(userId)
     let limit = 10;
     let maxDistance = (25/3963)
     let coords = ["-121.478851", "38.575764"]
     // coords[0] = req.body.longitude
     // coords[1] = req.body.latitude
-   
     
     Host.find({
+        $and: [ {
         "loc.coordinates": {
             $geoWithin: {
                     $centerSphere: [ coords, maxDistance ]     
                 }
             }
-       })
-       .then(response => res.json(response))
+       }, {
+           "usersNo": {
+           "$ne": userId
+           }
+        }
+        ] } )
+       .then(response => {
+           res.json(response)   
+        })
        .catch(error => res.json(error))
 
-    
-    
-    
-    
-
 })
+
+router.post('/rent/:id', async (req, res) => {
+    const userSaysNo = req.body.userSaysNo
+    const placeDenied = req.params.id
+    Host.updateOne({
+        _id: placeDenied
+    },
+    {$push: {usersNo: userSaysNo}}
+    )
+    .then(response => res.json(response))
+    .catch(error => res.json(error))
+})
+
 
 
 
