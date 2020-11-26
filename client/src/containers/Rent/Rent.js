@@ -29,15 +29,16 @@ const Rent = () => {
     }, [userData.user.id, loading]);
 
     const userSaysNo = async (place) => {
+        console.log('user says no')
         const userSaysNo = userData.user.id
-        const placeDenied = place
+        const placeDenied = document.getElementsByClassName("renter-option-div")[0].id
+ 
         await axios.post(`http://localhost:5000/users/rent/${placeDenied}`, {userSaysNo})
             .then(response => {
                 setLoading(false)
-                console.log(response)
             })
             .catch(error => console.log(error))
-
+        
   
         // let convertedDate = format(new Date(), 'MMM d, yyyy')
         // console.log(convertedDate)
@@ -49,12 +50,17 @@ const Rent = () => {
         console.log(convertedDate)
     }
 
-    
+    const handleSwipe = (event) => {
+        console.log(event.clientX)
+
+        console.log('hihi')
+    }
+
     const loadOption = () => {
         let randomNum = Math.floor(Math.random()*rentPlaces.length)   
         const { description, price, title, images, userName, _id } = rentPlaces[randomNum]
         return (
-            <div className="renter-option-div text-center" id={userName + randomNum}>
+            <div className="renter-option-div text-center" id={_id} >
                 <div>{userName}</div>
                 <div><h2>{title}</h2></div>
                 <div>{price}</div>
@@ -93,8 +99,8 @@ const Rent = () => {
     
     return (
         
-        <div className="rent-wrapper">
-            <Slider>{renterOption} </Slider>    
+        <div id="rent-wrapper">
+            <Slider userSaysNo={userSaysNo} userId={userData.user.id}>{renterOption}</Slider>    
         </div>
     )
 

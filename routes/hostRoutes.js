@@ -53,7 +53,7 @@ router.post('/rent/:id', async (req, res) => {
     await Host.updateOne({
         _id: placeDenied
     },
-    {$push: {usersNo: userSaysNo}}
+    {$addToSet: {usersNo: userSaysNo}}
     )
     .then(response => res.json(response))
     .catch(error => res.json(error))

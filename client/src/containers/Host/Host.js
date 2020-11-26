@@ -103,7 +103,7 @@ const Host = () => {
                         value={!host.description ? '' : host.description}
                     />
                 </Form.Group>
-                <h4 className="text-center">Pick avaiable date range.</h4>
+                <h4 className="text-center">Pick available date range.</h4>
                 <hr />
                     <div className="text-center">
                     <Calender 
