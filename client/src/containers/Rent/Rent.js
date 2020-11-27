@@ -10,16 +10,20 @@ const Rent = () => {
     const { userData } = useContext(UserContext)
     const [rentPlaces, setRentPlaces] = useState(null)
     const [ loading, setLoading ] = useState(true)
+
+    const convertedDate = format(new Date(), 'MMM d, yyyy')
     let renterOption;
-    
+
     useEffect(() => {
         const searchLocation = () => {
             axios.get('http://localhost:5000/users/rent',
              { 
                  params: { 
-                     user: userData.user.id
+                     user: userData.user.id,
+                     date: convertedDate
             }})
             .then(response => {
+                console.log(response.data)
                 setRentPlaces(response.data)
                 setLoading(false)
             })
@@ -51,7 +55,6 @@ const Rent = () => {
 
     const userSaysYes = async (idOfRoom) => {
         const userSaysYes = userData.user.id
-        const convertedDate = format(new Date(), 'MMM d, yyyy')
         const authToken = localStorage.getItem('auth-token')
             await axios({
                 method: 'POST',

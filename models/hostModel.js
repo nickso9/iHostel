@@ -29,7 +29,7 @@ const hostSchema = new mongoose.Schema({
             trim: true
     },
     usersYes: {
-        type: String,
+        type: Array,
     },
     usersNo: {
         type: [String],
