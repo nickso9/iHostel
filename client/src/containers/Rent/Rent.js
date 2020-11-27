@@ -28,15 +28,19 @@ const Rent = () => {
         searchLocation()
     }, [userData.user.id, loading]);
 
-    const userSaysNo = async (place) => {
-        console.log('user says no')
+    const userSaysNo = async (place) => { 
         const userSaysNo = userData.user.id
-        await axios.post(`http://localhost:5000/users/rent/${place}`, {userSaysNo})
-            .then(() => {
-                
-                setLoading(false)
-                
-                
+        const authToken = localStorage.getItem('auth-token')
+        await axios({
+            method: 'POST',
+            url: `http://localhost:5000/users/rent/${place}`,
+            data: userSaysNo,
+            headers: {
+                'x-auth-token': authToken
+            } 
+            })
+            .then(() => {            
+                setLoading(false) 
             })
             .catch(error => console.log(error))
              
@@ -48,12 +52,18 @@ const Rent = () => {
     const userSaysYes = async (idOfRoom) => {
         const userSaysYes = userData.user.id
         const convertedDate = format(new Date(), 'MMM d, yyyy')
-        await axios.post(`http://localhost:5000/users/rent/add/${userSaysYes}`, 
-        { params: {
-            roomId: idOfRoom,
-            date: convertedDate
-        }
-        })
+        const authToken = localStorage.getItem('auth-token')
+            await axios({
+                method: 'POST',
+                url: `http://localhost:5000/users/rent/add/${userSaysYes}`, 
+                data: {
+                    roomId: idOfRoom,
+                    date: convertedDate
+                },
+                headers: {
+                    'x-auth-token': authToken
+                } 
+            })
             .then(() => {
 
             })

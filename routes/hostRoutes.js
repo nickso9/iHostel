@@ -46,8 +46,8 @@ router.get('/rent', async (req, res) => {
 
 })
 
-router.post('/rent/:id', async (req, res) => {
-    const userSaysNo = req.body.userSaysNo
+router.post('/rent/:id', auth, async (req, res) => {
+    const userSaysNo = req.user
     const placeDenied = req.params.id
     await Host.updateOne({
         _id: placeDenied
