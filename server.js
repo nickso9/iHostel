@@ -30,5 +30,5 @@ app.listen(PORT, () => {
 
 app.use('/users', require('./routes/userRouter'))
 app.use('/users', require('./routes/userVerified'))
-// app.use('/users', require('./routes/geoRoutes'))
+app.use('/users', require('./routes/rentRoutes'))
 app.use('/users', require('./routes/hostRoutes'))

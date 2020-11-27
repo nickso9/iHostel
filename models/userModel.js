@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     },
     userName: {
         type: String,
+    },
+    userBooked: {
+        type: Object
     }
 });
 

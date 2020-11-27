@@ -3,7 +3,7 @@ import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import { format } from 'date-fns'
 import UserContext from '../../contexts/UserContext'
-import Slider from '../../components/Swipe/Swipe'
+
 
 const Rent = () => {
 
@@ -31,8 +31,6 @@ const Rent = () => {
     const userSaysNo = async (place) => {
         console.log('user says no')
         const userSaysNo = userData.user.id
-        // const placeDenied = document.getElementsByClassName("renter-option-div")[0].id
- 
         await axios.post(`http://localhost:5000/users/rent/${place}`, {userSaysNo})
             .then(() => {
                 
@@ -41,30 +39,36 @@ const Rent = () => {
                 
             })
             .catch(error => console.log(error))
-        
-        
-  
+             
         // let convertedDate = format(new Date(), 'MMM d, yyyy')
         // console.log(convertedDate)
         
     }
 
-    const userSaysYes = () => {
-        let convertedDate = format(new Date(), 'MMM d, yyyy')
-        console.log(convertedDate)
+    const userSaysYes = async (idOfRoom) => {
+        const userSaysYes = userData.user.id
+        const convertedDate = format(new Date(), 'MMM d, yyyy')
+        await axios.post(`http://localhost:5000/users/rent/add/${userSaysYes}`, 
+        { params: {
+            roomId: idOfRoom,
+            date: convertedDate
+        }
+        })
+            .then(() => {
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
-    const handleSwipe = (event) => {
-        console.log(event.clientX)
-
-        console.log('hihi')
-    }
+    
 
     const loadOption = () => {
         let randomNum = Math.floor(Math.random()*rentPlaces.length)   
         const { description, price, title, images, userName, _id } = rentPlaces[randomNum]
         return (
-            <div className="renter-option-div text-center" id={_id} >
+            <div className="renter-option-div text-center" id={userName+randomNum} >
                 <div>{userName}</div>
                 <div><h2>{title}</h2></div>
                 <div>{price}</div>
@@ -83,7 +87,13 @@ const Rent = () => {
                         userSaysNo(_id)   
                     }}   
                 >no</Button>
-                <Button className="px-4" variant="success" onClick={userSaysYes}>rent</Button>
+                <Button 
+                    className="px-4" 
+                    variant="success" 
+                    onClick={() => {
+                        userSaysYes(_id)
+                    }}
+                >rent</Button>
                 </div>
             </div>    
         )
@@ -104,7 +114,7 @@ const Rent = () => {
     return (
         
         <div id="rent-wrapper">
-            <Slider userSaysNo={userSaysNo} userId={userData.user.id}>{renterOption}</Slider>    
+            {renterOption}   
         </div>
     )
 

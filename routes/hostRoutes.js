@@ -40,8 +40,7 @@ router.get('/rent', async (req, res) => {
         }
         ] } )
        .then(response => {
-           console.log(response)
-           res.json(response)   
+           res.send(response)   
         })
        .catch(error => res.json(error))
 
