@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     userBooked: {
-        type: Object
+        type: Array
     }
 });
 
