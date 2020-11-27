@@ -10,7 +10,7 @@ router.post('/rent/add/:id', auth, async (req, res) => {
     const queryRoomSearch = { _id: roomId, [`usersYes.${date}`] : { $exists: true}}
     const checkIt = await User.findOne(querySearch)
     const checkRoom = await Host.findOne(queryRoomSearch)
-        if (checkRoom) {
+        if (checkRoom || checkIt) {
             console.log('already booked')
             res.json('already booked a day')
         } else {
