@@ -29,9 +29,7 @@ router.get('/rent', async (req, res) => {
     // coords[1] = req.body.latitude
     const queryStay = {usersYes: { [date]: userId}}
     const alreadyHosted = await Host.findOne(queryStay)
-    
     if (alreadyHosted) {
-        console.log('already hosted')
         res.send({hosted: true,
             alreadyHosted: [alreadyHosted]
         })

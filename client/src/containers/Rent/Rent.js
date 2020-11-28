@@ -12,6 +12,7 @@ const Rent = () => {
     const [ loading, setLoading ] = useState(true)
     const [ userHasBooked, setUserHasBooked ] = useState(false)
 
+    const authToken = localStorage.getItem('auth-token')
     const convertedDate = format(new Date(), 'MMM d, yyyy')
     let renterOption;
 
@@ -38,12 +39,11 @@ const Rent = () => {
         searchLocation()
     }, [userData.user.id, loading, convertedDate]);
 
-    const userSaysNo = async (place) => { 
+    const userSaysNo = async (idOfRoom) => { 
         const userSaysNo = userData.user.id
-        const authToken = localStorage.getItem('auth-token')
         await axios({
             method: 'POST',
-            url: `http://localhost:5000/users/rent/${place}`,
+            url: `http://localhost:5000/users/rent/${idOfRoom}`,
             data: userSaysNo,
             headers: {
                 'x-auth-token': authToken
@@ -54,14 +54,10 @@ const Rent = () => {
             })
             .catch(error => console.log(error))
              
-        // let convertedDate = format(new Date(), 'MMM d, yyyy')
-        // console.log(convertedDate)
-        
     }
 
     const userSaysYes = async (idOfRoom) => {
-        const userSaysYes = userData.user.id
-        const authToken = localStorage.getItem('auth-token')
+        const userSaysYes = userData.user.id     
             await axios({
                 method: 'POST',
                 url: `http://localhost:5000/users/rent/add/${userSaysYes}`, 
@@ -81,12 +77,26 @@ const Rent = () => {
             })
     }
 
-    let buttonController;
+    const cancelBooking = async (idOfRoom) => {
+        console.log('hihhihi')
+        const userWantsToCancel = userData.user.id 
+        await axios({
+            method: 'PUT',
+            url: `http://localhost:5000/users/rent/add/${userWantsToCancel}`, 
+            data: {
+                roomId: idOfRoom,
+                date: convertedDate
+            },
+            headers: {
+                'x-auth-token': authToken
+            } 
+        })
+        .then(() => {
 
-    if (setUserHasBooked) {
-
-    } else {
-       
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
 
@@ -96,7 +106,7 @@ const Rent = () => {
         const { description, price, title, images, userName, _id } = rentPlaces[randomNum]
         
         return (
-            <div className="renter-option-div text-center" id={userName+randomNum} >
+            <div className="renter-option-div text-center" id={userName+randomNum}>
                 <div>{userName}</div>
                 <div><h2>{title}</h2></div>
                 <div>{price}</div>
@@ -109,17 +119,32 @@ const Rent = () => {
                 <div className="d-flex justify-content-between my-3">
                  {userHasBooked ? 
                  ( 
-                 
-                 <button>hhihih</button> 
+                    <>
+                    <Button 
+                        className="px-4" 
+                        variant="warning" 
+                        onClick={() => { 
+                            cancelBooking(_id)
+                            // setLoading(true)
+                        }}   
+                    >Cancel Booking</Button>
+                    <Button 
+                        className="px-4" 
+                        variant="dark" 
+                        onClick={() => {
+                            
+                        }}
+                    >Directions</Button>
+                </>
                  
                  ) : (
                         <>
                             <Button 
                                 className="px-4" 
                                 variant="danger" 
-                                onClick={() => { 
-                                    setLoading(true)
+                                onClick={() => {     
                                     userSaysNo(_id)   
+                                    setLoading(true)
                                 }}   
                             >no</Button>
                             <Button 
@@ -127,6 +152,7 @@ const Rent = () => {
                                 variant="success" 
                                 onClick={() => {
                                     userSaysYes(_id)
+                                    setLoading(true)
                                 }}
                             >rent</Button>
                         </>
@@ -138,6 +164,12 @@ const Rent = () => {
         
     }
     
+    let userBookedStyle;
+        if (userHasBooked) {
+            userBookedStyle = {
+                backgroundColor: 'yellow'
+            }
+        }
     
     if (!loading) {
         if (rentPlaces.length > 0) {
@@ -151,7 +183,7 @@ const Rent = () => {
     
     return (
         
-        <div id="rent-wrapper">
+        <div id="rent-wrapper" style={userBookedStyle}>
             {renterOption}   
         </div>
     )

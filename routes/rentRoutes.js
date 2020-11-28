@@ -4,6 +4,7 @@ const User = require('../models/UserModel')
 const Host = require('../models/HostModel')
 
 router.post('/rent/add/:id', auth, async (req, res) => {
+    console.log('post request')
     const { roomId, date } = req.body
     const userId = req.user
     const querySearch = { _id: userId, [`userBooked.${date}`] : { $exists: true}}
@@ -48,7 +49,23 @@ router.post('/rent/add/:id', auth, async (req, res) => {
 })
 
 
+router.put('/rent/add/:id', auth, async (req, res) => {
+    console.log('canceling')
+    try {
+    const { roomId, date } = req.body
+    const userId = req.user
+    const cancelUsersRoom = {userBooked: { [date] : roomId}}
+    const cancelRoomsUser = {usersYes: { [date]: userId}}
+        await Host.updateOne({_id: roomId},{$pull: cancelRoomsUser})
+        .then(() => res.status(200))
+        await User.updateOne({_id: userId}, {$pull: cancelUsersRoom})
+        .then(() => res.status(200))
+    
+    } catch (error) {
+        console.log(error)
+    }
 
-
+ 
+})
 
 module.exports = router
