@@ -10,6 +10,7 @@ const Rent = () => {
     const { userData } = useContext(UserContext)
     const [rentPlaces, setRentPlaces] = useState(null)
     const [ loading, setLoading ] = useState(true)
+    const [ userHasBooked, setUserHasBooked ] = useState(false)
 
     const convertedDate = format(new Date(), 'MMM d, yyyy')
     let renterOption;
@@ -23,14 +24,19 @@ const Rent = () => {
                      date: convertedDate
             }})
             .then(response => {
-                console.log(response.data)
-                setRentPlaces(response.data)
-                setLoading(false)
+                if (response.data.hosted) {
+                    setRentPlaces(response.data.alreadyHosted)
+                    setUserHasBooked(true)
+                    setLoading(false)
+                } else {
+                    setRentPlaces(response.data)
+                    setLoading(false)
+                }   
             })
             .catch(error => console.log(error))
         }
         searchLocation()
-    }, [userData.user.id, loading]);
+    }, [userData.user.id, loading, convertedDate]);
 
     const userSaysNo = async (place) => { 
         const userSaysNo = userData.user.id
@@ -75,11 +81,20 @@ const Rent = () => {
             })
     }
 
-    
+    let buttonController;
+
+    if (setUserHasBooked) {
+
+    } else {
+       
+    }
+
 
     const loadOption = () => {
         let randomNum = Math.floor(Math.random()*rentPlaces.length)   
+
         const { description, price, title, images, userName, _id } = rentPlaces[randomNum]
+        
         return (
             <div className="renter-option-div text-center" id={userName+randomNum} >
                 <div>{userName}</div>
@@ -92,21 +107,31 @@ const Rent = () => {
                     })}
                 <div>{description}</div>
                 <div className="d-flex justify-content-between my-3">
-                <Button 
-                    className="px-4" 
-                    variant="danger" 
-                    onClick={() => { 
-                        setLoading(true)
-                        userSaysNo(_id)   
-                    }}   
-                >no</Button>
-                <Button 
-                    className="px-4" 
-                    variant="success" 
-                    onClick={() => {
-                        userSaysYes(_id)
-                    }}
-                >rent</Button>
+                 {userHasBooked ? 
+                 ( 
+                 
+                 <button>hhihih</button> 
+                 
+                 ) : (
+                        <>
+                            <Button 
+                                className="px-4" 
+                                variant="danger" 
+                                onClick={() => { 
+                                    setLoading(true)
+                                    userSaysNo(_id)   
+                                }}   
+                            >no</Button>
+                            <Button 
+                                className="px-4" 
+                                variant="success" 
+                                onClick={() => {
+                                    userSaysYes(_id)
+                                }}
+                            >rent</Button>
+                        </>
+                    )
+                 }
                 </div>
             </div>    
         )

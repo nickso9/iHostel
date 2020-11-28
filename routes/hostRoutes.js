@@ -32,7 +32,9 @@ router.get('/rent', async (req, res) => {
     
     if (alreadyHosted) {
         console.log('already hosted')
-        res.send([alreadyHosted])
+        res.send({hosted: true,
+            alreadyHosted: [alreadyHosted]
+        })
     } else {
         const querySearch = {[`usersYes.${date}`] : { $exists: false}}
         Host.find({
