@@ -17,6 +17,7 @@ const Rent = () => {
     let renterOption;
 
     useEffect(() => {
+        console.log('use EFFECT')
         const searchLocation = () => {
             axios.get('http://localhost:5000/users/rent',
              { 
@@ -125,7 +126,7 @@ const Rent = () => {
                         variant="warning" 
                         onClick={() => { 
                             cancelBooking(_id)
-                            // setLoading(true)
+                            setUserHasBooked(false)
                         }}   
                     >Cancel Booking</Button>
                     <Button 
