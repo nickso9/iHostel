@@ -57,9 +57,12 @@ router.put('/rent/add/:id', auth, async (req, res) => {
     const cancelUsersRoom = {userBooked: { [date] : roomId}}
     const cancelRoomsUser = {usersYes: { [date]: userId}}
         await Host.updateOne({_id: roomId},{$pull: cancelRoomsUser})
-        .then(() => res.status(200))
-        await User.updateOne({_id: userId}, {$pull: cancelUsersRoom})
-        .then(() => res.status(200))
+        .then(() => {
+            return User.updateOne({_id: userId}, {$pull: cancelUsersRoom})
+            .then(async (e) => await res.status(200).send(e))
+            
+        })
+        
     
     } catch (error) {
         console.log(error)

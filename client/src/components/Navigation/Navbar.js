@@ -6,7 +6,7 @@ import Logo from '../../assets/images/LogoO.png'
 const Navbar = () => {
     return (
         <header id='header'>
-            <Link to='/' className='logoLink' ><img alt='logo' src={Logo} /><span>ibnb</span></Link>
+            <Link to='/' className='logoLink' ><img alt='logo' src={Logo} /><span>iHostel</span></Link>
             <AuthOptions />
         </header>
     )
