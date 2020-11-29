@@ -33,31 +33,37 @@ export default function Register() {
 
     const submit = async (e) => {
         e.preventDefault()
-        console.log(userRegistration)
-    // try {
+    try {
 
-    //     const newUser = {email, password, passwordCheck, userName }
-    //     console.log(newUser)
-    //     await axios.post(
-    //         'http://localhost:5000/users/register', 
-    //         newUser
-    //     );
+        const {email, password, passwordCheck, userName } = userRegistration
+        const newUser = {
+            email,
+            password,
+            passwordCheck,
+            userName 
+
+        }
         
-    //     const loginRes = await axios.post(
-    //         'http://localhost:5000/users/login', {
-    //         email,
-    //         password
-    //     });
-    //     setUserData({
-    //         token: loginRes.data.token,
-    //         user: loginRes.data.user
-    //     })
-    //     localStorage.setItem('auth-token', loginRes.data.token)
-    //     history.push('/')
+        await axios.post(
+            'http://localhost:5000/users/register', 
+            newUser
+        );
+        
+        const loginRes = await axios.post(
+            'http://localhost:5000/users/login', {
+            email,
+            password
+        });
+        setUserData({
+            token: loginRes.data.token,
+            user: loginRes.data.user
+        })
+        localStorage.setItem('auth-token', loginRes.data.token)
+        history.push('/')
 
-    // } catch (error) {
-    //     console.log(error)
-    // }
+    } catch (error) {
+        console.log(error)
+    }
     };
     
     let regProgress;
@@ -113,14 +119,18 @@ export default function Register() {
 
                 <Button 
                     variant="primary" 
-                    type="submit"
                     className="pr-4 pl-4 btn-dark mt-3" 
-                    onClick={() => setProgress(1)}
+                    onClick={e => {
+                        e.preventDefault()
+                        setProgress(1)
+                    }}
+                    type="button"
                 >Back</Button>
                 <Button 
                     variant="primary" 
                     type="submit"
                     className="pr-4 pl-4 btn-dark mt-3 float-right" 
+                    onClick={submit}
                 >Create</Button>
                 
                 
@@ -241,10 +251,13 @@ export default function Register() {
                     </Form.Row>
 
                     <Button 
+                    type="button"
                     variant="primary" 
-                    type="submit"
                     className="pr-4 pl-4 btn-dark mt-3 ml-auto" 
-                    onClick={() => setProgress(2)}
+                    onClick={e => {
+                        e.preventDefault()
+                        setProgress(2)
+                    }}
                     >Next</Button>
 
  
@@ -258,7 +271,7 @@ export default function Register() {
         <div className='register-login-div'>
             <h1 className="text-center text-light register-title border-bottom border-info">Traveler Registration</h1>
             <div className='register-login-form'>
-            <Form onSubmit={submit} className="mt-5">
+            <Form className="mt-5">
             {regProgress}
             </Form>
             </div>
