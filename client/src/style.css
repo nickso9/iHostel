@@ -110,6 +110,14 @@ input[type="date"]:valid::before { display: none }
   margin: auto;
 }
 
+
+/* Footer */
+
+.footer-div {
+  /* height: 35px; */
+
+}
+
 /* Search */
 
 
@@ -195,7 +203,9 @@ input[type="date"]:valid::before { display: none }
 
 /* Splash */
 
-
+.splash-div {
+  max-width: 1200px;
+}
 
 
 @media (max-width: 500px) {
@@ -204,4 +214,8 @@ input[type="date"]:valid::before { display: none }
     padding: 10px;
     font-size: 12px;
   }
+  .splash-div div{
+    margin: auto;
+  }
+
 }
