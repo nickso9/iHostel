@@ -190,8 +190,6 @@ input[type="date"]:valid::before { display: none }
 
 }
 .register-title {
-  background-color: #171C24;
-  color: white;
   padding: 20px;
 }
 

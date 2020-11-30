@@ -71,13 +71,26 @@ export default function Register() {
     
     let regProgress;
 
-    if (progress === 2) {
+    if (progress === 2 || userRegistration.account === "innkeeper") {
         regProgress = (
             <div>
                 <ProgressBar now={100} variant="secondary"/>
-            
+
                 <Form.Group className="mt-5">
-                    <Form.Label>Email address</Form.Label>
+                        <Form.Label>{userRegistration.account === "renter" ? "Username" : "Company Name"}</Form.Label>
+                        <Form.Control 
+                            className="w-100"
+                            onChange={e => {
+                                setUserRegistration({
+                                    ...userRegistration,
+                                    userName: e.target.value
+                                })
+                            }}
+                        />
+                    </Form.Group>
+            
+                <Form.Group >
+                    <Form.Label>{userRegistration.account === "renter" ? "Email Address" : "Company Email Address"}</Form.Label>
                     <Form.Control 
                         type="email" 
                         placeholder="Enter email" 
@@ -105,7 +118,7 @@ export default function Register() {
                         }}
                     />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group >
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control 
                         type="password" 
@@ -122,7 +135,7 @@ export default function Register() {
 
                 <Button 
                     variant="primary" 
-                    className="pr-4 pl-4 btn-dark mt-3" 
+                    className="pr-4 pl-4 btn-dark mt-5" 
                     onClick={e => {
                         e.preventDefault()
                         setProgress(1)
@@ -132,7 +145,7 @@ export default function Register() {
                 <Button 
                     variant="primary" 
                     type="submit"
-                    className="pr-4 pl-4 btn-dark mt-3 float-right" 
+                    className="pr-4 pl-4 btn-dark mt-5 float-right" 
                     onClick={submit}
                 >Create</Button>
                 
@@ -140,12 +153,13 @@ export default function Register() {
             
             </div>
         )
-    } else if (progress === 1) {
+    } else if (progress === 1 && userRegistration.account === "renter") {
         regProgress = (
                 
                 <div>
                 <ProgressBar now={50} variant="secondary"/>
                 
+
                     <Form.Row className="mt-5">
                         <Form.Group as={Col} >
                         <Form.Label>First Name</Form.Label>
@@ -171,17 +185,7 @@ export default function Register() {
                         />
                         </Form.Group>
 
-                        <Form.Group as={Col}>
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control 
-                            onChange={e => {
-                                setUserRegistration({
-                                    ...userRegistration,
-                                    userName: e.target.value
-                                })
-                            }}
-                        />
-                        </Form.Group>
+                       
                     </Form.Row>
 
                     
@@ -256,7 +260,7 @@ export default function Register() {
                     <Button 
                     type="button"
                     variant="primary" 
-                    className="pr-4 pl-4 btn-dark mt-3 ml-auto" 
+                    className="pr-4 pl-4 btn-dark mt-5 ml-auto" 
                     onClick={e => {
                         e.preventDefault()
                         setProgress(2)
@@ -269,18 +273,21 @@ export default function Register() {
     }
 
     let regTitle;
+    let regClass;
 
     if (userRegistration.account === "renter") {
         regTitle = "Traveler"
+        regClass = 'text-center text-dark register-title border-bottom border-info'
     } else {
         regTitle = "Innkeeper"
+        regClass = 'text-center bg-dark text-light register-title border-bottom border-info'
     }
 
     return (
     <div className='register-login-wrapper bg-light mt-5'>
         
         <div className='register-login-div'>
-    <h1 className="text-center text-light register-title border-bottom border-info">{regTitle} Registration</h1>
+    <h1 className={regClass}>{regTitle} Registration</h1>
             <div className='register-login-form'>
             <Form className="mt-5">
             {regProgress}
