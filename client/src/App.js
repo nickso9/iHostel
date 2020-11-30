@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-import Home from './containers/Home/Home';
+import Landing from './containers/Home/Landing/Landing';
 import Navbar from './components/Navigation/Navbar'
 import Host from './containers/Host/Host';
 import Login from './components/Auth/Login';
-import RegisterRenter from './components/Auth/Register'
+import Register from './components/Auth/Register'
 import PrivateRoute from './components/Auth/Private'
 import Rent from './containers/Rent/Rent'
+import Home from './containers/Home/Home'
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HostContextProvider } from './contexts/HostContext';
@@ -52,6 +53,9 @@ function App() {
           checkLoggedIn()
       }, []);
 
+
+
+
   return (
    <BrowserRouter>
       <UserContext.Provider value={{userData, setUserData}}>
@@ -75,9 +79,9 @@ function App() {
             </Route>
            
             <Route exact path='/login' component={Login} />
-            <Route exact path='/register' component={RegisterRenter} />
+            <Route exact path='/register' component={Register} />
                 
-            <Route path='/' component={Home} /> 
+            <Route path='/' component={userData.user ? Home : Landing} /> 
             
 
             </Switch>
