@@ -1,9 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Backpack from '../../../assets/images/backpack.png'
 import Cellphone from '../../../assets/images/cellphone.png'
 import Sleeping from '../../../assets/images/Sleepinglogo.png'
+// import Register from '../../../components/Auth/Register'
 
 const Splash = () => {
+    
     return (
         <>
         <div className="w-100 bg-light">
@@ -20,11 +23,21 @@ const Splash = () => {
             <div className="d-inline-flex justify-content-between flex-wrap w-50 mt-3">
             <div className="border-right border-dark w-50">
                 <span><h4>Traveler</h4></span>
-                <button className="btn btn-outline-dark mt-4">Register as Guest</button>
+                <Link to={{
+                    pathname: '/register',
+                    state: { accountType: 'renter'}
+                }} >
+                    <button className="btn btn-outline-dark mt-4">Register as Guest</button>
+                </Link>
             </div>
             <div className="w-50">
                 <span><h4>Innkeeper</h4></span>
-                <button className="btn btn-dark mt-4">Register as Innkeeper</button>
+                <Link to={{
+                    pathname: '/register',
+                    state: { accountType: 'innkeeper'}
+                }} >
+                    <button className="btn btn-dark mt-4">Register as Innkeeper</button>
+                </Link>
                 </div>
             </div>
         </div>

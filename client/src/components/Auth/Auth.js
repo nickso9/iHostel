@@ -27,7 +27,7 @@ export default function AuthOptions() {
                     </>
                 ) : ( 
                 <>
-                    <NavLink exact activeClassName="active" to="/register"><span className='navBarLinks'>Register</span></NavLink>
+                    {/* <NavLink exact activeClassName="active" to="/register"><span className='navBarLinks'>Register</span></NavLink> */}
                     <NavLink exact activeClassName="active" to="/login"><span className='navBarLinks'>Login</span></NavLink>       
                 </>
                 )

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import UserContext from '../../contexts/UserContext'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -11,9 +11,13 @@ import Col from 'react-bootstrap/Col'
 
 export default function Register() {
 
+    const location = useLocation() 
+    const history = useHistory();
+    
     const { setUserData } = useContext(UserContext);
     const [ progress, setProgress ] = useState(1)
     const [ userRegistration, setUserRegistration ] = useState({
+        account: location.state.accountType,
         email: '',
         password: '',
         passwordCheck: '',
@@ -28,8 +32,7 @@ export default function Register() {
 
     }) 
 
-  
-    const history = useHistory();
+    
 
     const submit = async (e) => {
         e.preventDefault()
@@ -265,11 +268,19 @@ export default function Register() {
         )
     }
 
+    let regTitle;
+
+    if (userRegistration.account === "renter") {
+        regTitle = "Traveler"
+    } else {
+        regTitle = "Innkeeper"
+    }
+
     return (
     <div className='register-login-wrapper bg-light mt-5'>
         
         <div className='register-login-div'>
-            <h1 className="text-center text-light register-title border-bottom border-info">Traveler Registration</h1>
+    <h1 className="text-center text-light register-title border-bottom border-info">{regTitle} Registration</h1>
             <div className='register-login-form'>
             <Form className="mt-5">
             {regProgress}
