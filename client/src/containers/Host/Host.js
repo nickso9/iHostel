@@ -189,6 +189,8 @@ const Host = () => {
                         setErrorHandler('')
                         
                                 const hostDataToPost = {
+                                    active: true,
+                                    capacity: 8,
                                     userName: userData.user.userName,
                                     userId: userData.user.id,
                                     range: host.dates,

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { HostContext } from '../../contexts/HostContext';
 // import ErrorHandler from '../misc/ErrorHandler'
 
 
@@ -12,7 +13,7 @@ export default function Login() {
     const [password, setPassword] = useState();
     // const [error, setError] = useState()
 
-
+    const { setHost } = useContext(HostContext)
     const { setUserData } = useContext(UserContext);
     const history = useHistory();
 
@@ -24,12 +25,31 @@ export default function Login() {
            
             const loginRes = await axios.post(
                 'http://localhost:5000/users/login', loginUser);
-
             setUserData({
                 token: loginRes.data.token,
                 user: loginRes.data.user
             });
             localStorage.setItem('auth-token', loginRes.data.token)
+
+            const hostData = await axios({
+                method: 'GET',
+                url: `http://localhost:5000/users/host/${loginRes.data.user.id}`,
+                headers: {
+                    'x-auth-token': loginRes.data.token
+                }     
+            })
+            console.log(hostData)
+            setHost({
+                active: hostData.data.data.active,
+                capacity: hostData.data.data.capacity,
+                userId: hostData.data.data.userId,
+                price: hostData.data.data.price,
+                description: hostData.data.data.description,
+                title: hostData.data.data.title,
+                address: hostData.data.data.loc.formattedAddress,
+                images: hostData.data.data.images,
+                dates: hostData.data.data.range,
+            })
             history.push('/')
 
         } catch (error) {

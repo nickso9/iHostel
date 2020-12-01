@@ -9,6 +9,7 @@ import Register from './components/Auth/Register'
 import PrivateRoute from './components/Auth/Private'
 import Rent from './containers/Rent/Rent'
 import Home from './containers/Home/Home'
+import Options from './containers/Options/Options'
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HostContextProvider } from './contexts/HostContext';
@@ -59,20 +60,30 @@ function App() {
   return (
    <BrowserRouter>
       <UserContext.Provider value={{userData, setUserData}}>
+      <HostContextProvider>
           <Navbar />
           <Switch>
             <Route exact path='/host' component={Host}> 
-                <HostContextProvider>
+                
                   <PrivateRoute
                     component={Host}
                     loggedIn={userData}
                   />
-                </HostContextProvider> 
+                
             </Route>
             <Route exact path='/rent'>
 
                   <PrivateRoute
                     component={Rent}
+                    loggedIn={userData}
+                  />       
+                  
+            </Route>
+
+            <Route exact path='/options'>
+
+                  <PrivateRoute
+                    component={Options}
                     loggedIn={userData}
                   />       
                   
@@ -85,6 +96,7 @@ function App() {
             
 
             </Switch>
+        </HostContextProvider> 
       </UserContext.Provider>
    </BrowserRouter>
   );

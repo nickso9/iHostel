@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const geocoder = require('../utils/geocoder')
 
 const hostSchema = new mongoose.Schema({
+    active: {
+        type: Boolean
+    },
+    capacity: {
+        type: Number
+    },
     userId: {
         type: String
     },

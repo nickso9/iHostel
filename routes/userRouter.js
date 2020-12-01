@@ -2,12 +2,13 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/UserModel');
-
+const Host = require('../models/HostModel')
 
 router.post('/register', async (req, res) => {
     try {
-        let { email, password, passwordCheck, userName } = req.body;
-        
+
+        const { accountType, email, password, passwordCheck, userName, address } = req.body;
+    
         if (!email || !password || !passwordCheck || !userName) {
             return res.status(400).json({msg: 'All fields required.'})
         };
@@ -27,9 +28,11 @@ router.post('/register', async (req, res) => {
         const passwordHash = await bcrypt.hash(password, salt);
     
         const newUser = new User({
+            accountType,
             email,
             password: passwordHash,
-            userName
+            userName,
+            address
         });
 
         const savedUser = await newUser.save();
@@ -53,6 +56,7 @@ router.post('/login', async (req, res) => {
         if (!user) {
             return res.status(400).json({msg: 'account not found.'})
         };
+
         
         const checkPasswordMatch = await bcrypt.compare(password, user.password);
 
@@ -66,6 +70,7 @@ router.post('/login', async (req, res) => {
             user: {
                 id: user._id, 
                 userName: user.userName,
+                accountType: user.accountType
             }});
 
     } catch (error) {

@@ -14,16 +14,19 @@ export default function AuthOptions() {
         })
         localStorage.setItem('auth-token', '')
     };
-
     return (
         <nav className={'auth-btn'}>
             {
                 userData.user ? 
                 (   
-                    <>                
-                    <NavLink exact activeClassName="active" to="/rent"><span className='navBarLinks'>Rent</span></NavLink>
-                    <NavLink exact activeClassName="active" to="/host"><span className='navBarLinks'>Host</span></NavLink>
-                    <NavLink to="/logout"><span onClick={logout} className='navBarLinks'>Logout</span></NavLink>           
+                    <>         
+                    {userData.user.accountType === "renter" ? (
+                        <NavLink exact activeClassName="active" to="/rent"><span className='navBarLinks'>Rent</span></NavLink>
+                    ): (
+                        <NavLink exact activeClassName="active" to="/host"><span className='navBarLinks'>Host</span></NavLink>
+                    )}      
+                        <NavLink exact activeClassName="active" to="/options"><span className='navBarLinks'>Options</span></NavLink> 
+                        <NavLink to="/logout"><span onClick={logout} className='navBarLinks'>Logout</span></NavLink>           
                     </>
                 ) : ( 
                 <>

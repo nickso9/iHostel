@@ -16,6 +16,18 @@ router.post('/host', auth, async (req, res) => {
     })
 
 })
+
+router.get('/host/:id', auth, async (req,res) => {
+    const pullHostInfo = req.params.id
+    console.log(pullHostInfo)
+    const hostInfo = await Host.findOne({userId: pullHostInfo})
+    console.log(hostInfo)
+    res.send({
+        hosting: hostInfo !== null,
+        data: hostInfo     
+    }) 
+
+})
  
 
 router.get('/rent', async (req, res) => {

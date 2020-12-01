@@ -13,17 +13,16 @@ export default function Register() {
 
     const location = useLocation() 
     const history = useHistory();
+    let accountType = location.state.accountType
     
     const { setUserData } = useContext(UserContext);
     const [ progress, setProgress ] = useState(1)
     const [ userRegistration, setUserRegistration ] = useState({
-        account: location.state.accountType,
+        accountType: location.state.accountType,
         email: '',
         password: '',
         passwordCheck: '',
         userName: '',
-        firstName: '',
-        lastName: '',
         addressOne: '',
         addressTwo: '',
         city: '',
@@ -31,31 +30,38 @@ export default function Register() {
         zip: ''
 
     }) 
-
     
 
     const submit = async (e) => {
         e.preventDefault()
     try {
-
-        const {email, password, passwordCheck, userName } = userRegistration
-        const newUser = {
+        
+        const { accountType, email, password, passwordCheck, userName, addressOne, addressTwo, city, state, zip } = userRegistration
+        const sendData = {
+            accountType,
+            userName,
             email,
             password,
             passwordCheck,
-            userName 
+                address: {
+                    street: (addressOne + addressTwo).trim(),
+                    city,
+                    state,
+                    zip
+            }
 
+        
         }
         
         await axios.post(
             'http://localhost:5000/users/register', 
-            newUser
+            sendData
         );
         
         const loginRes = await axios.post(
             'http://localhost:5000/users/login', {
-            email,
-            password
+            email: sendData.email,
+            password: sendData.password
         });
         setUserData({
             token: loginRes.data.token,
@@ -71,15 +77,16 @@ export default function Register() {
     
     let regProgress;
 
-    if (progress === 2 || userRegistration.account === "renter") {
+    if (progress === 2 || accountType === "renter") {
         regProgress = (
             <div>
                 <ProgressBar now={100} variant="secondary"/>
 
                 <Form.Group className="mt-5">
-                        <Form.Label>{userRegistration.account === "renter" ? "Username" : "Company Name"}</Form.Label>
+                        <Form.Label>{accountType === "renter" ? "Username" : "Company Name"}</Form.Label>
                         <Form.Control 
                             className="w-100"
+                            value={userRegistration.userName} 
                             onChange={e => {
                                 setUserRegistration({
                                     ...userRegistration,
@@ -90,11 +97,12 @@ export default function Register() {
                     </Form.Group>
             
                 <Form.Group >
-                    <Form.Label>{userRegistration.account === "renter" ? "Email Address" : "Company Email Address"}</Form.Label>
+                    <Form.Label>{accountType === "renter" ? "Email Address" : "Company Email Address"}</Form.Label>
                     <Form.Control 
                         type="email" 
                         placeholder="Enter email" 
-                        id='register-email' 
+                        id='register-email'
+                        value={userRegistration.email} 
                         onChange={e => {
                             setUserRegistration({
                                 ...userRegistration,
@@ -110,6 +118,7 @@ export default function Register() {
                         autoComplete="on" 
                         placeholder="Password" 
                         id='register-password' 
+                        value={userRegistration.password} 
                         onChange={e => {
                             setUserRegistration({
                                 ...userRegistration,
@@ -124,6 +133,7 @@ export default function Register() {
                         type="password" 
                         autoComplete="on"
                         placeholder='Verify password' 
+                        value={userRegistration.passwordCheck} 
                         onChange={e => {
                             setUserRegistration({
                                 ...userRegistration,
@@ -134,7 +144,7 @@ export default function Register() {
                 </Form.Group>
                 <div className="d-flex">
 
-                {userRegistration.account === "innkeeper" ? (
+                {accountType === "innkeeper" ? (
 
                     <Button 
                         variant="primary" 
@@ -157,7 +167,7 @@ export default function Register() {
             
             </div>
         )
-    } else if (progress === 1 && userRegistration.account === "innkeeper") {
+    } else if (progress === 1 && accountType === "innkeeper") {
         regProgress = (
                 
                 <div>
@@ -197,6 +207,7 @@ export default function Register() {
                     <Form.Group className="mt-4">
                         <Form.Label>Street</Form.Label>
                         <Form.Control
+                            value={userRegistration.addressOne} 
                             onChange={e => {
                                 setUserRegistration({
                                     ...userRegistration,
@@ -209,6 +220,7 @@ export default function Register() {
                     <Form.Group >
                         <Form.Label>Unit/Suite/Number</Form.Label>
                         <Form.Control  
+                            value={userRegistration.addressTwo} 
                             onChange={e => {
                                 setUserRegistration({
                                     ...userRegistration,
@@ -222,6 +234,7 @@ export default function Register() {
                         <Form.Group as={Col} >
                         <Form.Label>City</Form.Label>
                         <Form.Control 
+                            value={userRegistration.city} 
                             onChange={e => {
                                 setUserRegistration({
                                     ...userRegistration,
@@ -251,6 +264,7 @@ export default function Register() {
                         <Form.Group as={Col} >
                         <Form.Label>Zip</Form.Label>
                         <Form.Control 
+                            value={userRegistration.zip} 
                             onChange={e => {
                                 setUserRegistration({
                                     ...userRegistration,
@@ -279,7 +293,7 @@ export default function Register() {
     let regTitle;
     let regClass;
 
-    if (userRegistration.account === "renter") {
+    if (accountType === "renter") {
         regTitle = "Traveler"
         regClass = 'text-center text-dark register-title border-bottom border-info'
     } else {
@@ -304,3 +318,7 @@ export default function Register() {
     </div>
     )
 }
+
+
+
+
