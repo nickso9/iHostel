@@ -27,7 +27,8 @@ router.get('/', auth, async (req, res) => {
     const user = await User.findById(req.user);
     res.json({
         userName: user.userName,
-        id: user._id
+        id: user._id,
+        accountType: user.accountType
     })
 })
 

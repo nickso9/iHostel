@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { HostContext } from '../../../contexts/HostContext'
+import HostContext from '../../../contexts/HostContext'
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col' 
 

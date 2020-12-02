@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { HostContext } from '../../../contexts/HostContext'
+import HostContext from '../../../contexts/HostContext'
 
 const AddImage = () => {
   

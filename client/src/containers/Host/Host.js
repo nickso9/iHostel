@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { HostContext } from '../../contexts/HostContext';
+import HostContext from '../../contexts/HostContext';
 import UserContext from '../../contexts/UserContext'
 import Calender from '../../components/Calender/Calender';
 import Form from 'react-bootstrap/Form';
@@ -11,6 +12,7 @@ import { format } from 'date-fns'
 
 const Host = () => {
 
+    const history = useHistory();
     const { host, setHost } = useContext(HostContext)
     const { userData } = useContext(UserContext)
     const [creationState, setCreationState] = useState(1);
@@ -45,23 +47,23 @@ const Host = () => {
             }))   
     }
 
-    const clearState = () => {
-        setCreationState(1)
-        setHost({
-            price: null,
-            description: null,
-            title: null,
-            address: {
-                addressOne: null,
-                addressTwo: '',
-                city: null,
-                state: null,
-                zip: null
-            },
-            images: [],
-            dates: [],
-        })
-    }
+    // const clearState = () => {
+    //     setCreationState(1)
+    //     setHost({
+    //         price: null,
+    //         description: null,
+    //         title: null,
+    //         address: {
+    //             addressOne: null,
+    //             addressTwo: '',
+    //             city: null,
+    //             state: null,
+    //             zip: null
+    //         },
+    //         images: [],
+    //         dates: [],
+    //     })
+    // }
 
 
       let currentState;
@@ -213,11 +215,17 @@ const Host = () => {
                                     }
 
                                 })
-                                .then(response => console.log(response))
+                                .then(() => {
+                                    setHost(prevState => ({
+                                        ...prevState,
+                                        active: true
+                                    }))   
+                                    history.push('/host')
+                                })
                                 .catch(error => console.log(error))
 
                             
-                            clearState()
+                            // clearState()
                     } 
                 }}
             >Host</Button>

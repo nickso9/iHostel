@@ -8,7 +8,7 @@ router.post('/host', auth, async (req, res) => {
     const hostToDb =  new Host(req.body)
     await hostToDb.save()
     .then(response => {
-        console.log(response)
+       
         res.json('host added')
     })
     .catch(error => {
@@ -19,14 +19,11 @@ router.post('/host', auth, async (req, res) => {
 
 router.get('/host/:id', auth, async (req,res) => {
     const pullHostInfo = req.params.id
-    console.log(pullHostInfo)
-    const hostInfo = await Host.findOne({userId: pullHostInfo})
-    console.log(hostInfo)
+    const hostInfo = await Host.findOne({userId: pullHostInfo}) 
     res.send({
         hosting: hostInfo !== null,
         data: hostInfo     
     }) 
-
 })
  
 
