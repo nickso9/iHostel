@@ -49,20 +49,20 @@ const Host = () => {
 
     // const clearState = () => {
     //     setCreationState(1)
-    //     setHost({
-    //         price: null,
-    //         description: null,
-    //         title: null,
-    //         address: {
-    //             addressOne: null,
-    //             addressTwo: '',
-    //             city: null,
-    //             state: null,
-    //             zip: null
-    //         },
-    //         images: [],
-    //         dates: [],
-    //     })
+    //     // setHost({
+    //     //     price: null,
+    //     //     description: null,
+    //     //     title: null,
+    //     //     address: {
+    //     //         addressOne: null,
+    //     //         addressTwo: '',
+    //     //         city: null,
+    //     //         state: null,
+    //     //         zip: null
+    //     //     },
+    //     //     images: [],
+    //     //     dates: [],
+    //     // })
     // }
 
 
@@ -200,8 +200,15 @@ const Host = () => {
                                     description: host.description,
                                     price: host.price,
                                     images: host.images,
-                                    address: host.address.addressOne + ' ' + host.address.addressTwo + ', ' +
-                                        host.address.city + ', ' + host.address.state + ' ' + host.address.zip                  
+                                    addressFormat: host.address.addressOne + ' ' + host.address.addressTwo + ', ' +
+                                        host.address.city + ', ' + host.address.state + ' ' + host.address.zip,
+                                    address: {
+                                        addressOne: host.address.addressOne,
+                                        addressTwo: host.address.addressTwo,
+                                        city: host.address.city,
+                                        state: host.address.state, 
+                                        zip: host.address.zip
+                                    }                  
                                 }
                                 
                                 const authToken = localStorage.getItem('auth-token')
@@ -215,16 +222,31 @@ const Host = () => {
                                     }
 
                                 })
-                                .then(() => {
-                                    setHost(prevState => ({
-                                        ...prevState,
-                                        active: true
-                                    }))   
-                                    history.push('/host')
+                                .then(response => {
+                                    console.log(response.data)
+                                    setHost({
+                                        active: response.data.active,
+                                        capacity: response.data.capacity,
+                                        userId: response.data.userId,
+                                        price: response.data.price,
+                                        description: response.data.description,
+                                        title: response.data.title,
+                                        address: {
+                                          addressOne: response.data.address.addressOne,
+                                          addressTwo: response.data.address.addressTwo,
+                                          state: response.data.address.state,
+                                          city: response.data.address.city,
+                                          zip: response.data.address.zip
+                                        },
+                                        images: response.data.images,
+                                        dates: response.data.range,
+                                    })
+                                    
+                                    history.push('/')
                                 })
                                 .catch(error => console.log(error))
 
-                            
+                                console.log(host)
                             // clearState()
                     } 
                 }}

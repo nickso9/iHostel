@@ -99,7 +99,13 @@ function App() {
                       price: hostData.data.data.price,
                       description: hostData.data.data.description,
                       title: hostData.data.data.title,
-                      address: hostData.data.data.loc.formattedAddress,
+                      address: {
+                        addressOne: hostData.data.data.address.addressOne,
+                        addressTwo: hostData.data.data.address.addressTwo,
+                        state: hostData.data.data.address.state,
+                        city: hostData.data.data.address.city,
+                        zip: hostData.data.data.address.zip
+                      },
                       images: hostData.data.data.images,
                       dates: hostData.data.data.range,
                   })
@@ -112,10 +118,7 @@ function App() {
         }          
     };
 
-
-      
-      console.log(userData.user)
-
+    console.log(host)
   return (
    <BrowserRouter>
       <UserContext.Provider value={{userData, setUserData}}>
@@ -163,11 +166,6 @@ function App() {
                 <Register /> }
               </Route>
               
-
-            
-            
-
-            
   
             <Route path='/' component={userData.user ? Home : Landing} /> 
             

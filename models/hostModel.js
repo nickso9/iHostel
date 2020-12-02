@@ -31,8 +31,25 @@ const hostSchema = new mongoose.Schema({
     bookedRange: [String],
     images: [String],
     address: {
-            type: String,
-            trim: true
+            addressOne: {
+                type: String
+            },
+            addressTwo: {
+                type: String
+            },
+            city: {
+                type: String
+            },
+            state: {
+                type: String
+            },
+            zip: {
+                type: String
+            }
+    },
+    addressFormat: {
+        type: String,
+        trim: true
     },
     usersYes: {
         type: Array,
@@ -58,13 +75,13 @@ const hostSchema = new mongoose.Schema({
 });
 
 hostSchema.pre('save', async function(next) {
-    const loc = await geocoder.geocode(this.address)
+    const loc = await geocoder.geocode(this.addressFormat)
     this.loc = {
         type: 'Point',
         coordinates: [loc[0].longitude, loc[0].latitude], 
         formattedAddress: loc[0].formattedAddress
     }
-    this.address = undefined
+    this.addressFormat = undefined
     next()
 })
 

@@ -4,12 +4,10 @@ const Host = require('../models/HostModel')
 
 
 router.post('/host', auth, async (req, res) => {
-
     const hostToDb =  new Host(req.body)
     await hostToDb.save()
     .then(response => {
-       
-        res.json('host added')
+        res.send(response)
     })
     .catch(error => {
         console.log(error)
