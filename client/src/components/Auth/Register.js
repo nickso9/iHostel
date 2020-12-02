@@ -13,12 +13,15 @@ export default function Register() {
 
     const location = useLocation() 
     const history = useHistory();
-    let accountType = location.state.accountType
+    let accountType = ''
+    if (location.state) {
+        accountType = location.state.accountType
+    }
     
     const { setUserData } = useContext(UserContext);
     const [ progress, setProgress ] = useState(1)
     const [ userRegistration, setUserRegistration ] = useState({
-        accountType: location.state.accountType,
+        accountType,
         email: '',
         password: '',
         passwordCheck: '',

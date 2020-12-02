@@ -13,7 +13,7 @@ export default function Login() {
     const [password, setPassword] = useState();
     // const [error, setError] = useState()
 
-    const { setHost } = useContext(HostContext)
+    const { host, setHost } = useContext(HostContext)
     const { setUserData } = useContext(UserContext);
     const history = useHistory();
 
@@ -55,8 +55,10 @@ export default function Login() {
                         range: hostData.data.data.range,
                         bookedRange: hostData.data.data.bookedRange,
                     })
+                    console.log('push')
                     history.push('/')
                 } else {
+                    console.log('else')
                     history.push('/')
                 }  
             }

@@ -204,7 +204,7 @@ const Host = () => {
 
                                 })
                                 .then(response => {
-                                    console.log(response.data)
+                                    
                                     setHost({
                                         active: response.data.active,
                                         capacity: response.data.capacity,

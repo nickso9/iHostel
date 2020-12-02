@@ -10,7 +10,7 @@ import PrivateRoute from './components/Auth/Private'
 import HostOptions from './containers/Host/HostOptions/HostOptions'
 import Rent from './containers/Rent/Rent'
 import Home from './containers/Home/Home'
-import Options from './containers/Options/Options'
+// import Options from './containers/Options/Options'
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import { HostContextProvider } from './contexts/HostContext';
@@ -143,14 +143,14 @@ function App() {
 
 
 
-            <Route exact path='/options'>
+            {/* <Route exact path='/options'>
 
                   <PrivateRoute
                     component={Options}
                     loggedIn={userData}
                   />       
                   
-            </Route>
+            </Route> */}
            
             
              
@@ -160,7 +160,7 @@ function App() {
               </Route>
               
               
-              <Route exact path='/login'>
+              <Route exact path='/register'>
               {userData.user ? <Redirect to="/" /> :
                 <Register /> }
               </Route>

@@ -6,7 +6,7 @@ import HostContext from '../../contexts/HostContext'
 export default function AuthOptions() {
 
     const { userData, setUserData } = useContext(UserContext)
-    const { host } = useContext(HostContext)
+    const { host, setHost } = useContext(HostContext)
 
     const logout = () => {
         setUserData({
@@ -14,11 +14,29 @@ export default function AuthOptions() {
             user: undefined
         })
         localStorage.setItem('auth-token', '')
+
+        setHost({
+            active: undefined,
+            capacity: undefined,
+            userId: undefined,
+            price: undefined,
+            description: undefined,
+            title: undefined,
+            address: {
+              addressOne: undefined,
+              addressTwo: undefined,
+              state: undefined,
+              city: undefined,
+              zip: undefined
+            },
+            images: [undefined, undefined],
+            dates: [new Date(), new Date()],
+        })
     };
 
         let hostNavLink;        
             if (host.userId) {
-                hostNavLink = 'Host'
+                hostNavLink = 'View Listing'
             } else {
                 hostNavLink = 'Add Listing!!'
             }
@@ -35,12 +53,14 @@ export default function AuthOptions() {
                     ): 
                     
                     (
+                        <>
+                        <NavLink exact activeClassName="active" to="/"><span className='navBarLinks'>Dashboard</span></NavLink> 
                         <NavLink exact activeClassName="active" to="/host"><span className='navBarLinks'>{hostNavLink}</span></NavLink>
-                        
+                        </>
                     )
                     
                     }      
-                        <NavLink exact activeClassName="active" to="/options"><span className='navBarLinks'>Options</span></NavLink> 
+                        
                         <NavLink to="/logout"><span onClick={logout} className='navBarLinks'>Logout</span></NavLink>           
                     </>
                 ) : ( 
