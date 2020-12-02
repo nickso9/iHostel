@@ -22,10 +22,7 @@ export default function AuthOptions() {
             } else {
                 hostNavLink = 'Add Listing!!'
             }
-  
- 
-    
-   
+
     return (
         <nav className={'auth-btn'}>
             {
