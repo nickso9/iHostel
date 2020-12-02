@@ -44,16 +44,16 @@ export default function Login() {
                 
                 if (hostData.data.hosting) {
                     setHost({
-                        hosting: hostData.data.hosting,
                         active: hostData.data.data.active,
                         capacity: hostData.data.data.capacity,
                         userId: hostData.data.data.userId,
                         price: hostData.data.data.price,
                         description: hostData.data.data.description,
                         title: hostData.data.data.title,
-                        address: hostData.data.data.loc.formattedAddress,
+                        address: hostData.data.data.address,
                         images: hostData.data.data.images,
-                        dates: hostData.data.data.range,
+                        range: hostData.data.data.range,
+                        bookedRange: hostData.data.data.bookedRange,
                     })
                     history.push('/')
                 } else {

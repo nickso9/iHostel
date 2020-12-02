@@ -47,25 +47,6 @@ const Host = () => {
             }))   
     }
 
-    // const clearState = () => {
-    //     setCreationState(1)
-    //     // setHost({
-    //     //     price: null,
-    //     //     description: null,
-    //     //     title: null,
-    //     //     address: {
-    //     //         addressOne: null,
-    //     //         addressTwo: '',
-    //     //         city: null,
-    //     //         state: null,
-    //     //         zip: null
-    //     //     },
-    //     //     images: [],
-    //     //     dates: [],
-    //     // })
-    // }
-
-
       let currentState;
       if (creationState === 1) {
         currentState =  (    
@@ -244,10 +225,7 @@ const Host = () => {
                                     
                                     history.push('/')
                                 })
-                                .catch(error => console.log(error))
-
-                                console.log(host)
-                            // clearState()
+                                .catch(error => console.log(error))                   
                     } 
                 }}
             >Host</Button>

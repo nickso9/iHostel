@@ -118,7 +118,6 @@ function App() {
         }          
     };
 
-    console.log(host)
   return (
    <BrowserRouter>
       <UserContext.Provider value={{userData, setUserData}}>

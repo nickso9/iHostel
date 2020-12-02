@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 
 
 
-const AddAddress = () => {
+const AddAddress = (props) => {
  
     const { host, setHost } = useContext(HostContext)
     const updater = (event) => {
@@ -18,7 +18,7 @@ const AddAddress = () => {
             }   
         ))  
     }
-
+    
 
     return (  
         <>
@@ -28,6 +28,7 @@ const AddAddress = () => {
                 <Form.Control 
                     placeholder="1234 Main St" 
                     name="addressOne"
+                    disabled={props.OnOrOff || false}
                     onChange={ele => {
                         updater(ele)
                     }}
@@ -37,7 +38,8 @@ const AddAddress = () => {
 
             <Form.Group controlId="formGridAddress2">
                 <Form.Label>Address 2</Form.Label>
-                <Form.Control 
+                <Form.Control
+                    disabled={props.OnOrOff || false} 
                     placeholder="Apartment, studio, or floor" 
                     name="addressTwo"
                     onChange={ele => {
@@ -51,6 +53,7 @@ const AddAddress = () => {
                 <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>City</Form.Label>
                 <Form.Control 
+                    disabled={props.OnOrOff || false}
                     name="city"
                     onChange={ele => {
                         updater(ele)
@@ -62,6 +65,7 @@ const AddAddress = () => {
                 <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>State</Form.Label>
                 <Form.Control 
+                    disabled={props.OnOrOff || false}
                     as="select" 
                     defaultValue={!host.address.state ? "Choose..." : host.address.state}
                     name="state"
@@ -127,6 +131,7 @@ const AddAddress = () => {
                 <Form.Group as={Col} controlId="formGridZip">
                 <Form.Label>Zip</Form.Label>
                 <Form.Control 
+                    disabled={props.OnOrOff || false}
                     name="zip"
                     onChange={ele => {
                         updater(ele)
