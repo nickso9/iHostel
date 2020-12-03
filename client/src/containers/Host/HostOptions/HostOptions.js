@@ -19,7 +19,7 @@ const HostOptions = () => {
     })
     
         
-   console.log(host)
+
     const [timeState, setTimeState] = useState([
         {
             startDate: new Date(host.range[0]),
@@ -36,14 +36,34 @@ const HostOptions = () => {
         ))
     }
 
+    const updaterDb = (data) => {
+        axios({
+            method: 'PUT',
+            url: `http://localhost:5000/users/host/${host.id}`,
+            data: data,
+            headers: {
+                'x-auth-token': authToken
+            }
+        })
+        .then(() => {
+            setHost(prevState => ({
+                ...prevState,
+                title: generalInfo.title,
+                description: generalInfo.description
+            }))
+            console.log(host)
+            console.log(generalInfo)
+        })
+        .catch(err => console.log(err))
+    }
     
 
-      let buttonChecker = false
+      let buttonChecker = true
 
-      if (host.title === generalInfo.info ||
-        host.description === generalInfo.description
+      if (host.title !== generalInfo.title ||
+        host.description !== generalInfo.description
         ) {
-            buttonChecker = true
+            buttonChecker = false
         }
 
       let updateCurrentState;
@@ -104,24 +124,7 @@ const HostOptions = () => {
                         description: generalInfo.description
                     }
                 }
-                axios({
-                    method: 'PUT',
-                    url: `http://localhost:5000/users/host/${host.id}`,
-                    data: dataToPut,
-                    headers: {
-                        'x-auth-token': authToken
-                    }
-                })
-                .then(() => {
-                    setHost(prevState => ({
-                        ...prevState,
-                        title: generalInfo.title,
-                        description: generalInfo.description
-                    }))
-                    console.log(host)
-                    console.log(generalInfo)
-                })
-                .catch(err => console.log(err))
+                updaterDb(dataToPut)
             }}
             >Update Info</Button>
             </div>
@@ -131,6 +134,12 @@ const HostOptions = () => {
             updateCurrentState = (
                 <div className="mt-4">
                 <AddImage />
+                <br />
+                <Button 
+                    variant="dark"
+                    className="d-block mt-5 ml-auto"
+                >Update Image
+                </Button>
                 </div>
           )
       } else {

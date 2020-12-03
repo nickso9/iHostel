@@ -36,29 +36,52 @@ const AddImage = () => {
                     
                         {host.images.map((images, index) => {
                             if (index === 0) {
-                                return <div className='main-image-container' key={index}><img id='main-image-src' alt={images} src={images} /></div>
+                                return (
+                                  <div key={index}>
+                                <div className='main-image-container d-block' id='main-image-src'><img id={index} alt="" src={images} /></div>
+                                    <div className="d-block mt-2">
+                                    <span  style={{fontSize: '11px'}}> click thumbnails to select</span>
+                                    <button 
+                                        className="border border-secondary px-3 float-right"
+                                        onClick={() => {
+                                            setHost(prevState => ({
+                                                ...prevState,
+                                                images: [host.images.pop()]
+                                            })) 
+                                        
+                                        }}
+                                    >Remove </button>
+                                    </div>
+                                    </div>
+                                    
+                                )
                             } else {
-                                return <div className='small-image-container m-2' key={index} >
+                                return <div className='small-image-container m-2' key={index} id="small-image-container">
+                                    
                                     <img 
-                                        id={`image` + index}
-                                        alt={images} 
+                                        id={index}
+                                        alt=""
                                         src={images} 
                                         onClick={(e) => {
-                                            
+                                            console.log(e.target)
                                             const mainImage = {
-                                                alt: document.getElementById('main-image-src').getAttribute('alt'),
-                                                src: document.getElementById('main-image-src').getAttribute('src'),
+                                                src: document.getElementById('main-image-src').firstElementChild.getAttribute('src'),
+                                                id: document.getElementById('main-image-src').firstElementChild.getAttribute('id'),
                                             }
-                                            document.getElementById('main-image-src').setAttribute('src', `${e.target.src}`)
-                                            document.getElementById('main-image-src').setAttribute('alt', `${e.target.alt}`)
+                                            
+                                            document.getElementById('main-image-src').firstElementChild.setAttribute('src', `${e.target.src}`)
+                                            document.getElementById('main-image-src').firstElementChild.setAttribute('id', `${e.target.id}`)
 
-                                            document.getElementById(`${e.target.id}`).setAttribute('src', mainImage.src)
-                                            document.getElementById(`${e.target.id}`).setAttribute('alt', mainImage.art)
+                                            
+                                            document.getElementById(`small-image-container`).firstElementChild.setAttribute('id', mainImage.id)
+                                            document.getElementById(`small-image-container`).firstElementChild.setAttribute('src', mainImage.src)
+
                                                                 
                                         }}/></div>
                             }
                         })}
-                        <div className="mt-5 border justify-content-around d-inline-flex">                  
+                        <br />
+                        <div className="mt-1 border justify-content-around d-inline-flex">                  
                                 <input className="" type='file' name='file' id="image" onChange={uploadImage} accept="image/*" />
                         </div>
                 </div>  
