@@ -9,13 +9,14 @@ import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav'
 
 const HostOptions = () => {
+
     const { host, setHost } = useContext(HostContext)
-    console.log(host)
+    const authToken = localStorage.getItem('auth-token')
     const [updateState, setUpdateState] = useState(1);
-    // const [ generalInfo, setGeneralInfo ] = useState({
-    //     title: host.title,
-    //     description: host.description
-    // })
+    const [ generalInfo, setGeneralInfo ] = useState({
+        title: host.title,
+        description: host.description
+    })
     
         
    console.log(host)
@@ -27,10 +28,23 @@ const HostOptions = () => {
         }
       ]);
 
+      const updater = (event) => {
+        setGeneralInfo(prevState => ({
+                ...prevState,
+                [event.target.name]: event.target.value
+            }   
+        ))
+    }
+
     
 
+      let buttonChecker = false
 
-      console.log(timeState)
+      if (host.title === generalInfo.info ||
+        host.description === generalInfo.description
+        ) {
+            buttonChecker = true
+        }
 
       let updateCurrentState;
 
@@ -57,9 +71,9 @@ const HostOptions = () => {
                     type="text" 
                     placeholder="Title" 
                     onChange={ele => {
-                        
+                        updater(ele)
                     }}
-                    value={host.title}
+                    value={generalInfo.title}
                 />
                 <br />
                 <Form.Label>Description</Form.Label>
@@ -70,9 +84,9 @@ const HostOptions = () => {
                         rows={3} 
                         placeholder="Description of home" 
                         onChange={ele => {
-                            
+                            updater(ele)
                         }}
-                        value={host.description}
+                        value={generalInfo.description}
                     />
                 
                 </Form.Group>
@@ -82,6 +96,33 @@ const HostOptions = () => {
             <Button 
             variant="dark"
             className="d-block mt-2 ml-auto"
+            disabled={buttonChecker}
+            onClick={() => {
+                const dataToPut = {
+                    genInfo: {
+                        title: generalInfo.title,
+                        description: generalInfo.description
+                    }
+                }
+                axios({
+                    method: 'PUT',
+                    url: `http://localhost:5000/users/host/${host.id}`,
+                    data: dataToPut,
+                    headers: {
+                        'x-auth-token': authToken
+                    }
+                })
+                .then(() => {
+                    setHost(prevState => ({
+                        ...prevState,
+                        title: generalInfo.title,
+                        description: generalInfo.description
+                    }))
+                    console.log(host)
+                    console.log(generalInfo)
+                })
+                .catch(err => console.log(err))
+            }}
             >Update Info</Button>
             </div>
           )

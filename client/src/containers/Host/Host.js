@@ -32,7 +32,6 @@ const Host = () => {
                 [event.target.name]: event.target.value
             }   
         ))
-    
     }
 
     const timeHandler = () => {
@@ -202,11 +201,11 @@ const Host = () => {
                                     headers: {
                                         'x-auth-token': authToken
                                     }
-
                                 })
                                 .then(response => {
                                     
                                     setHost({
+                                        id: response.data._id,
                                         active: response.data.active,
                                         capacity: response.data.capacity,
                                         userId: response.data.userId,

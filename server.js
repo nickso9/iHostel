@@ -10,7 +10,12 @@ app.use(express.json());
 
 const URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_DATABASE}`;
 mongoose.connect( URI, 
-    { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true},
+    { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true , 
+        useCreateIndex: true,
+        useFindAndModify: false 
+    },
     (error) => {
         if (error) throw error;
     });

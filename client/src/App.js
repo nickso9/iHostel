@@ -29,6 +29,7 @@ function App() {
   })
 
   const [host, setHost] = useState({
+    id: null,
     active: null,
     capacity: null,
     userId: null,
@@ -91,8 +92,8 @@ function App() {
                   if (!hostData.data.data) {
                       
                   } else {
-
                   setHost({
+                      id: hostData.data.data._id,
                       active: hostData.data.data.active,
                       capacity: hostData.data.data.capacity,
                       userId: hostData.data.data.userId,

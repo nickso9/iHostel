@@ -25,8 +25,15 @@ router.get('/host/:id', auth, async (req,res) => {
 })
  
 
-router.put('host/:id', auth, async (req, res) => {
-    console.log(req)
+router.put('/host/:id', auth, async (req, res) => {
+    // console.log(req.body.genInfo)
+    // console.log(req.params.id)
+    let insert;
+    if (req.body.genInfo) {
+        insert = {title: req.body.genInfo.title, description: req.body.genInfo.description} 
+    }
+    const updateHostInfo = await Host.findByIdAndUpdate({_id: req.params.id}, insert)
+    res.send(updateHostInfo)
 
 })
 
