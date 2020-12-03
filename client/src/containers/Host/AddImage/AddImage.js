@@ -32,7 +32,6 @@ const AddImage = () => {
 
         return (
             <>
-                <hr />
                 <div className='host-images-container mb-2'>
                     
                         {host.images.map((images, index) => {

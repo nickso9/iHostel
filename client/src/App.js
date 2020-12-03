@@ -43,7 +43,7 @@ function App() {
         zip: null
     },
     images: [],
-    dates: [],
+    range: [],
 })
 
       useEffect(() => {
@@ -107,7 +107,7 @@ function App() {
                         zip: hostData.data.data.address.zip
                       },
                       images: hostData.data.data.images,
-                      dates: hostData.data.data.range,
+                      range: hostData.data.data.range,
                   })
                     
                 }

@@ -22,7 +22,7 @@ export default function Login() {
 
         try {
             const loginUser = { email, password }
-           
+           console.log('try user ')
             const loginRes = await axios.post(
                 'http://localhost:5000/users/login', loginUser);
             setUserData({
@@ -41,7 +41,7 @@ export default function Login() {
                         'x-auth-token': loginRes.data.token
                     }     
                 })
-                
+                console.log('try host ')
                 if (hostData.data.hosting) {
                     setHost({
                         active: hostData.data.data.active,

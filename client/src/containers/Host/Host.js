@@ -40,7 +40,7 @@ const Host = () => {
         let convertedEndDate = format(timeState[0].endDate, 'MMM/d/yyyy')
             setHost(prevState => ({
                 ...prevState,
-                dates: [
+                range: [
                     convertedStartDate,
                     convertedEndDate
                 ]
@@ -118,6 +118,7 @@ const Host = () => {
             currentState = (
             <>
             <h4 className="text-center">Upload images.</h4>
+            <hr />
             <AddImage />
             <br /><br />
             <hr />
@@ -176,7 +177,7 @@ const Host = () => {
                                     capacity: 8,
                                     userName: userData.user.userName,
                                     userId: userData.user.id,
-                                    range: host.dates,
+                                    range: host.range,
                                     title: host.title,
                                     description: host.description,
                                     price: host.price,
@@ -220,7 +221,7 @@ const Host = () => {
                                           zip: response.data.address.zip
                                         },
                                         images: response.data.images,
-                                        dates: response.data.range,
+                                        range: response.data.range,
                                     })
                                     
                                     history.push('/')

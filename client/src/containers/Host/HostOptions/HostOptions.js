@@ -10,11 +10,13 @@ import Nav from 'react-bootstrap/Nav'
 
 const HostOptions = () => {
     const { host, setHost } = useContext(HostContext)
+    console.log(host)
     const [updateState, setUpdateState] = useState(1);
-
-    useEffect(() => {
-
-    })
+    // const [ generalInfo, setGeneralInfo ] = useState({
+    //     title: host.title,
+    //     description: host.description
+    // })
+    
         
    console.log(host)
     const [timeState, setTimeState] = useState([
@@ -77,24 +79,31 @@ const HostOptions = () => {
                 <span className="text-secondary">* price is fixed</span>
             <AddAddress OnOrOff={true}/>
             <span className="text-secondary">* address is fixed</span>
-            <hr />
+            <Button 
+            variant="dark"
+            className="d-block mt-2 ml-auto"
+            >Update Info</Button>
             </div>
           )
           
       } else if (updateState === 2) {
             updateCurrentState = (
-                <div>
+                <div className="mt-4">
                 <AddImage />
                 </div>
           )
       } else {
             updateCurrentState = (
             
-                <div className="text-center">
+                <div className="text-center mt-4">
+                    <h3>Available Dates</h3>
+                    <div className="mt-4">
                 <Calender 
                     timeState={timeState} 
                     setTimeState={setTimeState}
+                    
                 />
+                </div>
             </div>
             
         )  
@@ -107,7 +116,7 @@ const HostOptions = () => {
         <div className="option-update-wrapper mb-5">
         <Nav variant="tabs" defaultActiveKey="/home">
             <Nav.Item>
-                <Nav.Link onClick={() => setUpdateState(1)}>General</Nav.Link>
+                <Nav.Link onClick={() => setUpdateState(1)}>General Info</Nav.Link>
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link onClick={() => setUpdateState(2)}>Image</Nav.Link>
