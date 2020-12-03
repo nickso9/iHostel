@@ -30,6 +30,12 @@ const AddImage = () => {
         
     }
 
+    let imageCheck = true;
+
+    if (host.images.length > 1) {
+        imageCheck = false
+    }
+
         return (
             <>
                 <div className='host-images-container mb-2'>
@@ -42,8 +48,10 @@ const AddImage = () => {
                                     <div className="d-block mt-2">
                                     <span  style={{fontSize: '11px'}}> click thumbnails to select</span>
                                     <button 
+                                        disabled={imageCheck}
                                         className="border border-secondary px-3 float-right"
                                         onClick={() => {
+                                            console.log('hihi')
                                             setHost(prevState => ({
                                                 ...prevState,
                                                 images: [host.images.pop()]
@@ -56,7 +64,9 @@ const AddImage = () => {
                                     
                                 )
                             } else {
-                                return <div className='small-image-container m-2' key={index} id="small-image-container">
+
+                                let smallImageContainer = `small-image-container${index}`
+                                return <div className='small-image-container m-2' key={index} id={smallImageContainer}>
                                     
                                     <img 
                                         id={index}
@@ -73,8 +83,8 @@ const AddImage = () => {
                                             document.getElementById('main-image-src').firstElementChild.setAttribute('id', `${e.target.id}`)
 
                                             
-                                            document.getElementById(`small-image-container`).firstElementChild.setAttribute('id', mainImage.id)
-                                            document.getElementById(`small-image-container`).firstElementChild.setAttribute('src', mainImage.src)
+                                            document.getElementById(smallImageContainer).lastElementChild.setAttribute('id', mainImage.id)
+                                            document.getElementById(smallImageContainer).lastElementChild.setAttribute('src', mainImage.src)
 
                                                                 
                                         }}/></div>
