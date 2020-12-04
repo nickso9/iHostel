@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import HostContext from '../../../contexts/HostContext'
 import { v4 } from 'uuid';
 
@@ -12,16 +12,6 @@ const AddImage = () => {
         })) 
         
     }
-
-    // const removeImage = (image) => {
-    //     setImageState((oldState) => oldState.filter((item, index) => item !== image));
-    //   };
-
-    // const [ imageState, setImageState] = useState([])
-    // useEffect(() => {
-    //     setImageState(host.images)     
-    // }, [])
-
  
     const uploadImage = async image => {
         const files = image.target.files;

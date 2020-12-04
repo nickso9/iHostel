@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import HostContext from '../../../contexts/HostContext';
 import AddAddress from '../../Host/AddAddress/AddAddress';
@@ -138,6 +138,15 @@ const HostOptions = () => {
                 <Button 
                     variant="dark"
                     className="d-block mt-5 ml-auto"
+                    onClick={() => {
+                        const dataToPut = {
+                            updateImages: {
+                                images: host.images
+                            }
+                        }
+                        console.log(dataToPut)
+                        updaterDb(dataToPut)
+                    }}
                 >Update Image
                 </Button>
                 </div>
