@@ -73,7 +73,7 @@ router.put('/rent/add/:id', auth, async (req, res) => {
 router.get('/rent', async (req, res) => {
     const userId = req.query.user
     const date = req.query.date
-
+    console.log(date)
     let limit = 10;
     let maxDistance = (25/3963)
     let coords = ["-121.478851", "38.575764"]
@@ -95,8 +95,11 @@ router.get('/rent', async (req, res) => {
                     }
                 }
         }, {
+            // "usersNo": {
+            //     "$ne": userId
+            // },
             "usersNo": {
-                "$ne": userId
+                "$ne": {[date] : userId}
             },
             "active": {
                 "$ne": false
@@ -112,14 +115,23 @@ router.get('/rent', async (req, res) => {
 })
 
 router.post('/rent/:id', auth, async (req, res) => {
+    
     const userSaysNo = req.user
+    const userSaysNoDay = req.body.day
+    console.log(userSaysNo)
+    console.log(userSaysNoDay)
+    // console.log({$push: { "usersNo": {[userSaysNoDay]: userSaysNo}}})
     const placeDenied = req.params.id
     await Host.updateOne({
         _id: placeDenied
-    },
-    {$addToSet: {usersNo: userSaysNo}}
+    }, {$addToSet: { "usersNo": {[userSaysNoDay]: userSaysNo}}}
+    // {$addToSet: {usersNo: userSaysNo}},
+    
     )
-    .then(response => res.json(response))
+    .then(response => {
+        console.log(response)
+        res.json(response)
+    })
     .catch(error => res.json(error))
 })
 

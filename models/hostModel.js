@@ -60,7 +60,7 @@ const hostSchema = new mongoose.Schema({
         type: Array,
     },
     usersNo: {
-        type: [String],
+        type: Array,
     },
     loc: {
         type: {
