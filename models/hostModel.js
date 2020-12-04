@@ -27,7 +27,12 @@ const hostSchema = new mongoose.Schema({
         type: String,
         minlength: 1
     },
-    range: [String],
+    startDate: {
+        type: Date
+    },
+    endDate: {
+        type: Date
+    },
     bookedRange: [String],
     images: [String],
     address: {

@@ -96,9 +96,13 @@ router.get('/rent', async (req, res) => {
                 }
         }, {
             "usersNo": {
-            "$ne": userId
-            }
-            }, querySearch
+                "$ne": userId
+            },
+            "active": {
+                "$ne": false
+            },
+            }, querySearch,
+            {startDate:{$lte:new Date()}},{endDate:{$gte:new Date()}}
             ] } )
         .then(response => {
             res.send(response)   

@@ -32,7 +32,8 @@ router.put('/host/:id', auth, async (req, res) => {
     } else if (req.body.updateImages) {
         insert = {images: req.body.updateImages.images}
     } else if (req.body.updateRange) {
-        insert = {range: req.body.updateRange}
+        // insert = {range: req.body.updateRange}
+        insert = {startDate: req.body.updateRange.startDate, endDate: req.body.updateRange.endDate}
     } else if (req.body.active) {
         insert = {active: req.body.active.active}
     }

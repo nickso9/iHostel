@@ -17,7 +17,7 @@ const Rent = () => {
     let renterOption;
 
     useEffect(() => {
-        console.log('use EFFECT')
+        
         const searchLocation = () => {
             axios.get('http://localhost:5000/users/rent',
              { 
@@ -40,8 +40,12 @@ const Rent = () => {
         searchLocation()
     }, [userData.user.id, loading, convertedDate]);
 
+    /// working on this ///
     const userSaysNo = async (idOfRoom) => { 
-        const userSaysNo = userData.user.id
+        const userSaysNo = {
+            day: convertedDate,
+            user: userData.user.id
+        }
         await axios({
             method: 'POST',
             url: `http://localhost:5000/users/rent/${idOfRoom}`,
@@ -104,13 +108,14 @@ const Rent = () => {
     const loadOption = () => {
         let randomNum = Math.floor(Math.random()*rentPlaces.length)   
 
-        const { description, price, title, images, userName, _id } = rentPlaces[randomNum]
+        const { description, price, title, images, userName, _id, capacity } = rentPlaces[randomNum]
         
         return (
             <div className="renter-option-div text-center" id={userName+randomNum}>
                 <div>{userName}</div>
                 <div><h2>{title}</h2></div>
                 <div>{price}</div>
+                <div>{capacity}</div>
                     {images.map((image, index) => {
                         return (
                             <img src={image} alt={title} key={index}/>

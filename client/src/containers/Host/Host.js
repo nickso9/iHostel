@@ -40,10 +40,12 @@ const Host = () => {
         let convertedEndDate = format(timeState[0].endDate, 'MMM/d/yyyy')
             setHost(prevState => ({
                 ...prevState,
-                range: [
-                    convertedStartDate,
-                    convertedEndDate
-                ]
+                startDate: convertedStartDate,
+                endDate: convertedEndDate
+                // range: [
+                //     convertedStartDate,
+                //     convertedEndDate
+                // ]
             }))   
     }
 
@@ -196,7 +198,9 @@ const Host = () => {
                                     capacity: host.capacity,
                                     userName: userData.user.userName,
                                     userId: userData.user.id,
-                                    range: host.range,
+                                    // range: host.range,
+                                    startDate: host.startDate,
+                                    endDate: host.endDate,
                                     title: host.title,
                                     description: host.description,
                                     price: host.price,
@@ -240,7 +244,9 @@ const Host = () => {
                                           zip: response.data.address.zip
                                         },
                                         images: response.data.images,
-                                        range: response.data.range,
+                                        // range: response.data.range,
+                                        startDate: response.data.startDate,
+                                        endDate: response.data.endDate,
                                     })
                                     
                                     history.push('/')

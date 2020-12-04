@@ -23,8 +23,10 @@ const HostOptions = () => {
 
     const [timeState, setTimeState] = useState([
         {
-            startDate: new Date(host.range[0]),
-            endDate: new Date(host.range[1]),
+            // startDate: new Date(host.range[0]),
+            // endDate: new Date(host.range[1]),
+            startDate: new Date(host.startDate),
+            endDate: new Date(host.endDate),
             key: 'selection',
         }
       ]);
@@ -187,12 +189,18 @@ const HostOptions = () => {
                     variant="dark"
                     className=""
                     onClick={() => {
+                        console.log(timeState)
                         const dataToPut = {
-                            updateRange: [
-                                format(timeState[0].startDate, 'MMM/d/yyyy'),
-                                format(timeState[0].endDate, 'MMM/d/yyyy')
-                            ]
+                            // updateRange: [
+                            //     format(timeState[0].startDate, 'MMM/d/yyyy'),
+                            //     format(timeState[0].endDate, 'MMM/d/yyyy')
+                            // ]
+                            updateRange: {
+                                startDate: timeState[0].startDate,
+                                endDate: timeState[0].endDate,
+                            }
                         }
+                        console.log(dataToPut)
                         updaterDb(dataToPut)
                     }}
                 >Update Date

@@ -52,7 +52,9 @@ export default function Login() {
                         title: hostData.data.data.title,
                         address: hostData.data.data.address,
                         images: hostData.data.data.images,
-                        range: hostData.data.data.range,
+                        // range: hostData.data.data.range,
+                        startDate: hostData.data.data.startDate,
+                        endDate: hostData.data.data.endDate,
                         bookedRange: hostData.data.data.bookedRange,
                     })
                     console.log('push')
