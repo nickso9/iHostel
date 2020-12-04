@@ -6,6 +6,7 @@ import UserContext from '../../contexts/UserContext'
 import Calender from './Calender/Calender';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col'
 import AddAddress from './AddAddress/AddAddress';
 import AddImage from './AddImage/AddImage';
 import { format } from 'date-fns'
@@ -50,35 +51,54 @@ const Host = () => {
       if (creationState === 1) {
         currentState =  (    
             <div className="w-100 mt-3 pb-5">
-                <h4 className="text-center">Title, Description & Rates </h4>
+                <h4 className="text-center">General Information </h4>
                 <hr />
-                <Form.Control 
-                    name='price'
-                    type="number"
-                    placeholder="Rate per night"
-                    onChange={ele => {
-                        updater(ele)
-                    }}
-                    value={!host.price ? '' : host.price}
-                />
-                <br />
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label>Nightly rate</Form.Label>
+                        <Form.Control 
+                            name='price'
+                            type="number"
+                            placeholder=""
+                            onChange={ele => {
+                                updater(ele)
+                            }}
+                            value={!host.price ? '' : host.price}
+                        />
+                    </Form.Group>
+                        <Form.Group as={Col}>
+                        <Form.Label>Capacity</Form.Label>
+                        <Form.Control 
+                            name='capacity'
+                            type="number"
+                            placeholder=""
+                            onChange={ele => {
+                                updater(ele)
+                            }}
+                            value={!host.capacity ? '' : host.capacity}
+                        />
+                    </Form.Group>
+                </Form.Row>
+                
+                <Form.Label>Title</Form.Label>
                 <Form.Control 
                     name='title' 
                     size="md" 
                     type="text" 
-                    placeholder="Title" 
+                    placeholder="Quietest place in town...." 
                     onChange={ele => {
                         updater(ele)
                     }}
                     value={!host.title ? '' : host.title}
                 />
                 <br />
+                <Form.Label>Description</Form.Label>
                 <Form.Group controlId="exampleForm.ControlTextarea1">       
                     <Form.Control 
                         name="description"
                         as="textarea" 
                         rows={3} 
-                        placeholder="Description of home" 
+                        placeholder="clean, warm....." 
                         onChange={ele => {
                             updater(ele)
                         }}
@@ -101,7 +121,7 @@ const Host = () => {
                     timeHandler()
 
                     
-                    if (!host.title || !host.description || !host.price) {
+                    if (!host.title || !host.description || !host.price || !host.capacity) {
                         setErrorHandler('All fields required')
                     } else {
                         setErrorHandler('')
@@ -173,7 +193,7 @@ const Host = () => {
                         
                                 const hostDataToPost = {
                                     active: true,
-                                    capacity: 8,
+                                    capacity: host.capacity,
                                     userName: userData.user.userName,
                                     userId: userData.user.id,
                                     range: host.range,
