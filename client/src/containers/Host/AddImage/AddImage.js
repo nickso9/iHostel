@@ -5,23 +5,24 @@ import { v4 } from 'uuid';
 const AddImage = () => {
     const { host, setHost } = useContext(HostContext)
     
-    // const fixImage = (newImageArr) => {
-    //     setHost(prevState => ({
-    //         ...prevState,
-    //         images: newImageArr
-    //     })) 
+    const fixImage = (newImageArr) => {
+        setHost(prevState => ({
+            ...prevState,
+            images: newImageArr
+        })) 
         
-    // }
+    }
 
-    const removeImage = (image) => {
-        setImageState((oldState) => oldState.filter((item, index) => item !== image));
-      };
+    // const removeImage = (image) => {
+    //     setImageState((oldState) => oldState.filter((item, index) => item !== image));
+    //   };
 
-    const [ imageState, setImageState] = useState([])
-    useEffect(() => {
-        setImageState(host.images)     
-    }, [])
+    // const [ imageState, setImageState] = useState([])
+    // useEffect(() => {
+    //     setImageState(host.images)     
+    // }, [])
 
+ 
     const uploadImage = async image => {
         const files = image.target.files;
         const data = new FormData();
@@ -35,9 +36,12 @@ const AddImage = () => {
             })
 
         const file = await res.json()
-        const newImageArray = [...imageState]
+        const newImageArray = [...host.images]
         newImageArray.push(file.secure_url)
-        setImageState(newImageArray) 
+        setHost(prevState => ({
+            ...prevState,
+            images: newImageArray
+        })) 
 
         
         document.getElementById("image").value = ''
@@ -46,7 +50,7 @@ const AddImage = () => {
     
     let imageCheck = true;
 
-    if (imageState.length > 1) {
+    if (host.images.length > 1) {
         imageCheck = false
     }
 
@@ -54,7 +58,7 @@ const AddImage = () => {
             <>
                 <div className='host-images-container mb-2'>
                     
-                        {imageState.map((images, index) => {      
+                        {host.images.map((images, index) => {      
                             if (index === 0) {
                           
                                 return (
@@ -68,8 +72,9 @@ const AddImage = () => {
                                         onClick={() => {
                                             console.log('hihi')
                                             let imageToRemove = String(document.getElementById('main-image-src').firstElementChild.getAttribute('src'))
+                                            let newArrayImgs = host.images.filter(item => item !== imageToRemove);
                                             // let idToRemove = Number(document.getElementById('main-image-src').firstElementChild.getAttribute('id'))
-                                            removeImage(imageToRemove) 
+                                            fixImage(newArrayImgs) 
                                           
                                         }}
                                     >Remove </button>
