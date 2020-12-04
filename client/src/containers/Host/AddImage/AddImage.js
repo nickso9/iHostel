@@ -1,9 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState, useReducer } from 'react';
 import HostContext from '../../../contexts/HostContext'
 
 const AddImage = () => {
   
     const { host, setHost } = useContext(HostContext)
+    
+    const fixImage = (newImageArr) => {
+        setHost(prevState => ({
+            ...prevState,
+            images: newImageArr
+        })) 
+        
+    }
+
+    const [ imageState, setImageState] = useState([])
+    useEffect(() => {
+        setImageState(host.images)  
+        
+    }, [host.images])
 
     const uploadImage = async image => {
         const files = image.target.files;
@@ -26,10 +40,10 @@ const AddImage = () => {
         } 
 
     ))
-        document.getElementById("image").value = ''
+        // document.getElementById("image").value = ''
         
     }
-
+    
     let imageCheck = true;
 
     if (host.images.length > 1) {
@@ -40,8 +54,9 @@ const AddImage = () => {
             <>
                 <div className='host-images-container mb-2'>
                     
-                        {host.images.map((images, index) => {
+                        {imageState.map((images, index) => {      
                             if (index === 0) {
+                          
                                 return (
                                   <div key={index}>
                                 <div className='main-image-container d-block' id='main-image-src'><img id={index} alt="" src={images} /></div>
@@ -51,12 +66,13 @@ const AddImage = () => {
                                         disabled={imageCheck}
                                         className="border border-secondary px-3 float-right"
                                         onClick={() => {
-                                            console.log('hihi')
-                                            setHost(prevState => ({
-                                                ...prevState,
-                                                images: [host.images.pop()]
-                                            })) 
+                                            let imageToRemove = String(document.getElementById('main-image-src').firstElementChild.getAttribute('src'))
+                                            let idToRemove = document.getElementById('main-image-src').firstElementChild.getAttribute('id')
+                                      
+                                            let newImageArr = imageState.filter((e, i) => i !== Number(idToRemove))
                                         
+                                            fixImage(newImageArr)   
+                                          
                                         }}
                                     >Remove </button>
                                     </div>
@@ -73,8 +89,8 @@ const AddImage = () => {
                                         alt=""
                                         src={images} 
                                         onClick={(e) => {
-                                            console.log(e.target)
-                                            const mainImage = {
+                                            console.log(e.target.id + " " + e.target.src)
+                                            let mainImage = {
                                                 src: document.getElementById('main-image-src').firstElementChild.getAttribute('src'),
                                                 id: document.getElementById('main-image-src').firstElementChild.getAttribute('id'),
                                             }
@@ -85,8 +101,8 @@ const AddImage = () => {
                                             
                                             document.getElementById(smallImageContainer).lastElementChild.setAttribute('id', mainImage.id)
                                             document.getElementById(smallImageContainer).lastElementChild.setAttribute('src', mainImage.src)
-
-                                                                
+                                            
+                                            mainImage = {}              
                                         }}/></div>
                             }
                         })}

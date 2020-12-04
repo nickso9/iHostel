@@ -29,7 +29,7 @@ export default function AuthOptions() {
               city: undefined,
               zip: undefined
             },
-            images: [undefined, undefined],
+            images: [],
             range: [new Date(), new Date()],
         })
     };
