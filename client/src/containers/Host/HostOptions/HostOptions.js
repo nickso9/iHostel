@@ -47,11 +47,7 @@ const HostOptions = () => {
             }
         })
         .then(() => {
-            setHost(prevState => ({
-                ...prevState,
-                title: generalInfo.title,
-                description: generalInfo.description
-            }))
+            
         })
         .catch(err => console.log(err))
     }
@@ -124,6 +120,13 @@ const HostOptions = () => {
                     }
                 }
                 updaterDb(dataToPut)
+
+                setHost(prevState => ({
+                    ...prevState,
+                    title: generalInfo.title,
+                    description: generalInfo.description
+                }))
+
             }}
             >Update Info</Button>
             </div>
@@ -166,9 +169,19 @@ const HostOptions = () => {
                     variant="warning"
                     className=""
                     onClick={() => {
-                        
+                        const dataToPut = {
+                            active : {
+                                active: !host.active
+                            }
+                        }
+                        updaterDb(dataToPut)
+
+                        setHost(prevState => ({
+                            ...prevState,
+                            active: !host.active
+                        }))
                     }}
-                >Pause Booking
+                >{host.active ? "Pause Booking" : "Booking is Paused"}
                 </Button>
                 <Button 
                     variant="dark"
@@ -208,9 +221,7 @@ const HostOptions = () => {
             </Nav.Item>
         </Nav>
         <div>
-
             {updateCurrentState}
-
         </div>
         </div>
         
