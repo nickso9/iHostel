@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import HostContext from '../../contexts/HostContext';
 import UserContext from '../../contexts/UserContext'
-import Calender from '../../components/Calender/Calender';
+import Calender from './Calender/Calender';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import AddAddress from './AddAddress/AddAddress';

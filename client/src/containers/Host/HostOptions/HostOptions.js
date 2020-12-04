@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
+import { format } from 'date-fns'
 import HostContext from '../../../contexts/HostContext';
 import AddAddress from '../../Host/AddAddress/AddAddress';
 import AddImage from '../../Host/AddImage/AddImage';
-import Calender from '../../../components/Calender/Calender';
+import Calender from '../Calender/Calender';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav'
@@ -51,8 +52,6 @@ const HostOptions = () => {
                 title: generalInfo.title,
                 description: generalInfo.description
             }))
-            console.log(host)
-            console.log(generalInfo)
         })
         .catch(err => console.log(err))
     }
@@ -131,6 +130,7 @@ const HostOptions = () => {
           )
           
       } else if (updateState === 2) {
+            
             updateCurrentState = (
                 <div className="mt-4">
                 <AddImage />
@@ -144,7 +144,7 @@ const HostOptions = () => {
                                 images: host.images
                             }
                         }
-                        console.log(dataToPut)
+                        
                         updaterDb(dataToPut)
                     }}
                 >Update Image
@@ -159,9 +159,32 @@ const HostOptions = () => {
                     <div className="mt-4">
                 <Calender 
                     timeState={timeState} 
-                    setTimeState={setTimeState}
-                    
+                    setTimeState={setTimeState}     
                 />
+                <div className="d-flex justify-content-between mt-5">
+                <Button 
+                    variant="warning"
+                    className=""
+                    onClick={() => {
+                        
+                    }}
+                >Pause Booking
+                </Button>
+                <Button 
+                    variant="dark"
+                    className=""
+                    onClick={() => {
+                        const dataToPut = {
+                            updateRange: [
+                                format(timeState[0].startDate, 'MMM/d/yyyy'),
+                                format(timeState[0].endDate, 'MMM/d/yyyy')
+                            ]
+                        }
+                        updaterDb(dataToPut)
+                    }}
+                >Update Date
+                </Button>
+                </div>
                 </div>
             </div>
             

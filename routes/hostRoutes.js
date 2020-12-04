@@ -33,6 +33,8 @@ router.put('/host/:id', auth, async (req, res) => {
         insert = {title: req.body.genInfo.title, description: req.body.genInfo.description} 
     } else if (req.body.updateImages) {
         insert = {images: req.body.updateImages.images}
+    } else if (req.body.updateRange) {
+        insert = {range: req.body.updateRange}
     }
     const updateHostInfo = await Host.findByIdAndUpdate({_id: req.params.id}, insert)
     res.send(updateHostInfo)
