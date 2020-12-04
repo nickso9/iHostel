@@ -5,13 +5,13 @@ import { v4 } from 'uuid';
 const AddImage = () => {
     const { host, setHost } = useContext(HostContext)
     
-    const fixImage = (newImageArr) => {
-        setHost(prevState => ({
-            ...prevState,
-            images: newImageArr
-        })) 
+    // const fixImage = (newImageArr) => {
+    //     setHost(prevState => ({
+    //         ...prevState,
+    //         images: newImageArr
+    //     })) 
         
-    }
+    // }
 
     const removeImage = (image) => {
         setImageState((oldState) => oldState.filter((item, index) => item !== image));
@@ -46,7 +46,7 @@ const AddImage = () => {
     
     let imageCheck = true;
 
-    if (host.images.length > 1) {
+    if (imageState.length > 1) {
         imageCheck = false
     }
 
@@ -66,6 +66,7 @@ const AddImage = () => {
                                         disabled={imageCheck}
                                         className="border border-secondary px-3 float-right"
                                         onClick={() => {
+                                            console.log('hihi')
                                             let imageToRemove = String(document.getElementById('main-image-src').firstElementChild.getAttribute('src'))
                                             // let idToRemove = Number(document.getElementById('main-image-src').firstElementChild.getAttribute('id'))
                                             removeImage(imageToRemove) 
