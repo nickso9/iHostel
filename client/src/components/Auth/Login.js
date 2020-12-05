@@ -44,6 +44,7 @@ export default function Login() {
                 console.log('try host ')
                 if (hostData.data.hosting) {
                     setHost({
+                        id: hostData.data.data._id,
                         active: hostData.data.data.active,
                         capacity: hostData.data.data.capacity,
                         userId: hostData.data.data.userId,

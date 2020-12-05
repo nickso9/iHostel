@@ -40,6 +40,7 @@ const HostOptions = () => {
     }
 
     const updaterDb = (data) => {
+        console.log(host.id)
         axios({
             method: 'PUT',
             url: `http://localhost:5000/users/host/${host.id}`,

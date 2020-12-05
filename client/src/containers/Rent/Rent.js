@@ -26,18 +26,22 @@ const Rent = () => {
                  params: { 
                      user: userData.user.id,
                      date: convertedDate
-            }})
+            }}) 
             .then(response => {
                 if (response.data.hosted) {
                     setRentPlaces(response.data.alreadyHosted)
                     setUserHasBooked(true)
                     // setLoading(false)
                 } else {
+                    if (response.data.length <= 0) {
+                        setRentPlaces(response.data)
+                    } else {
                     let randomNum = Math.floor(Math.random()*response.data.length)
-                    console.log(randomNum)
+                    console.log(response.data)
                     setRentPlaces([response.data[randomNum]])
                     console.log(response.data[randomNum])
                     // setLoading(false)
+                    }
                 } 
             })
             .catch(error => console.log(error))
