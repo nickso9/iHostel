@@ -11,7 +11,8 @@ router.post('/rent/add/:id', auth, async (req, res) => {
     const queryRoomSearch = { _id: roomId, [`usersYes.${date}`] : { $exists: true}}
     const checkIt = await User.findOne(querySearch)
     const checkRoom = await Host.findOne(queryRoomSearch)
-        if (checkRoom || checkIt) {
+        // if (!checkRoom || checkIt) {
+            if (false) {
             console.log('already booked')
             res.json('already booked a day')
         } else {
@@ -33,10 +34,11 @@ router.post('/rent/add/:id', auth, async (req, res) => {
 
             Host.updateOne({
                 _id: roomId
-            }, {  $addToSet: {
+            }, {  $push: {
                     usersYes: {
-                        [date]: userId
-                    }     
+                        day: date,
+                        user: userId
+                    }    
                 } 
             })
             .then(response => {
@@ -78,7 +80,9 @@ router.get('/rent', async (req, res) => {
     let coords = ["-121.478851", "38.575764"]
     // coords[0] = req.body.longitude
     // coords[1] = req.body.latitude
-    const queryStay = {usersYes: { [date]: userId}}
+
+    // fixing //
+    const queryStay = {usersYes: {[date]: userId}}
     const alreadyHosted = await Host.findOne(queryStay)
     if (alreadyHosted) {
         res.send({hosted: true,
@@ -86,11 +90,13 @@ router.get('/rent', async (req, res) => {
         })
     } else {
 
-
-        const querySearch = {[`usersYes.${date}`] : { $exists: false}}
+        // let lelele = `"usersYes.${date}"`
+        // const querySearch = {[`"usersYes.${date}"`] : { $exists: false}}
         
-        // const querySearch = {usersYes: `usersYes.${date}`}
-         
+        // Host.find({}, {"usersYes.day": date})
+        // .then(e => console.log(e))
+        // .catch(err => console.log(err))
+
         Host.find({
             $and: [ {
             "loc.coordinates": {
@@ -109,11 +115,13 @@ router.get('/rent', async (req, res) => {
                 "$ne": false
             },
             }, 
-            querySearch,
+            // querySearch,
             {startDate:{$lte:new Date()}},{endDate:{$gte:new Date()}}
             ] } )
         .then(response => {
-            console.log(response)
+            
+            console.log('hihi')
+            // console.log(response[0].usersYes.day[0] === date)
             res.send(response)   
             })
         .catch(error => res.json(error))
@@ -129,7 +137,7 @@ router.post('/rent/:id', auth, async (req, res) => {
         _id: placeDenied
     }, {$addToSet: { "usersNo": {[userSaysNoDay]: userSaysNo}}})
     .then(response => {
-        console.log(response)
+        
         res.json(response)
     })
     .catch(error => res.json(error))

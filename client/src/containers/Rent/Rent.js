@@ -8,7 +8,7 @@ import UserContext from '../../contexts/UserContext'
 const Rent = () => {
 
     const { userData } = useContext(UserContext)
-    const [rentPlaces, setRentPlaces] = useState(null)
+    const [rentPlaces, setRentPlaces] = useState([])
     const [ loading, setLoading ] = useState(true)
     const [ userHasBooked, setUserHasBooked ] = useState(false)
 
@@ -17,8 +17,10 @@ const Rent = () => {
     let renterOption;
 
     useEffect(() => {
-        
+        console.log(rentPlaces.length)
         const searchLocation = () => {
+            // if (rentPlaces.length === 0) {
+                console.log('jijijij')
             axios.get('http://localhost:5000/users/rent',
              { 
                  params: { 
@@ -29,16 +31,21 @@ const Rent = () => {
                 if (response.data.hosted) {
                     setRentPlaces(response.data.alreadyHosted)
                     setUserHasBooked(true)
-                    setLoading(false)
+                    // setLoading(false)
                 } else {
-                    setRentPlaces(response.data)
-                    setLoading(false)
-                }   
+                    let randomNum = Math.floor(Math.random()*response.data.length)
+                    console.log(randomNum)
+                    setRentPlaces([response.data[randomNum]])
+                    console.log(response.data[randomNum])
+                    // setLoading(false)
+                } 
             })
             .catch(error => console.log(error))
+        // }
         }
         searchLocation()
-    }, [userData.user.id, loading, convertedDate]);
+        
+    }, [userData.user.id, loading, convertedDate, setRentPlaces]);
 
     /// working on this ///
     const userSaysNo = async (idOfRoom) => { 
@@ -54,11 +61,17 @@ const Rent = () => {
                 'x-auth-token': authToken
             } 
             })
-            .then(() => {            
-                setLoading(false) 
+            .then(() => {     
+                console.log('set rent places')       
+               
             })
             .catch(error => console.log(error))
              
+             setRentPlaces({
+                    rentPlaces: rentPlaces.pop()
+                })
+
+            setLoading(false)
     }
 
     const userSaysYes = async (idOfRoom) => {
@@ -106,12 +119,15 @@ const Rent = () => {
 
 
     const loadOption = () => {
-        let randomNum = Math.floor(Math.random()*rentPlaces.length)   
-
-        const { description, price, title, images, userName, _id, capacity } = rentPlaces[randomNum]
+        console.log(rentPlaces)
+        // console.log('load option')
+        let randomNum = Math.floor(Math.random()*5)   
+        // console.log(rentPlaces)
+        // const { description, price, title, images, userName, _id, capacity } = rentPlaces[randomNum]
+        const { description, price, title, images, userName, _id, capacity } = rentPlaces[0]
         
         return (
-            <div className="renter-option-div text-center" id={userName+randomNum}>
+            <div className="renter-option-div text-center" id={randomNum}>
                 <div>{userName}</div>
                 <div><h2>{title}</h2></div>
                 <div>{price}</div>
@@ -150,7 +166,6 @@ const Rent = () => {
                                 variant="danger" 
                                 onClick={() => {     
                                     userSaysNo(_id)   
-                                    setLoading(true)
                                 }}   
                             >no</Button>
                             <Button 
@@ -158,7 +173,7 @@ const Rent = () => {
                                 variant="success" 
                                 onClick={() => {
                                     userSaysYes(_id)
-                                    setLoading(true)
+                                    // setLoading(true)
                                 }}
                             >rent</Button>
                         </>
@@ -177,15 +192,15 @@ const Rent = () => {
             }
         }
     
-    if (!loading) {
+    // if (loading === false) {
         if (rentPlaces.length > 0) {
             renterOption = loadOption()
         } else {
             renterOption = <div>no matches</div>
         }
-    } else {
+    // } else {
         // renterOption = <div>loading....</div>
-    }
+    // }
     
     return (
         
