@@ -73,8 +73,7 @@ router.put('/rent/add/:id', auth, async (req, res) => {
 router.get('/rent', async (req, res) => {
     const userId = req.query.user
     const date = req.query.date
-    console.log(date)
-    let limit = 10;
+   
     let maxDistance = (25/3963)
     let coords = ["-121.478851", "38.575764"]
     // coords[0] = req.body.longitude
@@ -86,7 +85,12 @@ router.get('/rent', async (req, res) => {
             alreadyHosted: [alreadyHosted]
         })
     } else {
+
+
         const querySearch = {[`usersYes.${date}`] : { $exists: false}}
+        
+        // const querySearch = {usersYes: `usersYes.${date}`}
+         
         Host.find({
             $and: [ {
             "loc.coordinates": {
@@ -104,10 +108,12 @@ router.get('/rent', async (req, res) => {
             "active": {
                 "$ne": false
             },
-            }, querySearch,
+            }, 
+            querySearch,
             {startDate:{$lte:new Date()}},{endDate:{$gte:new Date()}}
             ] } )
         .then(response => {
+            console.log(response)
             res.send(response)   
             })
         .catch(error => res.json(error))
@@ -118,16 +124,10 @@ router.post('/rent/:id', auth, async (req, res) => {
     
     const userSaysNo = req.user
     const userSaysNoDay = req.body.day
-    console.log(userSaysNo)
-    console.log(userSaysNoDay)
-    // console.log({$push: { "usersNo": {[userSaysNoDay]: userSaysNo}}})
     const placeDenied = req.params.id
     await Host.updateOne({
         _id: placeDenied
-    }, {$addToSet: { "usersNo": {[userSaysNoDay]: userSaysNo}}}
-    // {$addToSet: {usersNo: userSaysNo}},
-    
-    )
+    }, {$addToSet: { "usersNo": {[userSaysNoDay]: userSaysNo}}})
     .then(response => {
         console.log(response)
         res.json(response)
