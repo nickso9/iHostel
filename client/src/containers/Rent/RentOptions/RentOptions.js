@@ -1,13 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { v4 } from 'uuid';
+import axios from 'axios';
 
 const RentOptions = (props) => {
 
-    const { title, price, description, images, userName, capacity, usersYes } = props.hostData
-    // {userName[1].toUpperCase() + userName.slice(1)}
+   const { title, price, description, images, userName, capacity, usersYes } = props.hostData
+   const authToken = localStorage.getItem('auth-token')
+  
+   useEffect(() => {
+        let arrayOfusers = []
+        for (const key in usersYes) {
+        if (usersYes[key].day === props.todaysDate) {
+                arrayOfusers.push(usersYes[key].user)
+        }
+   }
+
+        axios({
+            method: 'GET',
+            url: `http://localhost:5000/users/find/`, 
+            params: arrayOfusers,
+            headers: {
+                'x-auth-token': authToken
+            } 
+        })
+        .then(() => {
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
+        }, [usersYes])
+
+    
+   
+    
     return (
         <div>
-            <h4>Booking for: <span className="text-success">{props.todaysDate}</span></h4>
+            <h4>Booking for: <span className="text-success">{props.todaysDate} </span>at $<span className="text-success">{price}</span></h4>
+            <div style={{'color': '#F481FF'}}><h5>{title}</h5></div>
             {images.map((images, index) => {      
                             if (index === 0) {
                           
@@ -45,9 +76,16 @@ const RentOptions = (props) => {
                                         }}/></div>
                             }
                         })}
-            
+            <div className="mt-5" style={{fontSize: '18px'}}>
+                <div className="text-left">
+                    
+                    <div><span className="text-info">Info:</span> {description}</div>
+                </div>
+                <div className="mt-2 text-left"><span className="text-info">Host: </span>{userName[1].toUpperCase() + userName.slice(1)}</div>
+                
 
 
+            </div>
         </div>
     )
 }

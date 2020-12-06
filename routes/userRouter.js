@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const auth = require('../auth/auth');
 const User = require('../models/UserModel');
-const Host = require('../models/HostModel')
+
 
 router.post('/register', async (req, res) => {
     try {
@@ -80,5 +81,8 @@ router.post('/login', async (req, res) => {
 });
 
 
+router.get('/find', auth, async (req, res) => {
+    console.log(req.query)
+})
 
 module.exports = router;
