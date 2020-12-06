@@ -18,7 +18,7 @@ const RentOptions = (props) => {
         axios({
             method: 'GET',
             url: `http://localhost:5000/users/find/`, 
-            params: arrayOfusers,
+            params: [arrayOfusers],
             headers: {
                 'x-auth-token': authToken
             } 

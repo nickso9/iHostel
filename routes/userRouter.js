@@ -82,7 +82,16 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/find', auth, async (req, res) => {
-    console.log(req.query)
+    let userObj = []
+    
+    req.query[0].map(e => {
+        console.log(e)
+        userObj.push(e)
+    })
+
+    // console.log({...userObj})
+    const userFind = await User.find({_id: userObj})
+    console.log(userFind)
 })
 
 module.exports = router;
