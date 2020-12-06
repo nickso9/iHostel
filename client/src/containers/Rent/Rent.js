@@ -3,7 +3,7 @@ import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import { format } from 'date-fns'
 import UserContext from '../../contexts/UserContext'
-
+import RentOptions from './RentOptions/RentOptions'
 
 const Rent = () => {
 
@@ -19,8 +19,6 @@ const Rent = () => {
     useEffect(() => {
       
         const searchLocation = async () => {
-            // if (rentPlaces.length === 0) {
-                console.log('jijijij')
             await axios.get('http://localhost:5000/users/rent',
              { 
                  params: { 
@@ -30,36 +28,38 @@ const Rent = () => {
             .then(async response => {
                 
                 if (response.data.hosted) {
-                    console.log('already rent.js hosted')
+                    console.log('already rent.js hosted')  
                     setRentPlaces(response.data.alreadyHosted)
                     setUserHasBooked(true)
+                    
                 } else {
                     let upgradedRes = await [...response.data].filter(ele => { 
-        
                     if (ele.usersYes.length === 0) {
                         console.log('none')
                         return ele
                     } else if (ele.usersYes.filter(e => e.day === convertedDate).length < ele.capacity)  {
+                        console.log('hkadhjs')
                         console.log(ele.usersYes.filter(e => e.day === convertedDate).length)
                         return ele            
-                    }        
+                    } else {
+                        console.log('NONE FOUND')
+                    }
                 })
-                    if (upgradedRes.length <= 0) {
+
+                // it was <= 0
+                    if (upgradedRes.length > 0) {
                         console.log(upgradedRes)
                         setRentPlaces(upgradedRes)
                         
-                    } else {
-                        
-                    let randomNum = Math.floor(Math.random()*response.data.length)
-                    // console.log(response.data)
-                     setRentPlaces([response.data[randomNum]])
-                    // console.log(response.data[randomNum])
-                    // setLoading(false)
-                    }
+                    // } else {     
+                    // let randomNum = Math.floor(Math.random()*response.data.length)
+                    //  setRentPlaces([response.data[randomNum]])
+                    // 
+                    } 
                 } 
             })
             .catch(error => console.log(error))
-        // }
+       
         }
         searchLocation()
         
@@ -138,13 +138,12 @@ const Rent = () => {
 
     const loadOption = () => {
         // console.log('load option')
-        let randomNum = Math.floor(Math.random()*5)   
         // console.log(rentPlaces)
         // const { description, price, title, images, userName, _id, capacity } = rentPlaces[randomNum]
         const { description, price, title, images, userName, _id, capacity } = rentPlaces[0]
         
         return (
-            <div className="renter-option-div text-center" id={randomNum}>
+            <div className="renter-option-div text-center" id={5}>
                 <div>{userName}</div>
                 <div><h2>{title}</h2></div>
                 <div>{price}</div>
@@ -205,24 +204,29 @@ const Rent = () => {
     let userBookedStyle;
         if (userHasBooked) {
             userBookedStyle = {
-                backgroundColor: 'yellow'
+                backgroundColor: '#E7EFF7',
+                color: '#171C24'
             }
         }
-    
+        console.log(rentPlaces)
     // if (loading === false) {
-        if (rentPlaces.length > 0) {
+        if (userHasBooked) {
+            renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate}/>
+        }
+        else if (rentPlaces.length > 0) {
             renterOption = loadOption()
         } else {
-            renterOption = <div>no matches</div>
+            // renterOption = <div>no matches</div>
         }
     // } else {
         // renterOption = <div>loading....</div>
     // }
-    
+    console.log(userHasBooked)
     return (
         
         <div id="rent-wrapper" style={userBookedStyle}>
-            {renterOption}   
+                {renterOption} 
+       
         </div>
     )
 

@@ -110,7 +110,6 @@ function App() {
                         zip: hostData.data.data.address.zip
                       },
                       images: hostData.data.data.images,
-                      // range: hostData.data.data.range,
                       startDate: hostData.data.data.startDate,
                       endDate: hostData.data.data.endDate
                   })
@@ -145,19 +144,6 @@ function App() {
                   />       
                   
             </Route>
-
-
-
-            {/* <Route exact path='/options'>
-
-                  <PrivateRoute
-                    component={Options}
-                    loggedIn={userData}
-                  />       
-                  
-            </Route> */}
-           
-            
              
               <Route exact path='/login'>
               {userData.user ? <Redirect to="/" /> :

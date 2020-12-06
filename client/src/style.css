@@ -172,7 +172,36 @@ input[type="date"]:valid::before { display: none }
   height: 100%;
 }
 
+.main-image-container-rent {
+  margin: auto;
+  max-width: 500px;
+  height: 300px;
+  padding-right: -5px;
+  padding-left: -5px;
+}
 
+.main-image-container-rent img{
+  width: 100%;
+  height: 100%;
+  border: 3px solid  #000000;
+}
+
+.small-image-container-rent {
+  height: 70px;
+  width: 70px;
+  
+  /* display: inline-flex; */
+  border: 3px solid  #171C24;
+  padding: 1px;
+  /* justify-content: space-between; */
+  
+}
+
+.small-image-container-rent img{
+  width: 100%;
+  height: 100%;
+  
+}
 /* Register */
 
 .register-login-wrapper {
