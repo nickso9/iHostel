@@ -17,29 +17,43 @@ const Rent = () => {
     let renterOption;
 
     useEffect(() => {
-        console.log(rentPlaces.length)
-        const searchLocation = () => {
+      
+        const searchLocation = async () => {
             // if (rentPlaces.length === 0) {
                 console.log('jijijij')
-            axios.get('http://localhost:5000/users/rent',
+            await axios.get('http://localhost:5000/users/rent',
              { 
                  params: { 
                      user: userData.user.id,
                      date: convertedDate
             }}) 
-            .then(response => {
+            .then(async response => {
+                
                 if (response.data.hosted) {
+                    console.log('already rent.js hosted')
                     setRentPlaces(response.data.alreadyHosted)
                     setUserHasBooked(true)
-                    // setLoading(false)
                 } else {
-                    if (response.data.length <= 0) {
-                        setRentPlaces(response.data)
+                    let upgradedRes = await [...response.data].filter(ele => { 
+        
+                    if (ele.usersYes.length === 0) {
+                        console.log('none')
+                        return ele
+                    } else if (ele.usersYes.filter(e => e.day === convertedDate).length < ele.capacity)  {
+                        console.log(ele.usersYes.filter(e => e.day === convertedDate).length)
+                        return ele            
+                    }        
+                })
+                    if (upgradedRes.length <= 0) {
+                        console.log(upgradedRes)
+                        setRentPlaces(upgradedRes)
+                        
                     } else {
+                        
                     let randomNum = Math.floor(Math.random()*response.data.length)
-                    console.log(response.data)
-                    setRentPlaces([response.data[randomNum]])
-                    console.log(response.data[randomNum])
+                    // console.log(response.data)
+                     setRentPlaces([response.data[randomNum]])
+                    // console.log(response.data[randomNum])
                     // setLoading(false)
                     }
                 } 
@@ -92,7 +106,7 @@ const Rent = () => {
                 } 
             })
             .then(() => {
-
+                setUserHasBooked(true)
             })
             .catch(error => {
                 console.log(error)
@@ -123,7 +137,6 @@ const Rent = () => {
 
 
     const loadOption = () => {
-        console.log(rentPlaces)
         // console.log('load option')
         let randomNum = Math.floor(Math.random()*5)   
         // console.log(rentPlaces)

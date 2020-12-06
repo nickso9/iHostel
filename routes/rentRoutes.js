@@ -82,9 +82,11 @@ router.get('/rent', async (req, res) => {
     // coords[1] = req.body.latitude
 
     // fixing //
-    const queryStay = {usersYes: {[date]: userId}}
+    // const queryStay = {usersYes: {[date]: userId}}
+    const queryStay = {"usersYes.day": date, "usersYes.user": userId}
     const alreadyHosted = await Host.findOne(queryStay)
     if (alreadyHosted) {
+        console.log('already hosted')
         res.send({hosted: true,
             alreadyHosted: [alreadyHosted]
         })
@@ -120,9 +122,9 @@ router.get('/rent', async (req, res) => {
             ] } )
         .then(response => {
             
-            console.log('hihi')
+            res.send(response)
             // console.log(response[0].usersYes.day[0] === date)
-            res.send(response)   
+             
             })
         .catch(error => res.json(error))
         }
