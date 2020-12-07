@@ -73,8 +73,12 @@ const RentOptions = (props) => {
 
                                 let smallImageContainer = v4()
                         
-                                return <div className='small-image-container-rent m-4' key={v4()} id={smallImageContainer}>
-                                    
+                                return (
+                               
+                                <div key={v4()}>
+                                <span  style={{fontSize: '11px'}}>click thumbnails to see in main window</span>
+                                <div className='small-image-container-rent m-4'  id={smallImageContainer}>
+
                                     <img 
                                         id={v4()}
                                         alt=""
@@ -94,6 +98,8 @@ const RentOptions = (props) => {
                                             
                                             mainImage = {}              
                                         }}/></div>
+                                       </div>
+                                )
                             }
                         })}
             <div className="mt-4" style={{fontSize: '18px'}}>

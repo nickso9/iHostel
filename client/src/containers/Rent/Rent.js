@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { format } from 'date-fns'
 import UserContext from '../../contexts/UserContext'
 import RentOptions from './RentOptions/RentOptions'
+import { v4 } from 'uuid';
 
 const Rent = () => {
 
@@ -44,7 +45,7 @@ const Rent = () => {
                         console.log('hihasdasdi')
                         return ele            
                     } else {
-                        console.log('NONE FOUND')
+                        return 
                     }
                     
                 })
@@ -122,21 +123,65 @@ const Rent = () => {
         // console.log('load option')
         // console.log(rentPlaces)
         // const { description, price, title, images, userName, _id, capacity } = rentPlaces[randomNum]
-        const { description, price, title, images, userName, _id, capacity } = rentPlaces[0]
+        const { description, price, title, images, userName, _id } = rentPlaces[0]
         
         return (
-            <div className="renter-option-div text-center" id={5}>
-                <div>{userName}</div>
+            <div key={5}> 
+            <div className="text-right" style={{"font-size":"40px",'color': "green", "margin-top": '-40px', "margin-right": '-20px'}}>${price}/night</div>
+            <div className="renter-option-div text-center mt-4" >
+                
+                <div><h4>Available today: {convertedDate} !!</h4></div>
                 <div><h2>{title}</h2></div>
-                <div>{price}</div>
-                <div>{capacity}</div>
-                    {images.map((image, index) => {
-                        return (
-                            <img src={image} alt={title} key={index}/>
-                        )
-                    })}
-                <div>{description}</div>
-                <div className="d-flex justify-content-between my-3">
+                <div className="text-right" style={{"fontSize": '14px'}}><span style={{'color': "white"}}>Host: </span>{userName[0].toUpperCase() + userName.slice(1)}</div>
+                {images.map((images, index) => {      
+                            if (index === 0) {
+                          
+                                return (
+                                  <div key={v4()}>
+                                <div className='main-image-container-rent d-block mt-4' id='main-image-src'><img id={v4()} alt="" src={images} /></div>
+            
+                                    </div>
+                                    
+                                )
+                            } else {
+
+                                let smallImageContainer = v4()
+                                
+                                return (
+                                <div key={v4()}> 
+                                <span  style={{fontSize: '11px'}}>click thumbnails to see in main window</span>
+                                <div className='small-image-container-rent m-3'  id={smallImageContainer}>
+                                    
+                                    <img 
+                                        id={v4()}
+                                        alt=""
+                                        src={images} 
+                                        onClick={(e) => {
+                                            let mainImage = {
+                                                src: document.getElementById('main-image-src').firstElementChild.getAttribute('src'),
+                                                id: document.getElementById('main-image-src').firstElementChild.getAttribute('id'),
+                                            }
+                                            
+                                            document.getElementById('main-image-src').firstElementChild.setAttribute('src', `${e.target.src}`)
+                                            document.getElementById('main-image-src').firstElementChild.setAttribute('id', `${e.target.id}`)
+
+                                            
+                                            document.getElementById(smallImageContainer).lastElementChild.setAttribute('id', mainImage.id)
+                                            document.getElementById(smallImageContainer).lastElementChild.setAttribute('src', mainImage.src)
+                                            
+                                            mainImage = {}              
+                                        }}/></div>
+                                        </div>
+                                )
+                            }
+                        })}
+
+
+                
+                
+                <div className="mt-1 text-left"><span style={{'color': "white"}} className="d-block">Info: </span>{description}</div>
+
+                <div className="d-flex justify-content-between mt-5">
 
                         <>
                             <Button 
@@ -158,7 +203,8 @@ const Rent = () => {
                     
                  
                 </div>
-            </div>    
+            </div>  
+            </div>
         )
         
     }
