@@ -166,15 +166,15 @@ const Rent = () => {
     let userBookedStyle;
         if (userHasBooked) {
             userBookedStyle = {
-                backgroundColor: '#E7EFF7',
-                color: '#171C24'
+                backgroundColor: '#1F6284',
+                color: 'white'
             }
         }
      
     // if (loading === false) {
         if (userHasBooked) {
         
-            renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate}/>
+            renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate} setUserHasBooked={setUserHasBooked}/>
         }
         else if (rentPlaces.length > 0) {
             renterOption = loadOption()

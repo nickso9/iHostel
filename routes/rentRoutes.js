@@ -57,7 +57,7 @@ router.put('/rent/add/:id', auth, async (req, res) => {
     const { roomId, date } = req.body
     const userId = req.user
     const cancelUsersRoom = {userBooked: { [date] : roomId}}
-    const cancelRoomsUser = {usersYes: { [date]: userId}}
+    const cancelRoomsUser = {usersYes: { day: date, user: userId}}
         await Host.updateOne({_id: roomId},{$pull: cancelRoomsUser})
         .then(() => {
             return User.updateOne({_id: userId}, {$pull: cancelUsersRoom})

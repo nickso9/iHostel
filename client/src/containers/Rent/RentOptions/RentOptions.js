@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import UserContext from '../../../contexts/UserContext'
 import { v4 } from 'uuid';
 import axios from 'axios';
 
 const RentOptions = (props) => {
 
+    const { userData } = useContext(UserContext)
     const { title, price, description, images, userName, capacity, _id } = props.hostData
     const authToken = localStorage.getItem('auth-token')
     const [ otherUsers, setOtherUsers ] = useState('')
@@ -32,37 +34,37 @@ const RentOptions = (props) => {
        
    
         const cancelBooking = async (idOfRoom) => {
-            
-            // const userWantsToCancel = userData.user.id 
-            // await axios({
-            //     method: 'PUT',
-            //     url: `http://localhost:5000/users/rent/add/${userWantsToCancel}`, 
-            //     data: {
-            //         roomId: idOfRoom,
-            //         date: convertedDate
-            //     },
-            //     headers: {
-            //         'x-auth-token': authToken
-            //     } 
-            // })
-            // .then(() => {
-    
-            // })
-            // .catch(error => {
-            //     console.log(error)
-            // })
+            const userWantsToCancel = userData.user.id  
+            await axios({
+                method: 'PUT',
+                url: `http://localhost:5000/users/rent/add/${userWantsToCancel}`, 
+                data: {
+                    roomId: idOfRoom,
+                    date: props.todaysDate
+                },
+                headers: {
+                    'x-auth-token': authToken
+                } 
+            })
+            .then(() => {
+                props.setUserHasBooked(false)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         }
     
     return (
         <div>
-            <h4>Booking for: <span className="text-success">{props.todaysDate} </span>at $<span className="text-success">{price}</span></h4>
-            <div style={{'color': '#F481FF'}}><h5>{title}</h5></div>
+            <h4>Booking for: <span>{props.todaysDate} </span>at $<span>{price} !</span></h4>
+            <div ><h5>{title}</h5></div>
+            <div className="text-right"><span style={{'color': "#F2AB7E"}}>Presented By: </span>{userName[0].toUpperCase() + userName.slice(1)}</div>
             {images.map((images, index) => {      
                             if (index === 0) {
                           
                                 return (
                                   <div key={v4()}>
-                                <div className='main-image-container-rent d-block mt-5' id='main-image-src'><img id={v4()} alt="" src={images} /></div>
+                                <div className='main-image-container-rent d-block mt-4' id='main-image-src'><img id={v4()} alt="" src={images} /></div>
             
                                     </div>
                                     
@@ -71,7 +73,7 @@ const RentOptions = (props) => {
 
                                 let smallImageContainer = v4()
                         
-                                return <div className='small-image-container-rent m-2' key={v4()} id={smallImageContainer}>
+                                return <div className='small-image-container-rent m-4' key={v4()} id={smallImageContainer}>
                                     
                                     <img 
                                         id={v4()}
@@ -96,14 +98,14 @@ const RentOptions = (props) => {
                         })}
             <div className="mt-4" style={{fontSize: '18px'}}>
                 <div className="text-left">
-                    <div><span className="text-info">Roommates ({otherUsers.length} out of {capacity} max):</span></div>
-                    <div className="d-flex m-2">
+                    <div><span style={{'color': "#F2AB7E"}}>Roommates ({otherUsers.length} out of {capacity} max):</span></div>
+                    <div className="d-flex m-4">
                         {otherUsers ? otherUsers.map((elem, index) => {
                             return (
                                 
                                 <div className="d-block mr-2" key={index}>
                                 <div><img alt="avatarofuser" className="border border-secondary" src={elem[1]} style={{height: '60px', borderRadius: '25%'}}/></div>
-                                <div style={{'color': '#F481FF'}}>{elem[0]}</div>
+                                <div>{elem[0]}</div>
                                 </div>
                                 
                             )
@@ -113,26 +115,25 @@ const RentOptions = (props) => {
                     </div>
             
 
-                    <div><span className="text-info mt-2">Info:</span> {description}</div>
+                    <div className="mt-4"><span style={{'color': "#F2AB7E"}}>Info:</span> {description}</div>
                 </div>
-                <div className="mt-2 text-left"><span className="text-info">Host: </span>{userName[1].toUpperCase() + userName.slice(1)}</div>
                 
-                <>
+                <div className="d-flex justify-content-between mt-5">
                     <button
-                        className="px-4 btn-warning" 
-                        
+                        className="px-4 btn-warning py-2" 
+                        style={{}}
                         onClick={() => { 
                             cancelBooking(_id)
                         }}   
                     >Cancel Booking</button>
                     <button
-                        className="px-4 btn-dark" 
+                        className="px-4 btn-dark py-2" 
                         
                         onClick={() => {
                             
                         }}
                     >Directions</button>
-                </>
+                </div>
 
             </div>
         </div>
