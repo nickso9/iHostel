@@ -185,15 +185,16 @@ const Rent = () => {
 
                         <>
                             <Button 
-                                className="px-4" 
-                                variant="danger" 
+                                variant="danger"
+                                className="px-5" 
+                                style={{"padding": "7px", "fontSize": "25px"}}
                                 onClick={() => {     
                                     userSaysNo(_id)   
                                 }}   
                             >no</Button>
                             <Button 
-                                className="px-4" 
-                                variant="success" 
+                                className="px-5" 
+                                style={{"padding": "7px", "fontSize": "25px", backgroundColor: '#1F6284'}}  
                                 onClick={() => {
                                     userSaysYes(_id)
                                     setLoading(true)
@@ -225,7 +226,7 @@ const Rent = () => {
         else if (rentPlaces.length > 0) {
             renterOption = loadOption()
         } else {
-            // renterOption = <div>no matches</div>
+            renterOption = <div>:( check back tomorrow</div>
         }
     // } else {
         // renterOption = <div>loading....</div>
