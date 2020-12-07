@@ -3,7 +3,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const auth = require('../auth/auth');
 const User = require('../models/UserModel');
-
+const Host = require('../models/HostModel');
+const mongoose = require('mongoose')
+const { query } = require('express');
 
 router.post('/register', async (req, res) => {
     try {
@@ -82,16 +84,23 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/find', auth, async (req, res) => {
+    
+    const hostFind = await Host.findOne({_id: req.query._id}, "usersYes")
+    let userArray = []
+
+    await hostFind.usersYes.map(e => {
+        if (e.day == req.query.day) {
+            userArray.push(e.user)
+        } })
+
     let userObj = []
     
-    req.query[0].map(e => {
-        console.log(e)
-        userObj.push(e)
+    await userArray.map(e => {
+        userObj.push(mongoose.Types.ObjectId(e))
     })
-
-    // console.log({...userObj})
-    const userFind = await User.find({_id: userObj})
-    console.log(userFind)
+    // console.log(userObj)
+    const userFind = await User.find({"_id": { $in: userObj}})
+    res.send(userFind)
 })
 
 module.exports = router;

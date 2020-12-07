@@ -4,35 +4,41 @@ import axios from 'axios';
 
 const RentOptions = (props) => {
 
-   const { title, price, description, images, userName, capacity, usersYes } = props.hostData
+   const { title, price, description, images, userName, capacity, usersYes, _id } = props.hostData
    const authToken = localStorage.getItem('auth-token')
-  
+ 
    useEffect(() => {
-        let arrayOfusers = []
-        for (const key in usersYes) {
-        if (usersYes[key].day === props.todaysDate) {
-                arrayOfusers.push(usersYes[key].user)
+    //    console.log('hhkjhkjh')
+    //     let arrayOfusers = []
+    //     for (const key in usersYes) {
+    //     if (usersYes[key].day === props.todaysDate) {
+    //             arrayOfusers.push(usersYes[key].user)
+    //     }
+    //     }
+        // if (arrayOfusers) {
+        //     getUsers(arrayOfusers)
+        // }
+        getUsers()
+        
+
+    }, [usersYes, props.todaysDate])
+
+       const getUsers = (arrayOfusers) => {
+            axios({
+                method: 'GET',
+                url: `http://localhost:5000/users/find/`, 
+                params: {_id, day: props.todaysDate},
+                headers: {
+                    'x-auth-token': authToken
+                } 
+            })
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         }
-   }
-
-        axios({
-            method: 'GET',
-            url: `http://localhost:5000/users/find/`, 
-            params: [arrayOfusers],
-            headers: {
-                'x-auth-token': authToken
-            } 
-        })
-        .then(() => {
-
-        })
-        .catch(error => {
-            console.log(error)
-        })
-
-        }, [usersYes])
-
-    
    
     
     return (

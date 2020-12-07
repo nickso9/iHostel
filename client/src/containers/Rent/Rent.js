@@ -29,26 +29,28 @@ const Rent = () => {
                 
                 if (response.data.hosted) {
                     console.log('already rent.js hosted')  
+                
                     setRentPlaces(response.data.alreadyHosted)
                     setUserHasBooked(true)
                     
                 } else {
+                    console.log(response.data)
                     let upgradedRes = await [...response.data].filter(ele => { 
+                        console.log(ele.usersYes)
                     if (ele.usersYes.length === 0) {
-                        console.log('none')
+                        console.log('hihi')
                         return ele
                     } else if (ele.usersYes.filter(e => e.day === convertedDate).length < ele.capacity)  {
-                        console.log('hkadhjs')
-                        console.log(ele.usersYes.filter(e => e.day === convertedDate).length)
+                        console.log('hihasdasdi')
                         return ele            
                     } else {
                         console.log('NONE FOUND')
                     }
+                    
                 })
 
                 // it was <= 0
                     if (upgradedRes.length > 0) {
-                        console.log(upgradedRes)
                         setRentPlaces(upgradedRes)
                         
                     // } else {     
@@ -189,7 +191,7 @@ const Rent = () => {
                                 variant="success" 
                                 onClick={() => {
                                     userSaysYes(_id)
-                                    // setLoading(true)
+                                    setLoading(true)
                                 }}
                             >rent</Button>
                         </>
@@ -208,9 +210,10 @@ const Rent = () => {
                 color: '#171C24'
             }
         }
-        console.log(rentPlaces)
+     
     // if (loading === false) {
         if (userHasBooked) {
+        
             renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate}/>
         }
         else if (rentPlaces.length > 0) {
@@ -221,7 +224,7 @@ const Rent = () => {
     // } else {
         // renterOption = <div>loading....</div>
     // }
-    console.log(userHasBooked)
+    
     return (
         
         <div id="rent-wrapper" style={userBookedStyle}>
