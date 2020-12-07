@@ -12,7 +12,7 @@ const Rent = () => {
     const [rentPlaces, setRentPlaces] = useState([])
     const [ loading, setLoading ] = useState(true)
     const [ userHasBooked, setUserHasBooked ] = useState(false)
-
+    const [ emptyData, setEmptyData ] = useState(false)
     const authToken = localStorage.getItem('auth-token')
     const convertedDate = format(new Date(), 'MMM d, yyyy')
     let renterOption;
@@ -27,13 +27,13 @@ const Rent = () => {
                      date: convertedDate
             }}) 
             .then(async response => {
-                
+                if (!response.data.length) {
+                    setEmptyData(true)
+                }
                 if (response.data.hosted) {
-                    console.log('already rent.js hosted')  
-                
+                    console.log('already rent.js hosted')   
                     setRentPlaces(response.data.alreadyHosted)
-                    setUserHasBooked(true)
-                    
+                    setUserHasBooked(true)      
                 } else {
                     console.log(response.data)
                     let upgradedRes = await [...response.data].filter(ele => { 
@@ -45,9 +45,12 @@ const Rent = () => {
                         console.log('hihasdasdi')
                         return ele            
                     } else {
+                        setEmptyData(true)
                         return 
                     }
                     
+                    
+
                 })
 
                 // it was <= 0
@@ -220,14 +223,17 @@ const Rent = () => {
      
     // if (loading === false) {
         if (userHasBooked) {
-        
             renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate} setUserHasBooked={setUserHasBooked}/>
         }
         else if (rentPlaces.length > 0) {
             renterOption = loadOption()
-        } else {
+        } 
+
+        if (emptyData) {
             renterOption = <div>:( check back tomorrow</div>
         }
+            
+        
     // } else {
         // renterOption = <div>loading....</div>
     // }
