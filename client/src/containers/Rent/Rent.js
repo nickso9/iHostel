@@ -127,7 +127,7 @@ const Rent = () => {
         
         return (
             <div key={5}> 
-            <div className="text-right" style={{"font-size":"40px",'color': "green", "margin-top": '-40px', "margin-right": '-20px'}}>${price}/night</div>
+            <div className="text-right" style={{"fontSize":"40px",'color': "green", "marginTop": '-40px', "marginRight": '-20px'}}>${price}/night</div>
             <div className="renter-option-div text-center mt-4" >
                 
                 <div><h4>Available today: {convertedDate} !!</h4></div>

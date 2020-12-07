@@ -136,6 +136,8 @@ const RentOptions = (props) => {
                         className="px-4 btn-dark py-2" 
                         
                         onClick={() => {
+                            const addressFormatted = props.hostData.loc.formattedAddress.split(',')
+                            window.open(`http://maps.google.com/maps?q=${addressFormatted[0]},+ ${addressFormatted[2]},+${addressFormatted[3]}`)
                             
                         }}
                     >Directions</button>
