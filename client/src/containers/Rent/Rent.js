@@ -115,27 +115,7 @@ const Rent = () => {
             })
     }
 
-    const cancelBooking = async (idOfRoom) => {
-        console.log('hihhihi')
-        const userWantsToCancel = userData.user.id 
-        await axios({
-            method: 'PUT',
-            url: `http://localhost:5000/users/rent/add/${userWantsToCancel}`, 
-            data: {
-                roomId: idOfRoom,
-                date: convertedDate
-            },
-            headers: {
-                'x-auth-token': authToken
-            } 
-        })
-        .then(() => {
-
-        })
-        .catch(error => {
-            console.log(error)
-        })
-    }
+    
 
 
     const loadOption = () => {
@@ -157,27 +137,7 @@ const Rent = () => {
                     })}
                 <div>{description}</div>
                 <div className="d-flex justify-content-between my-3">
-                 {userHasBooked ? 
-                 ( 
-                    <>
-                    <Button 
-                        className="px-4" 
-                        variant="warning" 
-                        onClick={() => { 
-                            cancelBooking(_id)
-                            setUserHasBooked(false)
-                        }}   
-                    >Cancel Booking</Button>
-                    <Button 
-                        className="px-4" 
-                        variant="dark" 
-                        onClick={() => {
-                            
-                        }}
-                    >Directions</Button>
-                </>
-                 
-                 ) : (
+
                         <>
                             <Button 
                                 className="px-4" 
@@ -195,8 +155,8 @@ const Rent = () => {
                                 }}
                             >rent</Button>
                         </>
-                    )
-                 }
+                    
+                 
                 </div>
             </div>    
         )

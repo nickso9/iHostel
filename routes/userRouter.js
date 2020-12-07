@@ -10,8 +10,8 @@ const { query } = require('express');
 router.post('/register', async (req, res) => {
     try {
 
-        const { accountType, email, password, passwordCheck, userName, address } = req.body;
-    
+        const { accountType, email, password, passwordCheck, userName, address, images } = req.body;
+        console.log(req.body)
         if (!email || !password || !passwordCheck || !userName) {
             return res.status(400).json({msg: 'All fields required.'})
         };
@@ -35,7 +35,8 @@ router.post('/register', async (req, res) => {
             email,
             password: passwordHash,
             userName,
-            address
+            address,
+            images
         });
 
         const savedUser = await newUser.save();

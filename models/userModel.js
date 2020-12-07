@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
     userBooked: {
         type: Array
     },
+    images: {
+        type: [String]
+    },
     address: {
         street: String,
         city: String,

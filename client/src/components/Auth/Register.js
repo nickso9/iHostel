@@ -8,7 +8,6 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import Col from 'react-bootstrap/Col'
 
 
-
 export default function Register() {
 
     const location = useLocation() 
@@ -30,16 +29,44 @@ export default function Register() {
         addressTwo: '',
         city: '',
         state: '',
-        zip: ''
+        zip: '',
+        images: ''
 
     }) 
     
+    const uploadImage = async image => {
+        const files = image.target.files;
+        const data = new FormData();
+        data.append('file', files[0]);
+        data.append('upload_preset', 'wh7prbnn')
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/dv1oijudu/image/upload',
+            {
+            method: 'POST',
+            body: data
+            })
+
+        const file = await res.json()
+        const newImageArray = [...userRegistration.images]
+        newImageArray.push(file.secure_url)
+        setUserRegistration(prevState => ({
+            ...prevState,
+            images: newImageArray
+        })) 
+
+        
+        document.getElementById("image").value = ''
+        
+    }
+
+
 
     const submit = async (e) => {
         e.preventDefault()
     try {
         
-        const { accountType, email, password, passwordCheck, userName, addressOne, addressTwo, city, state, zip } = userRegistration
+        const { accountType, email, password, passwordCheck, userName, addressOne, addressTwo, city, state, zip, images} = userRegistration
+        console.log(userRegistration.images)
         const sendData = {
             accountType,
             userName,
@@ -51,9 +78,8 @@ export default function Register() {
                     city,
                     state,
                     zip
-            }
-
-        
+            },
+            images: images[0] 
         }
         
         await axios.post(
@@ -84,8 +110,18 @@ export default function Register() {
         regProgress = (
             <div>
                 <ProgressBar now={100} variant="secondary"/>
-
-                <Form.Group className="mt-5">
+                {accountType === "renter" ? 
+                  <div className="mt-5">
+                      <span className="d-block">Avatar</span>
+                      <div className='small-image-container m-2 d-block'>
+                         <img alt="profile" src={userRegistration.images} /></div>           
+                         <input className="" type='file' name='file' id="image" onChange={uploadImage} accept="image/*" />
+                        
+                    </div> 
+                  
+                : ""}
+                
+                <Form.Group className="mt-3">
                         <Form.Label>{accountType === "renter" ? "Username" : "Company Name"}</Form.Label>
                         <Form.Control 
                             className="w-100"
@@ -174,38 +210,7 @@ export default function Register() {
         regProgress = (
                 
                 <div>
-                <ProgressBar now={50} variant="secondary"/>
-                
-
-                    {/* <Form.Row className="mt-5">
-                        <Form.Group as={Col} >
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control
-                            onChange={e => {
-                                setUserRegistration({
-                                    ...userRegistration,
-                                    firstName: e.target.value
-                                })
-                            }}
-                        />
-                        </Form.Group>
-
-                        <Form.Group as={Col} >
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control 
-                            onChange={e => {
-                                setUserRegistration({
-                                    ...userRegistration,
-                                    lastName: e.target.value
-                                })
-                            }}
-                        />
-                        </Form.Group>
-
-                       
-                    </Form.Row> */}
-
-                    
+                <ProgressBar now={50} variant="secondary"/>      
                     <div className="mt-3">Mailing Address: </div>
                     <Form.Group className="mt-4">
                         <Form.Label>Street</Form.Label>
