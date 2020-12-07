@@ -26,18 +26,18 @@ const Rent = () => {
                      user: userData.user.id,
                      date: convertedDate
             }}) 
-            .then(async response => {
-                if (!response.data.length) {
-                    setEmptyData(true)
-                }
+            .then(async response => { 
                 if (response.data.hosted) {
+                    console.log(response.data)
                     console.log('already rent.js hosted')   
                     setRentPlaces(response.data.alreadyHosted)
-                    setUserHasBooked(true)      
+                    setUserHasBooked(true)   
+                } else if (!response.data.length) {
+                    setEmptyData(true)
                 } else {
                     console.log(response.data)
                     let upgradedRes = await [...response.data].filter(ele => { 
-                        console.log(ele.usersYes)
+                        console.log(ele)
                     if (ele.usersYes.length === 0) {
                         console.log('hihi')
                         return ele
@@ -48,7 +48,7 @@ const Rent = () => {
                         setEmptyData(true)
                         return 
                     }
-                    
+                
                     
 
                 })

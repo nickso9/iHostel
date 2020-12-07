@@ -3,8 +3,6 @@ import UserContext from '../../contexts/UserContext'
 // import HostContext from '../../contexts/HostContext'
 
 
-
-
 const Home = () => {
     
     const { userData } = useContext(UserContext)
