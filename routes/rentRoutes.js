@@ -5,7 +5,7 @@ const Host = require('../models/HostModel')
 
 router.post('/rent/add/:id', auth, async (req, res) => {
     console.log('post request')
-    const { roomId, date } = req.body
+    const { roomId, date, rentHistory } = req.body
     const userId = req.user
     const querySearch = { _id: userId, [`userBooked.${date}`] : { $exists: true}}
     const queryRoomSearch = { _id: roomId, [`usersYes.${date}`] : { $exists: true}}
@@ -22,7 +22,13 @@ router.post('/rent/add/:id', auth, async (req, res) => {
             }, {  $addToSet: {
                     userBooked: {
                         [date]: roomId
-                    }     
+                    },
+                    userHistory: {
+                        address: rentHistory.address,
+                        price: rentHistory.price,
+                        day: rentHistory.day,
+                        host: rentHistory.host
+                    }    
                 } 
             })
             .then(response => {
@@ -56,7 +62,7 @@ router.put('/rent/add/:id', auth, async (req, res) => {
     try {
     const { roomId, date } = req.body
     const userId = req.user
-    const cancelUsersRoom = {userBooked: { [date] : roomId}}
+    const cancelUsersRoom = {userBooked: { [date] : roomId}, userHistory: {day: date}}
     const cancelRoomsUser = {usersYes: { day: date, user: userId}}
         await Host.updateOne({_id: roomId},{$pull: cancelRoomsUser})
         .then(() => {

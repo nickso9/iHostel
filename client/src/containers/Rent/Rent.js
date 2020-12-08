@@ -45,8 +45,7 @@ const Rent = () => {
                         console.log('hihasdasdi')
                         return ele            
                     } else {
-                        setEmptyData(true)
-                        
+                        setEmptyData(true)  
                     }
                     
                     
@@ -68,7 +67,7 @@ const Rent = () => {
        
         }
         searchLocation()
-        
+        console.log(rentPlaces)
     }, [userData.user.id, loading, convertedDate, setRentPlaces, coords]);
 
     /// working on this ///
@@ -97,13 +96,23 @@ const Rent = () => {
 
             setLoading(false)
     }
+    
+    const userSaysYes = async (idOfRoom, rentedPlace) => {
+        let formAddress = rentedPlace.loc.formattedAddress.split(',')
 
-    const userSaysYes = async (idOfRoom) => {
+        let rentHistory = {
+            address: formAddress[0] + ', ' + formAddress[2] + ', ' + formAddress[3],
+            price: rentedPlace.price,
+            day: convertedDate,
+            host: rentedPlace.userName
+        }
+
         const userSaysYes = userData.user.id     
             await axios({
                 method: 'POST',
                 url: `http://localhost:5000/users/rent/add/${userSaysYes}`, 
                 data: {
+                    rentHistory,
                     roomId: idOfRoom,
                     date: convertedDate
                 },
@@ -124,9 +133,9 @@ const Rent = () => {
 
     const loadOption = () => {
         // console.log('load option')
-        // console.log(rentPlaces)
+        let num = Math.floor(Math.random() * rentPlaces.length)
         // const { description, price, title, images, userName, _id, capacity } = rentPlaces[randomNum]
-        const { description, price, title, images, userName, _id } = rentPlaces[0]
+        const { description, price, title, images, userName, _id } = rentPlaces[num]
         
         return (
             <div key={5}> 
@@ -199,7 +208,7 @@ const Rent = () => {
                                 className="px-5" 
                                 style={{"padding": "7px", "fontSize": "25px", backgroundColor: '#1F6284'}}  
                                 onClick={() => {
-                                    userSaysYes(_id)
+                                    userSaysYes(_id, rentPlaces[num])
                                     setLoading(true)
                                 }}
                             >rent</Button>

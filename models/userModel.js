@@ -29,6 +29,13 @@ const userSchema = new mongoose.Schema({
         state: String,
         zip: String
     },
+    userHistory: {
+        type: Array,
+        address: String,
+        price: String,
+        day: String,
+        host: String
+    }
 });
 
 module.exports = User = mongoose.model('user', userSchema)
