@@ -99,9 +99,24 @@ router.get('/find', auth, async (req, res) => {
     await userArray.map(e => {
         userObj.push(mongoose.Types.ObjectId(e))
     })
-    // console.log(userObj)
+
     const userFind = await User.find({"_id": { $in: userObj}})
     res.send(userFind)
+})
+
+router.get('/userglance/:id', auth, async (req,res) => {
+    
+    const userFind = await User.find({_id: req.user}, "userBooked")
+
+    let arrayf = []
+    const { userBooked } = userFind[0]
+    
+    for (const key in userBooked) {
+        for (const value in userBooked[key]) {
+            arrayf.push({day: value, id: userBooked[key][value]})
+        }
+    }
+    console.log(arrayf[0].day)
 })
 
 module.exports = router;

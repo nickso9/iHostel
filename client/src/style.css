@@ -265,6 +265,14 @@ input[type="date"]:valid::before { display: none }
   margin-top: 30px;
 }
 
+.center-div {
+  max-width: 800px;
+  margin: auto;
+  padding: 30px;
+  
+  margin-top: 30px;
+}
+
 /* update */
 
 .option-update-wrapper{
@@ -274,6 +282,15 @@ input[type="date"]:valid::before { display: none }
   box-shadow: 0 0 2px;
   margin-top: 30px;
 }
+
+/* map */
+.mapContainer {
+  /* position: absolute; */
+  /* top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0; */
+  }
 
 
 @media (max-width: 500px) {

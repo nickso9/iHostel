@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
-// import HostContext from '../../contexts/HostContext'
+import RentChart from '../Rent/RentOptions/RentChart/RentChart'
+
 
 
 const Home = () => {
     
     const { userData } = useContext(UserContext)
-    // const { host } = useContext(HostContext)
     const { userName, accountType } = userData.user
     
 
@@ -15,12 +15,22 @@ const Home = () => {
     let landingPage;
     if (accountType === "renter") {
         landingPage = (
-        <div>Welcome {userName}</div>
+        <div className="border border-dark p-5">
+            <div className="">
+                <h1 className="text-left">Hi {userName} !</h1>
+                <div className="mt-5">
+                <span>Your travel at a glance:</span>
+                </div>
+            </div>
+
+            <RentChart />
+        </div>
+        
         )
     } else {
         // checkInnkeeper()
         landingPage = (
-            <div>
+            <div className="renter-home-card">
                 <h2>Welcome {userName}!</h2>
                 
                 
@@ -34,7 +44,7 @@ const Home = () => {
     
     return (
         <>
-        <div className="renter-home-card">
+        <div className="center-div">
          {landingPage} 
         </div>
         </>

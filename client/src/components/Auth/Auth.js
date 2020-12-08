@@ -30,7 +30,6 @@ export default function AuthOptions() {
               zip: undefined
             },
             images: [],
-            // range: [new Date(), new Date()],
             startDate: new Date(),
             endDate: new Date()
         })

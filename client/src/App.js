@@ -16,13 +16,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { HostContextProvider } from './contexts/HostContext';
 import UserContext from './contexts/UserContext';
 import HostContext from './contexts/HostContext'
-
+import CoordsContext from './contexts/CoordsContext'
 
 function App() {
 
 
   
   // const { host, setHost } = useContext(HostContext)
+  const [ coords, setCoords ] = useState(null)
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
@@ -48,10 +49,14 @@ function App() {
     startDate: null,
     endDate: null
 })
-
+     
       useEffect(() => {
-          checkLoggedIn()
-      }, []);
+          checkLoggedIn()  
+          navigator.geolocation.getCurrentPosition(function(position) {
+            setCoords([position.coords.longitude,position.coords.latitude])    
+            })
+        }, [])        
+     
 
       const checkLoggedIn = async () => {
 
@@ -126,6 +131,7 @@ function App() {
    <BrowserRouter>
       <UserContext.Provider value={{userData, setUserData}}>
       <HostContext.Provider value={{host, setHost}}>
+      <CoordsContext.Provider value={{coords, setCoords}}>
           <Navbar />
           <Switch>
             <Route exact path='/host' component={Host}> 
@@ -141,6 +147,7 @@ function App() {
                   <PrivateRoute
                     component={Rent}
                     loggedIn={userData}
+                    
                   />       
                   
             </Route>
@@ -161,8 +168,10 @@ function App() {
             
 
             </Switch>
-        </HostContext.Provider> 
+      </CoordsContext.Provider>
+      </HostContext.Provider> 
       </UserContext.Provider>
+
    </BrowserRouter>
   );
 }

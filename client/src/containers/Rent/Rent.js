@@ -4,10 +4,12 @@ import Button from 'react-bootstrap/Button'
 import { format } from 'date-fns'
 import UserContext from '../../contexts/UserContext'
 import RentOptions from './RentOptions/RentOptions'
+import CoordsContext from '../../contexts/CoordsContext'
 import { v4 } from 'uuid';
 
 const Rent = () => {
-
+ 
+    const { coords } = useContext(CoordsContext)
     const { userData } = useContext(UserContext)
     const [rentPlaces, setRentPlaces] = useState([])
     const [ loading, setLoading ] = useState(true)
@@ -18,26 +20,24 @@ const Rent = () => {
     let renterOption;
 
     useEffect(() => {
-      
+        
         const searchLocation = async () => {
             await axios.get('http://localhost:5000/users/rent',
              { 
                  params: { 
-                     user: userData.user.id,
-                     date: convertedDate
+                    coords,
+                    user: userData.user.id,
+                    date: convertedDate
             }}) 
             .then(async response => { 
                 if (response.data.hosted) {
-                    console.log(response.data)
                     console.log('already rent.js hosted')   
                     setRentPlaces(response.data.alreadyHosted)
                     setUserHasBooked(true)   
                 } else if (!response.data.length) {
                     setEmptyData(true)
-                } else {
-                    console.log(response.data)
+                } else {     
                     let upgradedRes = await [...response.data].filter(ele => { 
-                        console.log(ele)
                     if (ele.usersYes.length === 0) {
                         console.log('hihi')
                         return ele
@@ -46,9 +46,9 @@ const Rent = () => {
                         return ele            
                     } else {
                         setEmptyData(true)
-                        return 
+                        
                     }
-                
+                    
                     
 
                 })
@@ -69,7 +69,7 @@ const Rent = () => {
         }
         searchLocation()
         
-    }, [userData.user.id, loading, convertedDate, setRentPlaces]);
+    }, [userData.user.id, loading, convertedDate, setRentPlaces, coords]);
 
     /// working on this ///
     const userSaysNo = async (idOfRoom) => { 

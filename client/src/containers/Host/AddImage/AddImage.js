@@ -60,6 +60,7 @@ const AddImage = () => {
                                         disabled={imageCheck}
                                         className="border border-secondary px-3 float-right"
                                         onClick={() => {
+                                           
                                             let imageToRemove = String(document.getElementById('main-image-src').firstElementChild.getAttribute('src'))
                                             let newArrayImgs = host.images.filter(item => item !== imageToRemove);
                                             fixImage(newArrayImgs) 
