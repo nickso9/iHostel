@@ -107,23 +107,16 @@ router.get('/find', auth, async (req, res) => {
 router.get('/userglance/:id', auth, async (req,res) => {
     console.log('hihii')
     console.log(req.user)
-    const userFind = await User.find({_id: req.user}, "userBooked")
+    const userFind = await User.find({_id: req.user}, "userHistory")
 
     const bookedArray = []
-    const roomIdsForSearch = []
-    const { userBooked } = userFind[0]
+    const { userHistory } = userFind[0]
     
-    for (const key in userBooked) {
-        for (const value in userBooked[key]) {
-            bookedArray.push([value,userBooked[key][value]])
-            roomIdsForSearch.push(mongoose.Types.ObjectId(userBooked[key][value]))
-        }
+    for (const key in userHistory) {
+        bookedArray.push(userHistory[key])    
     }
-    // console.log(roomIdsForSearch)
 
-    const userHistory = await Host.find({"_id": {$in: roomIdsForSearch}})
-
-    // console.log(userHistory)
+    res.send(await bookedArray)
 })
 
 module.exports = router;

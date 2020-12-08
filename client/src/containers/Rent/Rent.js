@@ -19,8 +19,7 @@ const Rent = () => {
     const convertedDate = format(new Date(), 'MMM d, yyyy')
     let renterOption;
 
-    useEffect(() => {
-        
+    useEffect(() => { 
         const searchLocation = async () => {
             await axios.get('http://localhost:5000/users/rent',
              { 
@@ -38,24 +37,19 @@ const Rent = () => {
                     setEmptyData(true)
                 } else {     
                     let upgradedRes = await [...response.data].filter(ele => { 
-                    if (ele.usersYes.length === 0) {
-                        console.log('hihi')
+                    if (ele.usersYes.length === 0) {                     
                         return ele
                     } else if (ele.usersYes.filter(e => e.day === convertedDate).length < ele.capacity)  {
-                        console.log('hihasdasdi')
+                
                         return ele            
                     } else {
                         setEmptyData(true)  
                     }
-                    
-                    
-
                 })
-
+                console.log(upgradedRes)
                 // it was <= 0
                     if (upgradedRes.length > 0) {
-                        setRentPlaces(upgradedRes)
-                        
+                        setRentPlaces(upgradedRes)         
                     // } else {     
                     // let randomNum = Math.floor(Math.random()*response.data.length)
                     //  setRentPlaces([response.data[randomNum]])
@@ -64,10 +58,8 @@ const Rent = () => {
                 } 
             })
             .catch(error => console.log(error))
-       
         }
         searchLocation()
-        console.log(rentPlaces)
     }, [userData.user.id, loading, convertedDate, setRentPlaces, coords]);
 
     /// working on this ///
