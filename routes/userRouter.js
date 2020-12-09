@@ -105,8 +105,7 @@ router.get('/find', auth, async (req, res) => {
 })
 
 router.get('/userglance/:id', auth, async (req,res) => {
-    console.log('hihii')
-    console.log(req.user)
+  
     const userFind = await User.find({_id: req.user}, "userHistory")
 
     const bookedArray = []

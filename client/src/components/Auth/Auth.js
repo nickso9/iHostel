@@ -55,7 +55,7 @@ export default function AuthOptions() {
                     
                     (
                         <>
-                        <NavLink exact activeClassName="active" to="/"><span className='navBarLinks'>Dashboard</span></NavLink> 
+                        {/* <NavLink exact activeClassName="active" to="/"><span className='navBarLinks'>Dashboard</span></NavLink>  */}
                         <NavLink exact activeClassName="active" to="/host"><span className='navBarLinks'>{hostNavLink}</span></NavLink>
                         </>
                     )

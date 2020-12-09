@@ -84,7 +84,6 @@ router.get('/rent', async (req, res) => {
     const date = req.query.date
     let maxDistance = (100/3963)
     let coords = await req.query.coords
-    console.log(req.query.coords)
 
     const queryStay = {"usersYes": {$elemMatch: { "day": date, "user": userId}}}
     const alreadyHosted = await Host.findOne(queryStay)
@@ -130,8 +129,7 @@ router.post('/rent/:id', auth, async (req, res) => {
     await Host.updateOne({
         _id: placeDenied
     }, {$addToSet: { "usersNo": {[userSaysNoDay]: userSaysNo}}})
-    .then(response => {
-        
+    .then(response => {    
         res.json(response)
     })
     .catch(error => res.json(error))

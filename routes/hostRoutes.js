@@ -43,9 +43,20 @@ router.put('/host/:id', auth, async (req, res) => {
 })
 
 router.get('/hostglance/:id', auth, async (req,res) => {
-    console.log('hihii')
-    console.log(req.user)
-    
+
+    const findGlance = await Host.find({_id: req.params.id}, "usersYes")  
+    const yesArray = []
+    const todayArray = []
+    const { usersYes } = findGlance[0]
+    for (const key in usersYes) {
+       if (usersYes[key].day === req.query.day) {
+            todayArray.push(usersYes[key]) 
+       } else {
+            yesArray.push(usersYes[key]) 
+       }
+           
+    }
+    res.send([todayArray, yesArray]) 
 })
 
 
