@@ -36,36 +36,43 @@ const HostDashboard = () => {
         }
     },[setUserHistory, authToken, host, convertedDate])
 
-    console.log(userHistory)
     
         const data = React.useMemo(
           () => [
             {
+              dataType: "ordinals",
               label: 'Series 1',
-              data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
+              data: [["Dec 7, 2020", 150], ["Dec 8, 2020", 225], ["Dec 9, 2020", 150], ["Dec 10, 2020", 150], ["Dec 11, 2020", 75]]
+
             },
-            {
-              label: 'Series 2',
-              data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-            }
+            
           ],
           []
         )
        
         const axes = React.useMemo(
           () => [
-            { primary: true, type: 'linear', position: 'bottom' },
-            { type: 'linear', position: 'left' }
+            { primary: true, min: 0, type: 'ordinal', position: 'bottom'},
+            { position: 'left', type: 'linear', stacked: false, min: "0"}
           ],
           []
         )
-    
-
+        const series = React.useMemo(
+            () => ({
+              type: 'line',
+            }),
+            []
+          )
+            console.log(data)
     return (
         <div className="mt-4">
+            
+            <div className="">
+                <span>Current guests for tonight ({convertedDate}):</span>
+            </div>
+            <div className="border border-dark p-3 mt-3">
             {userHistory[0] ? userHistory[0].map((ele, index) => {
-                console.log('hihi')
-                console.log(ele)
+                
                 return (
                     <div key={index} style={{width: '100px'}} className="text-center d-inline-block" >
                         <div><img alt="avatarofuser" src={ele.images} style={{height: '60px', borderRadius: '25%'}}/></div>
@@ -74,11 +81,12 @@ const HostDashboard = () => {
                 )
             }) : ''
             }
-
+            </div>
             
             <div className="mt-5">
-                <div style={{maxWidth: '400px', height: '300px', margin: 'auto'}}>
-                    <Chart data={data} axes={axes} />
+                <span>Revenue at a glance:</span>
+                <div className="mt-4" style={{maxWidth: '450px', height: '300px', margin: 'auto'}}>
+                    <Chart data={data} axes={axes} series={series}/>
                 </div>
 
 

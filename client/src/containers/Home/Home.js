@@ -33,9 +33,6 @@ const Home = () => {
             <div className="border border-dark p-5">
             <div className="">
                 <h1 className="text-left">Hi {userName} !</h1>
-                <div className="mt-5">
-                <span>Current guests for tonight ({convertedDate}):</span>
-                </div>
             </div>
 
                 <HostDashboard />  
