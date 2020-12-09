@@ -52,11 +52,15 @@ function App() {
      
       useEffect(() => {
           checkLoggedIn()  
+          getCoords()
+        }, [])        
+     
+        const getCoords = () => {
           navigator.geolocation.getCurrentPosition(function(position) {
             setCoords([position.coords.longitude,position.coords.latitude])    
             })
-        }, [])        
-     
+        }
+
 
       const checkLoggedIn = async () => {
 
@@ -147,7 +151,7 @@ function App() {
                   <PrivateRoute
                     component={Rent}
                     loggedIn={userData}
-                    
+                    getCoords={getCoords}
                   />       
                   
             </Route>

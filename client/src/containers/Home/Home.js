@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
 import RentChart from '../Rent/RentOptions/RentChart/RentChart'
-
+import HostDashboard from '../Host/HostDashboard/HostDashboard'
 
 
 const Home = () => {
@@ -19,7 +19,7 @@ const Home = () => {
             <div className="">
                 <h1 className="text-left">Hi {userName} !</h1>
                 <div className="mt-5">
-                <span>Your travel at a glance:</span>
+                <span>Your travel history at a glance:</span>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@ const Home = () => {
         // checkInnkeeper()
         landingPage = (
             <div className="renter-home-card">
-                <h2>Welcome {userName}!</h2>
+                <HostDashboard />
                 
                 
             

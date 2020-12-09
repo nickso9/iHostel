@@ -11,27 +11,35 @@ const RentOptions = (props) => {
     const [ otherUsers, setOtherUsers ] = useState('')
  
     useEffect(() => {
-        axios({
-            method: 'GET',
-            url: `http://localhost:5000/users/find/`, 
-            params: {_id, day: props.todaysDate},
-            headers: {
-                'x-auth-token': authToken
-            } 
-        })
-        .then(async response => {
-            let userInfo = []
-            await response.data.forEach(e => {
-                userInfo.push([e.userName, e.images])
-            })
-            setOtherUsers(userInfo)
-        })
-        .catch(error => {
-            console.log(error)
-        })     
-    }, [setOtherUsers, props.todaysDate, _id, authToken ])
+            runRoommates()
+    }, [])
 
+        const runRoommates = () => {
+            axios({
+                method: 'GET',
+                url: `http://localhost:5000/users/find/`, 
+                params: {_id, day: props.todaysDate},
+                headers: {
+                    'x-auth-token': authToken
+                } 
+            })
+            .then(async response => {
+                let userInfo = []
+                await response.data.forEach(e => {
+                    userInfo.push([e.userName, e.images])
+                })
+                setOtherUsers(userInfo)
+            })
+            .catch(error => {
+                console.log(error)
+            })   
+        }
        
+        if (otherUsers.length === 0) {
+            console.log('running room mates')
+                runRoommates()       
+        }
+            
    
         const cancelBooking = async (idOfRoom) => {
             const userWantsToCancel = userData.user.id  

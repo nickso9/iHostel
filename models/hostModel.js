@@ -59,7 +59,8 @@ const hostSchema = new mongoose.Schema({
     usersYes: {
         type: Array,
         day: String,
-        user: String
+        user: String,
+        userName: String
     },
     usersNo: {
         type: Array,

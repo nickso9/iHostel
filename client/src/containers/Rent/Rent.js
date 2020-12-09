@@ -7,9 +7,9 @@ import RentOptions from './RentOptions/RentOptions'
 import CoordsContext from '../../contexts/CoordsContext'
 import { v4 } from 'uuid';
 
-const Rent = () => {
- 
-    const { coords } = useContext(CoordsContext)
+const Rent = (props) => {
+    console.log(props)
+    const { coords,setCoords } = useContext(CoordsContext)
     const { userData } = useContext(UserContext)
     const [rentPlaces, setRentPlaces] = useState([])
     const [ loading, setLoading ] = useState(true)
@@ -20,44 +20,50 @@ const Rent = () => {
     let renterOption;
 
     useEffect(() => { 
+        let convertedCoords = coords
         const searchLocation = async () => {
-            await axios.get('http://localhost:5000/users/rent',
+            
+            if (convertedCoords) {
+                await axios.get('http://localhost:5000/users/rent',
              { 
                  params: { 
-                    coords,
+                    coords: convertedCoords,
                     user: userData.user.id,
                     date: convertedDate
             }}) 
             .then(async response => { 
-                if (response.data.hosted) {
+                console.log(response.data)
+                if (await response.data.hosted) {
                     console.log('already rent.js hosted')   
                     setRentPlaces(response.data.alreadyHosted)
                     setUserHasBooked(true)   
-                } else if (!response.data.length) {
+                } else if (response.data.length === 0) {
                     setEmptyData(true)
                 } else {     
                     let upgradedRes = await [...response.data].filter(ele => { 
                     if (ele.usersYes.length === 0) {                     
                         return ele
                     } else if (ele.usersYes.filter(e => e.day === convertedDate).length < ele.capacity)  {
-                
                         return ele            
                     } else {
-                        setEmptyData(true)  
+                          
                     }
+                     
                 })
-                console.log(upgradedRes)
-                // it was <= 0
-                    if (upgradedRes.length > 0) {
-                        setRentPlaces(upgradedRes)         
-                    // } else {     
-                    // let randomNum = Math.floor(Math.random()*response.data.length)
-                    //  setRentPlaces([response.data[randomNum]])
-                    // 
-                    } 
+                console.log(upgradedRes.length)
+            
+                if (upgradedRes.length > 0) {
+                    console.log('hihihi')
+                    setRentPlaces(upgradedRes)  
+                } else {
+                    setEmptyData(true)
+                }   
+                    
+                    
                 } 
             })
             .catch(error => console.log(error))
+            }     
         }
         searchLocation()
     }, [userData.user.id, loading, convertedDate, setRentPlaces, coords]);
@@ -77,14 +83,18 @@ const Rent = () => {
             } 
             })
             .then(() => {     
-                console.log('set rent places')       
-               
+                console.log('set rent places')          
             })
             .catch(error => console.log(error))
              
              setRentPlaces({
                     rentPlaces: rentPlaces.pop()
-                })
+            })
+
+            if (rentPlaces.length === 0) {
+                setEmptyData(true)
+            }
+
 
             setLoading(false)
     }
@@ -106,7 +116,8 @@ const Rent = () => {
                 data: {
                     rentHistory,
                     roomId: idOfRoom,
-                    date: convertedDate
+                    date: convertedDate,
+                    userName: userData.user.userName
                 },
                 headers: {
                     'x-auth-token': authToken
@@ -201,7 +212,6 @@ const Rent = () => {
                                 style={{"padding": "7px", "fontSize": "25px", backgroundColor: '#1F6284'}}  
                                 onClick={() => {
                                     userSaysYes(_id, rentPlaces[num])
-                                    setLoading(true)
                                 }}
                             >rent</Button>
                         </>
@@ -224,7 +234,8 @@ const Rent = () => {
      
     // if (loading === false) {
         if (userHasBooked) {
-            renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate} setUserHasBooked={setUserHasBooked}/>
+            console.log('hihihi')
+            renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate} setUserHasBooked={setUserHasBooked} userHasBooked={userHasBooked}/>
         }
         else if (rentPlaces.length > 0) {
             renterOption = loadOption()

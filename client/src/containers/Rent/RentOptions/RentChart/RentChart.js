@@ -39,7 +39,7 @@ const RentChart = () => {
                 <th className="px-4">Price</th> 
                 <th className="px-4">Host</th>  
             </tr> 
-            {userHistory.map((info, index) => {
+            {userHistory.reverse().map((info, index) => {
                 return (
                     <tr key={index} className="border border-bottom"> 
                         <td className="p-4">{info.day}</td>

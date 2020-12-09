@@ -5,7 +5,7 @@ const Host = require('../models/HostModel')
 
 router.post('/rent/add/:id', auth, async (req, res) => {
     console.log('post request')
-    const { roomId, date, rentHistory } = req.body
+    const { roomId, date, rentHistory, userName } = req.body
     const userId = req.user
     const querySearch = { _id: userId, [`userBooked.${date}`] : { $exists: true}}
     const queryRoomSearch = { _id: roomId, [`usersYes.${date}`] : { $exists: true}}
@@ -43,7 +43,8 @@ router.post('/rent/add/:id', auth, async (req, res) => {
             }, {  $push: {
                     usersYes: {
                         day: date,
-                        user: userId
+                        user: userId,
+                        userName
                     }    
                 } 
             })
@@ -81,8 +82,9 @@ router.put('/rent/add/:id', auth, async (req, res) => {
 router.get('/rent', async (req, res) => {
     const userId = req.query.user
     const date = req.query.date
-    let maxDistance = (60/3963)
-    let coords = req.query.coords
+    let maxDistance = (100/3963)
+    let coords = await req.query.coords
+    console.log(req.query.coords)
 
     const queryStay = {"usersYes": {$elemMatch: { "day": date, "user": userId}}}
     const alreadyHosted = await Host.findOne(queryStay)
@@ -93,7 +95,7 @@ router.get('/rent', async (req, res) => {
             alreadyHosted: [alreadyHosted]
         })
     } else {
-
+        console.log('host find')
         Host.find({
             $and: [ {
             "loc.coordinates": {
@@ -111,8 +113,10 @@ router.get('/rent', async (req, res) => {
             }, 
             {startDate:{$lte:new Date()}},{endDate:{$gte:new Date()}}
             ] } )
-        .then(response => {        
-            res.send(response)       
+        .then(async response => {   
+            console.log('hihihi')  
+             
+            res.send(await response)       
             })
         .catch(error => res.json(error))
         }

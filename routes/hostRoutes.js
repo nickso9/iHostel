@@ -42,7 +42,11 @@ router.put('/host/:id', auth, async (req, res) => {
 
 })
 
-
+router.get('/hostglance/:id', auth, async (req,res) => {
+    console.log('hihii')
+    console.log(req.user)
+    
+})
 
 
 
