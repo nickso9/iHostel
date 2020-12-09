@@ -2,13 +2,13 @@ import React, { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
 import RentChart from '../Rent/RentOptions/RentChart/RentChart'
 import HostDashboard from '../Host/HostDashboard/HostDashboard'
-
+import { format } from 'date-fns'
 
 const Home = () => {
     
     const { userData } = useContext(UserContext)
     const { userName, accountType } = userData.user
-    
+    const convertedDate = format(new Date(), 'MMM d, yyyy')
 
 
   
@@ -30,10 +30,15 @@ const Home = () => {
     } else {
         // checkInnkeeper()
         landingPage = (
-            <div className="renter-home-card">
-                <HostDashboard />
-                
-                
+            <div className="border border-dark p-5">
+            <div className="">
+                <h1 className="text-left">Hi {userName} !</h1>
+                <div className="mt-5">
+                <span>Current guests for tonight ({convertedDate}):</span>
+                </div>
+            </div>
+
+                <HostDashboard />  
             
             </div>
             )

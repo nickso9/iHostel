@@ -117,7 +117,8 @@ const Rent = (props) => {
                     rentHistory,
                     roomId: idOfRoom,
                     date: convertedDate,
-                    userName: userData.user.userName
+                    userName: userData.user.userName,
+                    images: userData.user.images
                 },
                 headers: {
                     'x-auth-token': authToken

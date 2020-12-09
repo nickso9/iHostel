@@ -19,8 +19,6 @@ import HostContext from './contexts/HostContext'
 import CoordsContext from './contexts/CoordsContext'
 
 function App() {
-
-
   
   // const { host, setHost } = useContext(HostContext)
   const [ coords, setCoords ] = useState(null)

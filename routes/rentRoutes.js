@@ -5,7 +5,7 @@ const Host = require('../models/HostModel')
 
 router.post('/rent/add/:id', auth, async (req, res) => {
     console.log('post request')
-    const { roomId, date, rentHistory, userName } = req.body
+    const { roomId, date, rentHistory, userName, images } = req.body
     const userId = req.user
     const querySearch = { _id: userId, [`userBooked.${date}`] : { $exists: true}}
     const queryRoomSearch = { _id: roomId, [`usersYes.${date}`] : { $exists: true}}
@@ -44,7 +44,8 @@ router.post('/rent/add/:id', auth, async (req, res) => {
                     usersYes: {
                         day: date,
                         user: userId,
-                        userName
+                        userName,
+                        images
                     }    
                 } 
             })

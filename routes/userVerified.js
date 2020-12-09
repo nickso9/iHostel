@@ -28,7 +28,8 @@ router.get('/', auth, async (req, res) => {
     res.json({
         userName: user.userName,
         id: user._id,
-        accountType: user.accountType
+        accountType: user.accountType,
+        images: user.images
     })
 })
 

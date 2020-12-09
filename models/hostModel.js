@@ -60,7 +60,8 @@ const hostSchema = new mongoose.Schema({
         type: Array,
         day: String,
         user: String,
-        userName: String
+        userName: String,
+        images: String,
     },
     usersNo: {
         type: Array,
