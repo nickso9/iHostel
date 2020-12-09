@@ -11,6 +11,7 @@ const HostDashboard = () => {
     const authToken = localStorage.getItem('auth-token')
     const convertedDate = format(new Date(), 'MMM d, yyyy')
     const [ userHistory, setUserHistory  ] = useState([])
+    const historyArray = {}
 
     useEffect(() => {
         const hostGlance = (id) => {
@@ -23,20 +24,29 @@ const HostDashboard = () => {
                 } 
                 })
                 .then((response) => {   
-                    setUserHistory([response.data[0], response.data[1]])     
-                              
+                    setUserHistory([response.data[0], response.data[1]])         
+                })
+                .then(() => {
+                    
+                    for (const values of userHistory[0]) {
+                        let day = values.day
+                        historyArray[day] = historyArray[day] + 1 || 1
+                    
+                    }
+                    console.log(historyArray)
                 })
                 .catch(error => console.log(error))  
         }
     
         if (host.id) {
-            console.log('hi')
-            hostGlance(host.id)
-            
+            hostGlance(host.id)      
         }
     },[setUserHistory, authToken, host, convertedDate])
+        
+        
+        
 
-    
+
         const data = React.useMemo(
           () => [
             {
@@ -63,7 +73,7 @@ const HostDashboard = () => {
             }),
             []
           )
-            console.log(data)
+    
     return (
         <div className="mt-4">
             
