@@ -38,13 +38,12 @@ const HostDashboard = () => {
         }
     },[setUserHistory, authToken, host, convertedDate])
         
-
-        for (const values of userHistory[1]) {
-            let day = values.day
-            historyArray[day] = historyArray[day] + 1 || 1
-        }
-
-        
+        if (userHistory[1]) {
+            for (const values of userHistory[1]) {
+                let day = values.day
+                historyArray[day] = historyArray[day] + 1 || 1
+            }
+        } 
 
         const data = React.useMemo(
           () => [
@@ -62,7 +61,7 @@ const HostDashboard = () => {
         const axes = React.useMemo(
           () => [
             { primary: true, min: 0, type: 'ordinal', position: 'bottom'},
-            { position: 'left', type: 'linear', stacked: false, min: "0"}
+            { position: 'left', type: 'linear', stacked: false}
           ],
           []
         )
@@ -76,16 +75,20 @@ const HostDashboard = () => {
             let userHistoryComp;
             if (userHistory[0] !== undefined) {
                 if (userHistory[0].length > 0) {
+                    
                     {
+                        userHistoryComp = (
                         userHistory[0].map((ele, index) => {
-                            userHistoryComp = (
+                            return (
                                 <div key={index} style={{width: '100px'}} className="text-center d-inline-block" >
                                     <div><img alt="avatarofuser" src={ele.images} style={{height: '60px', borderRadius: '25%'}}/></div>
                                     <div>{ele.userName}</div>
                                 </div>
                             )
                         }) 
+                        )
                     }
+                    
                 } else {
                     userHistoryComp = (
                     <div className="text-center p-3">No current guests.</div>
