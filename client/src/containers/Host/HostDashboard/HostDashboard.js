@@ -41,7 +41,7 @@ const HostDashboard = () => {
         if (userHistory[1]) {
             for (const values of userHistory[1]) {
                 let day = values.day
-                historyArray[day] = historyArray[day] + 1 || 1
+                historyArray[day] = historyArray[day] + host.price || host.price
             }
         } 
 
@@ -108,7 +108,7 @@ const HostDashboard = () => {
             </div>
             
             <div className="mt-5">
-                <span>Revenue at a glance:</span>
+                <span>Revenue at ${host.price} per guest:</span>
                 <div className="mt-4" style={{maxWidth: '450px', height: '300px', margin: 'auto'}}>
                     {userHistory[1] && <Chart data={data} axes={axes} series={series}/>}    
                 </div>
