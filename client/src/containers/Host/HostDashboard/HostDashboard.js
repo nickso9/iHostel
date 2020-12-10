@@ -108,9 +108,24 @@ const HostDashboard = () => {
                 {userHistoryComp}
             </div>
             
-            <div className="mt-5">
-                <span>Revenue made so far ${userHistory[1].length * host.price} at ${host.price} per guest:</span>
-                <div className="mt-4" style={{maxWidth: '450px', height: '300px', margin: 'auto'}}>
+            <div className="mt-4">
+                <table className="text-center mx-auto">
+                    <tbody>
+                        <tr className="border border-dark">
+                            <th className="border border-dark px-4">Total Guests</th>
+                            <th className="border border-dark px-4">Rate</th>
+                            <th className="border border-dark px-4">Total Revenue</th>
+                        </tr>
+                        <tr className="border border-dark">
+                            <td className="border border-dark px-4">{userHistory[1] && userHistory[1].length}</td>
+                            <td className="border border-dark px-4">${host.price}</td>
+                            <td className="border border-dark px-4">${userHistory[1] && userHistory[1].length * host.price}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div className="mt-5" style={{maxWidth: '450px', height: '300px', margin: 'auto'}}>
+                {userHistory[1] && userHistory[1].length === 0 ? <div className="text-center">No data to display.</div> : '' }
                     {userHistory[1] && <Chart data={data} axes={axes} series={series}/>}    
                 </div>
 
