@@ -117,7 +117,7 @@ const RentOptions = (props) => {
                         {otherUsers ? otherUsers.map((elem, index) => {
                             return (
                                 
-                                <div style={{width: '100px'}} className="d-block mr-2 mt-1 text-center" key={index}>
+                                <div style={{width: '100px'}} className="d-block mr-3 mt-3 text-center" key={index}>
                                 <div><img alt="avatarofuser" className="border border-secondary" src={elem[1]} style={{height: '60px', borderRadius: '25%'}}/></div>
                                 <div>{elem[0]}</div>
                                 </div>

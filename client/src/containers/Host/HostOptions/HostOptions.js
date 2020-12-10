@@ -234,14 +234,6 @@ const HostOptions = () => {
         </div>
         </div>
         
-            
-
-        
-        // <div className="d-flex justify-content-between mt-5">
-        // <Button variant="warning">Pause Bookings</Button>
-        // <Button variant="dark">Update Changes</Button>
-        // </div>
-        // </div>
     )
 };
 

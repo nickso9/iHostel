@@ -15,6 +15,7 @@ const HostDashboard = () => {
     
 
     useEffect(() => {
+        
         const hostGlance = (id) => {
             axios({
                 method: "GET",
@@ -93,16 +94,18 @@ const HostDashboard = () => {
                     }
                     
                 } else {
+                
                     userHistoryComp = (
                     <div className="text-center p-3">No current guests.</div>
                     )
                 }
             }
 
-    
-    return (
-        <div className="mt-4">
-            
+    let hostDash;
+
+    if (host.userId) {
+    hostDash = (
+        <div className="mt-4">    
             <div className="">
                 <span>Current guests for tonight ({convertedDate}):</span>
             </div>
@@ -130,14 +133,20 @@ const HostDashboard = () => {
                 {userHistory[1] && userHistory[1].length === 0 ? <div className="text-center">No data to display.</div> : '' }
                     {userHistory[1] && <Chart data={data} axes={axes} series={series}/>}    
                 </div>
-
-
-
-
             </div>
-
-
         </div>
+    )
+    } else {
+        hostDash = <div>Please add a listing.</div>
+    }
+
+
+
+    console.log(host.userId)
+    return (
+        <>
+        {hostDash} 
+        </>
     )
 }
 

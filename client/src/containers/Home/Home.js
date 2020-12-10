@@ -19,7 +19,7 @@ const Home = () => {
             <div className="">
                 <h1 className="text-left">Hi {userName} !</h1>
                 <div className="mt-5">
-                <span>Your travel history at a glance:</span>
+                <span><strong>Travel history at a glance:</strong></span>
                 </div>
             </div>
 
