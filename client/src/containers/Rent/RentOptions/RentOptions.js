@@ -64,15 +64,15 @@ const RentOptions = (props) => {
     
     return (
         <div>
-            <h4>Booking for: <span>{props.todaysDate} </span>at $<span>{price} !</span></h4>
+            <h4>Booked for: <span>{props.todaysDate} </span>at $<span>{price} !</span></h4>
             <div ><h5>{title}</h5></div>
-            <div className="text-right"><span style={{'color': "#F2AB7E"}}>Presented By: </span>{userName[0].toUpperCase() + userName.slice(1)}</div>
+            <div className="text-right"><span style={{'color': "#1F6284"}}>Presented By: </span>{userName[0].toUpperCase() + userName.slice(1)}</div>
             {images.map((image, index) => {      
                             if (index === 0) {
                           
                                 return (
                                   <div key={v4()}>
-                                <div className='main-image-container-rent d-block mt-4' id='main-image-src'><img id={v4()} alt="" src={image} /></div>
+                                <div className='main-image-container-rent d-block mt-1' id='main-image-src'><img id={v4()} alt="" src={image} /></div>
                                     {images.length > 1 && <span  style={{fontSize: '11px'}}>click thumbnails to see in main window</span>}
                                     </div>
                                     
@@ -85,7 +85,7 @@ const RentOptions = (props) => {
                                
                                 <div key={v4()} className="d-inline">
                                 
-                                <div className='small-image-container-rent m-4'  id={smallImageContainer}>
+                                <div className='small-image-container-rent mx-1 my-1'  id={smallImageContainer}>
 
                                     <img 
                                         id={v4()}
@@ -110,14 +110,14 @@ const RentOptions = (props) => {
                                 )
                             }
                         })}
-            <div className="mt-4" style={{fontSize: '18px'}}>
+            <div className="" style={{fontSize: '18px'}}>
                 <div className="text-left">
-                    <div><span style={{'color': "#F2AB7E"}}>Roommates ({otherUsers.length} out of {capacity} max):</span></div>
-                    <div className="d-flex m-4" style={{'maxWidth': "70px"}}>
+                    <div><span style={{'color': "#1F6284"}}>Roommates ({otherUsers.length} out of {capacity} max):</span></div>
+                    <div className="d-flex mx-4" style={{'maxWidth': "70px"}}>
                         {otherUsers ? otherUsers.map((elem, index) => {
                             return (
                                 
-                                <div style={{width: '100px'}} className="d-block mr-2 text-center" key={index}>
+                                <div style={{width: '100px'}} className="d-block mr-2 mt-1 text-center" key={index}>
                                 <div><img alt="avatarofuser" className="border border-secondary" src={elem[1]} style={{height: '60px', borderRadius: '25%'}}/></div>
                                 <div>{elem[0]}</div>
                                 </div>
@@ -129,7 +129,7 @@ const RentOptions = (props) => {
                     </div>
             
 
-                    <div className="mt-4"><span style={{'color': "#F2AB7E"}}>Info:</span> {description}</div>
+                    <div className="mt-2"><span style={{'color': "#1F6284"}}>Info:</span> {description}</div>
                 </div>
                 
                 <div className="d-flex justify-content-between mt-5">

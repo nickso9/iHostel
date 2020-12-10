@@ -15,7 +15,7 @@ const Home = () => {
     let landingPage;
     if (accountType === "renter") {
         landingPage = (
-        <div className="border border-dark p-5">
+        <div className="p-5 rent-chart-page-div">
             <div className="">
                 <h1 className="text-left">Hi {userName} !</h1>
                 <div className="mt-5">

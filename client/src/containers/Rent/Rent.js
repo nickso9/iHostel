@@ -148,7 +148,7 @@ const Rent = (props) => {
                 
                 <div><h4>Available today: {convertedDate} !!</h4></div>
                 <div><h2>{title}</h2></div>
-                <div className="text-right" style={{"fontSize": '14px'}}><span style={{'color': "white"}}>Host: </span>{userName[0].toUpperCase() + userName.slice(1)}</div>
+                <div className="text-right" style={{"fontSize": '14px'}}><span style={{'color': "black"}}>Hosted by: </span><strong>{userName[0].toUpperCase() + userName.slice(1)}</strong></div>
                 {images.map((image, index) => {      
                             if (index === 0) {
                           
@@ -195,7 +195,7 @@ const Rent = (props) => {
 
                 
                 
-                <div className="mt-1 text-left"><span style={{'color': "white"}} className="d-block">Info: </span>{description}</div>
+                <div className="mt-1 text-left"><span style={{'color': "black"}} className="d-block">Info: </span><strong>{description}</strong></div>
 
                 <div className="d-flex justify-content-between mt-5">
 
@@ -229,8 +229,9 @@ const Rent = (props) => {
     let userBookedStyle;
         if (userHasBooked) {
             userBookedStyle = {
-                backgroundColor: '#1F6284',
-                color: 'white'
+                backgroundColor: 'white',
+                // color: '#1F6284'
+                color: 'black'
             }
         }
      
