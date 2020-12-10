@@ -107,18 +107,22 @@ const HostDashboard = () => {
     hostDash = (
         <div className="mt-4">    
             <div className="">
+            <hr />
                 <span>Current guests for tonight ({convertedDate}):</span>
             </div>
+           
             <div className="p-3 mt-3">
+                
                 {userHistoryComp}
             </div>
             
             <div className="mt-4">
+            <hr />
                 <table className="text-center mx-auto">
                     <tbody>
                         <tr className="border border-dark">
-                            <th className="border border-dark px-4">Total Guests</th>
-                            <th className="border border-dark px-4">Rate</th>
+                            <th className="border border-dark px-4">Total Hosted</th>
+                            <th className="border border-dark px-4">Per Rate</th>
                             <th className="border border-dark px-4">Total Revenue</th>
                         </tr>
                         <tr className="border border-dark">

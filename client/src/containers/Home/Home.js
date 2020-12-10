@@ -30,11 +30,11 @@ const Home = () => {
     } else {
         // checkInnkeeper()
         landingPage = (
-            <div className="">
+            <div className="rent-chart-page-div p-5">
             <div className="">
                 <h1 className="text-left">Hi {userName} !</h1>
             </div>
-
+                
                 <HostDashboard />  
             
             </div>
