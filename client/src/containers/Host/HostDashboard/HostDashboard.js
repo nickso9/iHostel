@@ -11,7 +11,8 @@ const HostDashboard = () => {
     const authToken = localStorage.getItem('auth-token')
     const convertedDate = format(new Date(), 'MMM d, yyyy')
     const [ userHistory, setUserHistory  ] = useState([])
-    const historyArray = {}
+
+    
 
     useEffect(() => {
         const hostGlance = (id) => {
@@ -37,9 +38,10 @@ const HostDashboard = () => {
             hostGlance(host.id)      
         }
     },[setUserHistory, authToken, host, convertedDate])
+    
+        const historyArray = {}
         
-        if (userHistory[1]) {
-            
+        if (userHistory[1]) { 
             for (const values of userHistory[1]) {
                 let day = values.day
                 historyArray[day] = historyArray[day] + host.price || host.price
@@ -81,7 +83,7 @@ const HostDashboard = () => {
                         userHistoryComp = (
                         userHistory[0].map((ele, index) => {
                             return (
-                                <div key={index} style={{width: '100px'}} className="text-center d-inline-block" >
+                                <div key={index} style={{width: '100px'}} className="text-center d-inline-block mx-3" >
                                     <div><img alt="avatarofuser" src={ele.images} style={{height: '60px', borderRadius: '25%'}}/></div>
                                     <div>{ele.userName}</div>
                                 </div>
@@ -104,7 +106,7 @@ const HostDashboard = () => {
             <div className="">
                 <span>Current guests for tonight ({convertedDate}):</span>
             </div>
-            <div className="border border-dark p-3 mt-3">
+            <div className="p-3 mt-3">
                 {userHistoryComp}
             </div>
             
@@ -124,7 +126,7 @@ const HostDashboard = () => {
                     </tbody>
                 </table>
                 
-                <div className="mt-5" style={{maxWidth: '450px', height: '300px', margin: 'auto'}}>
+                <div className="mt-5" style={{maxWidth: '650px', height: '300px', margin: 'auto'}}>
                 {userHistory[1] && userHistory[1].length === 0 ? <div className="text-center">No data to display.</div> : '' }
                     {userHistory[1] && <Chart data={data} axes={axes} series={series}/>}    
                 </div>

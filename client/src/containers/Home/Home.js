@@ -30,7 +30,7 @@ const Home = () => {
     } else {
         // checkInnkeeper()
         landingPage = (
-            <div className="border border-dark p-5">
+            <div className="">
             <div className="">
                 <h1 className="text-left">Hi {userName} !</h1>
             </div>
