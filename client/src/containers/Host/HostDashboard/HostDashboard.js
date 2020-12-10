@@ -28,12 +28,7 @@ const HostDashboard = () => {
                 })
                 .then(() => {
                     
-                    for (const values of userHistory[0]) {
-                        let day = values.day
-                        historyArray[day] = historyArray[day] + 1 || 1
                     
-                    }
-                    console.log(historyArray)
                 })
                 .catch(error => console.log(error))  
         }
@@ -43,21 +38,25 @@ const HostDashboard = () => {
         }
     },[setUserHistory, authToken, host, convertedDate])
         
-        
-        
 
+        for (const values of userHistory[1]) {
+            let day = values.day
+            historyArray[day] = historyArray[day] + 1 || 1
+        }
+
+        
 
         const data = React.useMemo(
           () => [
             {
               dataType: "ordinals",
               label: 'Series 1',
-              data: [["Dec 7, 2020", 150], ["Dec 8, 2020", 225], ["Dec 9, 2020", 150], ["Dec 10, 2020", 150], ["Dec 11, 2020", 75]]
+              data: Object.entries(historyArray)
 
             },
             
           ],
-          []
+          [historyArray]
         )
        
         const axes = React.useMemo(
@@ -73,6 +72,27 @@ const HostDashboard = () => {
             }),
             []
           )
+
+            let userHistoryComp;
+            if (userHistory[0] !== undefined) {
+                if (userHistory[0].length > 0) {
+                    {
+                        userHistory[0].map((ele, index) => {
+                            userHistoryComp = (
+                                <div key={index} style={{width: '100px'}} className="text-center d-inline-block" >
+                                    <div><img alt="avatarofuser" src={ele.images} style={{height: '60px', borderRadius: '25%'}}/></div>
+                                    <div>{ele.userName}</div>
+                                </div>
+                            )
+                        }) 
+                    }
+                } else {
+                    userHistoryComp = (
+                    <div className="text-center p-3">No current guests.</div>
+                    )
+                }
+            }
+
     
     return (
         <div className="mt-4">
@@ -81,22 +101,13 @@ const HostDashboard = () => {
                 <span>Current guests for tonight ({convertedDate}):</span>
             </div>
             <div className="border border-dark p-3 mt-3">
-            {userHistory[0] ? userHistory[0].map((ele, index) => {
-                
-                return (
-                    <div key={index} style={{width: '100px'}} className="text-center d-inline-block" >
-                        <div><img alt="avatarofuser" src={ele.images} style={{height: '60px', borderRadius: '25%'}}/></div>
-                        <div>{ele.userName}</div>
-                    </div>
-                )
-            }) : ''
-            }
+                {userHistoryComp}
             </div>
             
             <div className="mt-5">
                 <span>Revenue at a glance:</span>
                 <div className="mt-4" style={{maxWidth: '450px', height: '300px', margin: 'auto'}}>
-                    <Chart data={data} axes={axes} series={series}/>
+                    {userHistory[1] && <Chart data={data} axes={axes} series={series}/>}    
                 </div>
 
 
