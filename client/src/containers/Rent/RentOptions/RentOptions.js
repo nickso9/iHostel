@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 import axios from 'axios';
 
 const RentOptions = (props) => {
-
+    console.log(props)
     const { userData } = useContext(UserContext)
     const { title, price, description, images, userName, capacity, _id } = props.hostData
     const authToken = localStorage.getItem('auth-token')
@@ -67,13 +67,13 @@ const RentOptions = (props) => {
             <h4>Booking for: <span>{props.todaysDate} </span>at $<span>{price} !</span></h4>
             <div ><h5>{title}</h5></div>
             <div className="text-right"><span style={{'color': "#F2AB7E"}}>Presented By: </span>{userName[0].toUpperCase() + userName.slice(1)}</div>
-            {images.map((images, index) => {      
+            {images.map((image, index) => {      
                             if (index === 0) {
                           
                                 return (
                                   <div key={v4()}>
-                                <div className='main-image-container-rent d-block mt-4' id='main-image-src'><img id={v4()} alt="" src={images} /></div>
-            
+                                <div className='main-image-container-rent d-block mt-4' id='main-image-src'><img id={v4()} alt="" src={image} /></div>
+                                    {images.length > 1 && <span  style={{fontSize: '11px'}}>click thumbnails to see in main window</span>}
                                     </div>
                                     
                                 )
@@ -83,14 +83,14 @@ const RentOptions = (props) => {
                         
                                 return (
                                
-                                <div key={v4()}>
-                                <span  style={{fontSize: '11px'}}>click thumbnails to see in main window</span>
+                                <div key={v4()} className="d-inline">
+                                
                                 <div className='small-image-container-rent m-4'  id={smallImageContainer}>
 
                                     <img 
                                         id={v4()}
                                         alt=""
-                                        src={images} 
+                                        src={image} 
                                         onClick={(e) => {
                                             let mainImage = {
                                                 src: document.getElementById('main-image-src').firstElementChild.getAttribute('src'),
