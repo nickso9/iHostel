@@ -54,10 +54,12 @@ const Rent = (props) => {
                     setRentPlaces(upgradedRes)  
                 } else {
                     setEmptyData(true)
-                }   
-                    
-                    
+                }        
                 } 
+
+                if (loading) {
+                    setLoading(false)
+                }
             })
             .catch(error => console.log(error))
             }     
@@ -81,17 +83,16 @@ const Rent = (props) => {
             })
             .then(() => {     
                 console.log('set rent places')    
-                setRentPlaces(rentPlaces.slice(1))      
+                setRentPlaces(rentPlaces.slice(1)) 
+
+                  
             })
             .catch(error => console.log(error))
              
             
              
             // console.log(rent)
-            if (rentPlaces.length === 0) {
-                console.log('empty data')
-                setEmptyData(true)
-            }
+            
             // renterOption = loadOption()
             // loadOption()
             // setLoading(false)
@@ -131,15 +132,13 @@ const Rent = (props) => {
     }
 
     
-
+    
 
     const loadOption = () => {
         // console.log('load option')
         
-        // const { description, price, title, images, userName, _id, capacity } = rentPlaces[randomNum]
         const { description, price, title, images, userName, _id } = rentPlaces[0]
-        console.log(rentPlaces[0])
-        
+      
         return (
             
             <div key={5}> 
@@ -227,16 +226,20 @@ const Rent = (props) => {
         
     }
     
+    if (rentPlaces.length === 0) {
+        renterOption = <div>:( check back tomorrow</div>
+        // setEmptyData(true)
+    }   
+
     let userBookedStyle;
         if (userHasBooked) {
             userBookedStyle = {
                 backgroundColor: 'white',
-                // color: '#1F6284'
                 color: 'black'
             }
         }
      
-    // if (loading === false) {
+    
         if (userHasBooked) {
             console.log('hihihi')
             renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate} setUserHasBooked={setUserHasBooked} userHasBooked={userHasBooked}/>
@@ -246,14 +249,9 @@ const Rent = (props) => {
             renterOption = loadOption()
         } 
 
-        if (emptyData) {
-            renterOption = <div>:( check back tomorrow</div>
+        if (loading) {
+            renterOption = <div className="loader rent-wrapper">Loading...</div>
         }
-            
-        
-    // } else {
-        // renterOption = <div>loading....</div>
-    // }
     
     return (
         

@@ -136,7 +136,7 @@ const HostOptions = () => {
           )
           
       } else if (updateState === 2) {
-            
+            console.log(host.images)
             updateCurrentState = (
                 <div className="mt-4">
                 <AddImage />
@@ -149,8 +149,7 @@ const HostOptions = () => {
                             updateImages: {
                                 images: host.images
                             }
-                        }
-                        
+                        }  
                         updaterDb(dataToPut)
                     }}
                 >Update Image
@@ -219,15 +218,15 @@ const HostOptions = () => {
 
     return (
         <div className="option-update-wrapper mb-5">
-        <Nav variant="tabs" defaultActiveKey="/home">
+        <Nav variant="tabs" defaultActiveKey="link-0">
             <Nav.Item>
-                <Nav.Link onClick={() => setUpdateState(1)}>General Info</Nav.Link>
+                <Nav.Link eventKey="link-0" onClick={() => setUpdateState(1)}>General Info</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link onClick={() => setUpdateState(2)}>Image</Nav.Link>
+                <Nav.Link eventKey="link-1" onClick={() => setUpdateState(2)}>Image</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link onClick={() => setUpdateState(3)}>Date</Nav.Link>
+                <Nav.Link eventKey="link-2" onClick={() => setUpdateState(3)}>Date</Nav.Link>
             </Nav.Item>
         </Nav>
         <div>
