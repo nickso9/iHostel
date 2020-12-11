@@ -8,6 +8,7 @@ import Calender from '../Calender/Calender';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav'
+import Col from 'react-bootstrap/Col'
 
 const HostOptions = () => {
 
@@ -19,13 +20,13 @@ const HostOptions = () => {
         title: host.title,
         description: host.description
     })
-
+    
 
     const imageRef = useRef(null) 
+
     useEffect(() => {
         imageRef.current = host.images
     }, [imageRef, host])
-
 
     const [timeState, setTimeState] = useState([
         {
@@ -34,6 +35,17 @@ const HostOptions = () => {
             key: 'selection',
         }
       ]);
+
+      const dateRef = useRef(null)
+
+        useEffect(() => {
+            console.log('use effect')
+            dateRef.current = timeState
+        }, [dateRef, timeState])
+        // console.log('date ref')
+        // console.log(dateRef.current)
+        // console.log('time state')
+        // console.log(timeState)
 
       const updater = (event) => {
         setGeneralInfo(prevState => ({
@@ -44,7 +56,6 @@ const HostOptions = () => {
     }
 
     const updaterDb = (data) => {
-        console.log(host.id)
         axios({
             method: 'PUT',
             url: `http://localhost:5000/users/host/${host.id}`,
@@ -75,19 +86,30 @@ const HostOptions = () => {
 
           updateCurrentState = (
             <div className="mt-4">
+                <Form.Row>  
+                <Form.Group as={Col}>
             <Form.Label>Price</Form.Label>
             <Form.Control 
                     name='price'
                     disabled
                     type="number"
                     placeholder="Rate per night"
-                    onChange={ele => {
-                        
-                    }}
                     value={host.price}
                 />
-                
-                <br />
+
+            </Form.Group>
+                        <Form.Group as={Col}>
+                        <Form.Label>Capacity</Form.Label>
+                        <Form.Control 
+                            name='capacity'
+                            type="number"
+                            disabled
+                            placeholder=""
+                            value={host.capacity}
+                        />
+                    </Form.Group>
+                </Form.Row>     
+
                 <Form.Label>Title</Form.Label>
                 <Form.Control 
                     name='title' 
@@ -168,10 +190,7 @@ const HostOptions = () => {
                         setHost((prevState) => ({
                             ...prevState,
                             images: host.images
-                        }))
-
-                        
-                        
+                        }))   
                     }}
                 >Update Image
                 </Button>
@@ -179,6 +198,12 @@ const HostOptions = () => {
                 </div>
           )
       } else {
+        console.log(timeState)
+        console.log(dateRef.current)
+        let buttonChecker = true
+        if (timeState !== dateRef.current) {
+            buttonChecker = false
+        }   
             updateCurrentState = (
             
                 <div className="text-center mt-4">
@@ -200,7 +225,6 @@ const HostOptions = () => {
                             }
                         }
                         updaterDb(dataToPut)
-
                         setHost(prevState => ({
                             ...prevState,
                             active: !host.active
@@ -211,19 +235,19 @@ const HostOptions = () => {
                 <Button 
                     variant="dark"
                     className=""
+                    disabled={buttonChecker}
                     onClick={() => {
-                        console.log(timeState)
+                        console.log('button click')
                         const dataToPut = {
-       
                             updateRange: {
                                 startDate: timeState[0].startDate,
                                 endDate: timeState[0].endDate,
                             }
-
                         }
-                        console.log(dataToPut)
-                        updaterDb(dataToPut)
-                    }}
+                        updaterDb(dataToPut)   
+                        let num = updateState === 3 ? 4 : 3
+                        setUpdateState(num)   
+                     }}
                 >Update Date
                 </Button>
                 </div>
