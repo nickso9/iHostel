@@ -16,7 +16,6 @@ const Rent = (props) => {
     const [ emptyData, setEmptyData ] = useState(false)
     const authToken = localStorage.getItem('auth-token')
     const convertedDate = format(new Date(), 'MMM d, yyyy')
-    let num = Math.floor(Math.random() * rentPlaces.length)
     let renterOption;
 
     useEffect(() => { 
@@ -81,20 +80,21 @@ const Rent = (props) => {
             } 
             })
             .then(() => {     
-                console.log('set rent places')          
+                console.log('set rent places')    
+                setRentPlaces(rentPlaces.slice(1))      
             })
             .catch(error => console.log(error))
              
-             setRentPlaces({
-                    rentPlaces: rentPlaces.pop()
-            })
-
+            
+             
+            // console.log(rent)
             if (rentPlaces.length === 0) {
+                console.log('empty data')
                 setEmptyData(true)
             }
-
-
-            setLoading(false)
+            // renterOption = loadOption()
+            // loadOption()
+            // setLoading(false)
     }
     
     const userSaysYes = async (idOfRoom, rentedPlace) => {
@@ -138,7 +138,7 @@ const Rent = (props) => {
         
         // const { description, price, title, images, userName, _id, capacity } = rentPlaces[randomNum]
         const { description, price, title, images, userName, _id } = rentPlaces[0]
-        console.log(rentPlaces[num])
+        console.log(rentPlaces[0])
         
         return (
             
@@ -205,7 +205,8 @@ const Rent = (props) => {
                                 className="px-5" 
                                 style={{"padding": "7px", "fontSize": "25px"}}
                                 onClick={() => {     
-                                    userSaysNo(_id)   
+                                    userSaysNo(_id) 
+                                    
                                 }}   
                             >no</Button>
                             <Button 
@@ -213,7 +214,7 @@ const Rent = (props) => {
                                 style={{"padding": "7px", "fontSize": "25px", backgroundColor: '#1F6284'}}  
                                 onClick={() => {
                                     
-                                    userSaysYes(_id, rentPlaces[num])
+                                    userSaysYes(_id, rentPlaces[0])
                                 }}
                             >rent</Button>
                         </>
@@ -241,7 +242,7 @@ const Rent = (props) => {
             renterOption = <RentOptions hostData={rentPlaces[0]} todaysDate={convertedDate} setUserHasBooked={setUserHasBooked} userHasBooked={userHasBooked}/>
         }
         else if (rentPlaces.length > 0) {
-            console.log(userHasBooked)
+            console.log('load option')
             renterOption = loadOption()
         } 
 

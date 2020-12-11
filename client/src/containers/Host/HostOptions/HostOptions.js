@@ -167,6 +167,7 @@ const HostOptions = () => {
                     timeState={timeState} 
                     setTimeState={setTimeState}     
                 />
+                <span></span>
                 <div className="d-flex justify-content-between mt-5">
                 <Button 
                     variant="warning"
