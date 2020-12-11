@@ -55,7 +55,7 @@ const AddImage = () => {
                                   <div key={v4()}>
                                 <div className='main-image-container d-block' id='main-image-src'><img id={v4()} alt="" src={images} /></div>
                                     <div className="d-block mt-2">
-                                    <span  style={{fontSize: '11px'}}> click thumbnails to select</span>
+                                    {host.images.length > 1 && <span  style={{fontSize: '11px'}}> click thumbnails to select</span>}
                                     <button 
                                         disabled={imageCheck}
                                         className="border border-secondary px-3 float-right"

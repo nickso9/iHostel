@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import { format } from 'date-fns'
 import HostContext from '../../../contexts/HostContext';
@@ -11,6 +11,7 @@ import Nav from 'react-bootstrap/Nav'
 
 const HostOptions = () => {
 
+    
     const { host, setHost } = useContext(HostContext)
     const authToken = localStorage.getItem('auth-token')
     const [updateState, setUpdateState] = useState(1);
@@ -18,13 +19,16 @@ const HostOptions = () => {
         title: host.title,
         description: host.description
     })
-    
-        
+
+
+    const imageRef = useRef(null) 
+    useEffect(() => {
+        imageRef.current = host.images
+    }, [imageRef, host])
+
 
     const [timeState, setTimeState] = useState([
         {
-            // startDate: new Date(host.range[0]),
-            // endDate: new Date(host.range[1]),
             startDate: new Date(host.startDate),
             endDate: new Date(host.endDate),
             key: 'selection',
@@ -56,17 +60,19 @@ const HostOptions = () => {
     }
     
 
-      let buttonChecker = true
-
-      if (host.title !== generalInfo.title ||
-        host.description !== generalInfo.description
-        ) {
-            buttonChecker = false
-        }
+      
 
       let updateCurrentState;
 
       if (updateState === 1) {
+        let buttonChecker = true
+
+        if (host.title !== generalInfo.title ||
+          host.description !== generalInfo.description
+          ) {
+              buttonChecker = false
+          }
+
           updateCurrentState = (
             <div className="mt-4">
             <Form.Label>Price</Form.Label>
@@ -132,17 +138,24 @@ const HostOptions = () => {
 
             }}
             >Update Info</Button>
+            {/* <div className="text-right mt-1 text-success">info updated</div> */}
             </div>
           )
           
       } else if (updateState === 2) {
-            console.log(host.images)
+    
+        let buttonChecker = true
+        if (host.images !== imageRef.current) {
+            buttonChecker = false
+        }     
+
             updateCurrentState = (
                 <div className="mt-4">
                 <AddImage />
                 <br />
                 <Button 
                     variant="dark"
+                    disabled={buttonChecker}
                     className="d-block mt-5 ml-auto"
                     onClick={() => {
                         const dataToPut = {
@@ -151,9 +164,18 @@ const HostOptions = () => {
                             }
                         }  
                         updaterDb(dataToPut)
+
+                        setHost((prevState) => ({
+                            ...prevState,
+                            images: host.images
+                        }))
+
+                        
+                        
                     }}
                 >Update Image
                 </Button>
+                {/* <div className="text-right mt-1 text-success">image updated</div> */}
                 </div>
           )
       } else {
@@ -192,14 +214,12 @@ const HostOptions = () => {
                     onClick={() => {
                         console.log(timeState)
                         const dataToPut = {
-                            // updateRange: [
-                            //     format(timeState[0].startDate, 'MMM/d/yyyy'),
-                            //     format(timeState[0].endDate, 'MMM/d/yyyy')
-                            // ]
+       
                             updateRange: {
                                 startDate: timeState[0].startDate,
                                 endDate: timeState[0].endDate,
                             }
+
                         }
                         console.log(dataToPut)
                         updaterDb(dataToPut)

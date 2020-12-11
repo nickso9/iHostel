@@ -111,7 +111,7 @@ const RentOptions = (props) => {
                             }
                         })}
             <div className="" style={{fontSize: '18px'}}>
-                <div className="text-left">
+                <div className="text-left mt-3">
                     <div><span style={{'color': "#1F6284"}}>Roommates ({otherUsers.length} out of {capacity} max):</span></div>
                     <div className="d-flex mx-4" style={{'maxWidth': "70px"}}>
                         {otherUsers ? otherUsers.map((elem, index) => {
