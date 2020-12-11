@@ -49,7 +49,6 @@ const Rent = () => {
                     }
                      
                 })
-                console.log(upgradedRes.length)
             
                 if (upgradedRes.length > 0) {
                     setRentPlaces(upgradedRes)  
@@ -70,6 +69,7 @@ const Rent = () => {
 
     /// working on this ///
     const userSaysNo = async (idOfRoom) => { 
+        console.log('hihi')
         const userSaysNo = {
             day: convertedDate,
             user: userData.user.id
@@ -84,6 +84,7 @@ const Rent = () => {
             })
             .then(() => {     
                 console.log('set rent places')    
+                setLoading(true)
                 setRentPlaces(rentPlaces.slice(1)) 
 
                   
