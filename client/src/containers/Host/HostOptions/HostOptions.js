@@ -39,13 +39,8 @@ const HostOptions = () => {
       const dateRef = useRef(null)
 
         useEffect(() => {
-            console.log('use effect')
             dateRef.current = timeState
         }, [dateRef, timeState])
-        // console.log('date ref')
-        // console.log(dateRef.current)
-        // console.log('time state')
-        // console.log(timeState)
 
       const updater = (event) => {
         setGeneralInfo(prevState => ({
@@ -198,8 +193,7 @@ const HostOptions = () => {
                 </div>
           )
       } else {
-        console.log(timeState)
-        console.log(dateRef.current)
+
         let buttonChecker = true
         if (timeState !== dateRef.current) {
             buttonChecker = false
@@ -237,7 +231,6 @@ const HostOptions = () => {
                     className=""
                     disabled={buttonChecker}
                     onClick={() => {
-                        console.log('button click')
                         const dataToPut = {
                             updateRange: {
                                 startDate: timeState[0].startDate,

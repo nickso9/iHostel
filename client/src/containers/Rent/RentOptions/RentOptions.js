@@ -4,7 +4,6 @@ import { v4 } from 'uuid';
 import axios from 'axios';
 
 const RentOptions = (props) => {
-    console.log(props)
     const { userData } = useContext(UserContext)
     const { title, price, description, images, userName, capacity, _id } = props.hostData
     const authToken = localStorage.getItem('auth-token')
@@ -56,6 +55,7 @@ const RentOptions = (props) => {
             })
             .then(() => {
                 props.setUserHasBooked(false)
+                props.userSaysNo(idOfRoom)
             })
             .catch(error => {
                 console.log(error)

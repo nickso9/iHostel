@@ -144,9 +144,6 @@ const HostDashboard = () => {
         hostDash = <div>Please add a listing.</div>
     }
 
-
-
-    console.log(host.userId)
     return (
         <>
         {hostDash} 
