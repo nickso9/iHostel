@@ -108,7 +108,6 @@ router.get('/find', auth, async (req, res) => {
 router.get('/userglance/:id', auth, async (req,res) => {
   
     const userFind = await User.find({_id: req.user}, "userHistory")
-
     const bookedArray = []
     const { userHistory } = userFind[0]
     

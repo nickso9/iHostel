@@ -35,7 +35,6 @@ const RentOptions = (props) => {
         }
        
         if (otherUsers.length === 0) {
-            console.log('running room mates')
                 runRoommates()       
         }
             

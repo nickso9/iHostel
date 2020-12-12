@@ -17,7 +17,8 @@ const Home = () => {
         landingPage = (
         <div className="p-5 rent-chart-page-div">
             <div className="">
-                <h1 className="text-left">Hi {userName} !</h1>
+                {userData.user.images && <img alt="profile image" className="border border-1" src={userData.user.images} style={{width: "100px"}}/>}
+                <h1 className="text-left mt-4">Hi {userName} !</h1>
                 <div className="mt-5">
                 <span><strong>Travel history at a glance:</strong></span>
                 </div>
@@ -28,7 +29,6 @@ const Home = () => {
         
         )
     } else {
-        // checkInnkeeper()
         landingPage = (
             <div className="rent-chart-page-div p-5">
             <div className="">

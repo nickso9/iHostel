@@ -9,22 +9,25 @@ const RentChart = () => {
     const [ userHistory, setUserHistory ] = useState([])
 
     useEffect(() => {
-    const getGlance = async () => {
-        await axios({
-            method: 'GET',
-            url: `http://localhost:5000/users/userglance/${userData.user.id}`,
-            headers: {
-                'x-auth-token': authToken
-            } 
-        })
-        .then((response) => {
-            setUserHistory(response.data)
-        })
-        .catch(error => {
-            console.log(error)
-        })
+    
+    if (authToken) {
+        const getGlance = async () => {
+            await axios({
+                method: 'GET',
+                url: `http://localhost:5000/users/userglance/${userData.user.id}`,
+                headers: {
+                    'x-auth-token': authToken
+                } 
+            })
+            .then((response) => {
+                setUserHistory(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        }
+        getGlance()
     }
-    getGlance()
     },[setUserHistory, authToken, userData])
     
    let userHistoryData;
