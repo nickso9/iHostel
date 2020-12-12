@@ -84,6 +84,7 @@ router.get('/rent', async (req, res) => {
     const userId = req.query.user
     const date = req.query.date
     let maxDistance = (100/3963)
+    let sacramento = [-121.478851, 38.575764]
     let coords = await req.query.coords
 
     const queryStay = {"usersYes": {$elemMatch: { "day": date, "user": userId}}}

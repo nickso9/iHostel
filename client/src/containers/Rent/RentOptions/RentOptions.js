@@ -110,6 +110,7 @@ const RentOptions = (props) => {
                             }
                         })}
             <div className="" style={{fontSize: '18px'}}>
+            <div className="mt-3 text-left"><span style={{'color': "#1F6284"}}>Info:</span> {description}</div>
                 <div className="text-left mt-3">
                     <div><span style={{'color': "#1F6284"}}>Roommates ({otherUsers.length} out of {capacity} max):</span></div>
                     <div className="d-flex mx-4" style={{'maxWidth': "70px"}}>
@@ -128,10 +129,10 @@ const RentOptions = (props) => {
                     </div>
             
 
-                    <div className="mt-2"><span style={{'color': "#1F6284"}}>Info:</span> {description}</div>
+                    
                 </div>
                 
-                <div className="d-flex justify-content-between mt-5">
+                <div className="d-flex justify-content-between mt-4">
                     <button
                         className="px-4 btn-warning py-2" 
                         style={{}}
