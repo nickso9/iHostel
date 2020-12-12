@@ -19,7 +19,7 @@ const HostDashboard = () => {
         const hostGlance = (id) => {
             axios({
                 method: "GET",
-                url: `http://localhost:5000/users/hostglance/${id}`,
+                url: `/users/hostglance/${id}`,
                 params: {day: convertedDate},
                 headers: {
                     'x-auth-token': authToken

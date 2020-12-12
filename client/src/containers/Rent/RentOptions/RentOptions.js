@@ -16,7 +16,7 @@ const RentOptions = (props) => {
         const runRoommates = () => {
             axios({
                 method: 'GET',
-                url: `http://localhost:5000/users/find/`, 
+                url: `/users/find/`, 
                 params: {_id, day: props.todaysDate},
                 headers: {
                     'x-auth-token': authToken
@@ -43,7 +43,7 @@ const RentOptions = (props) => {
             const userWantsToCancel = userData.user.id  
             await axios({
                 method: 'PUT',
-                url: `http://localhost:5000/users/rent/add/${userWantsToCancel}`, 
+                url: `/users/rent/add/${userWantsToCancel}`, 
                 data: {
                     roomId: idOfRoom,
                     date: props.todaysDate

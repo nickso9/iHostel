@@ -23,7 +23,7 @@ export default function Login() {
         try {
             const loginUser = { email, password }
             const loginRes = await axios.post(
-                'http://localhost:5000/users/login', loginUser);
+                '/users/login', loginUser);
             setUserData({
                 token: loginRes.data.token,
                 user: loginRes.data.user
@@ -35,7 +35,7 @@ export default function Login() {
             } else {
                 const hostData = await axios({
                     method: 'GET',
-                    url: `http://localhost:5000/users/host/${loginRes.data.user.id}`,
+                    url: `/users/host/${loginRes.data.user.id}`,
                     headers: {
                         'x-auth-token': loginRes.data.token
                     }     

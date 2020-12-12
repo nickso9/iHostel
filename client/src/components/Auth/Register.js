@@ -82,12 +82,12 @@ export default function Register() {
         }
         
         await axios.post(
-            'http://localhost:5000/users/register', 
+            '/users/register', 
             sendData
         );
         
         const loginRes = await axios.post(
-            'http://localhost:5000/users/login', {
+            '/users/login', {
             email: sendData.email,
             password: sendData.password
         });

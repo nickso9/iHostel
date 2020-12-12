@@ -52,7 +52,7 @@ const HostOptions = () => {
     const updaterDb = (data) => {
         axios({
             method: 'PUT',
-            url: `http://localhost:5000/users/host/${host.id}`,
+            url: `/users/host/${host.id}`,
             data: data,
             headers: {
                 'x-auth-token': authToken

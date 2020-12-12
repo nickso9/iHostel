@@ -14,7 +14,7 @@ const RentChart = () => {
         const getGlance = async () => {
             await axios({
                 method: 'GET',
-                url: `http://localhost:5000/users/userglance/${userData.user.id}`,
+                url: `/users/userglance/${userData.user.id}`,
                 headers: {
                     'x-auth-token': authToken
                 } 

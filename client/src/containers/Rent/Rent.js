@@ -24,7 +24,7 @@ const Rent = () => {
         const searchLocation = async () => {
             
             if (convertedCoords) {
-                await axios.get('http://localhost:5000/users/rent',
+                await axios.get('/users/rent',
              { 
                  params: { 
                     coords: convertedCoords,
@@ -74,7 +74,7 @@ const Rent = () => {
         }
         await axios({
             method: 'POST',
-            url: `http://localhost:5000/users/rent/${idOfRoom}`,
+            url: `/users/rent/${idOfRoom}`,
             data: userSaysNo,
             headers: {
                 'x-auth-token': authToken
@@ -101,7 +101,7 @@ const Rent = () => {
         const userSaysYes = userData.user.id     
             await axios({
                 method: 'POST',
-                url: `http://localhost:5000/users/rent/add/${userSaysYes}`, 
+                url: `/users/rent/add/${userSaysYes}`, 
                 data: {
                     rentHistory,
                     roomId: idOfRoom,

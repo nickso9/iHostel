@@ -220,7 +220,7 @@ const Host = () => {
                                 
                                 axios({
                                     method: 'POST',
-                                    url: 'http://localhost:5000/users/host',
+                                    url: '/users/host',
                                     data: hostDataToPost,
                                     headers: {
                                         'x-auth-token': authToken
