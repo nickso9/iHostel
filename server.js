@@ -21,13 +21,15 @@ mongoose.connect( URI,
         if (error) throw error;
     });
 
+const PORT = process.env.PORT || 5000
+
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('MongoDB connection made')
 });
 
 
-const PORT = process.env.PORT || 5000
+
 
 
 
