@@ -19,7 +19,7 @@ a {
 .backgroundLine {
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(to top left, #ffffff 40%, #eeebeb 50%);
+  background: linear-gradient(160deg, #ffffff 0%,#ffffff 40.6%,#fcf9f9 10%,#fafafa 50.4%,#fcfcfc 100%);;
 }
 
 button{

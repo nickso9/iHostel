@@ -66,7 +66,6 @@ export default function Register() {
     try {
         
         const { accountType, email, password, passwordCheck, userName, addressOne, addressTwo, city, state, zip, images} = userRegistration
-        console.log(userRegistration.images)
         const sendData = {
             accountType,
             userName,

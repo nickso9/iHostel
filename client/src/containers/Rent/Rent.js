@@ -6,6 +6,7 @@ import UserContext from '../../contexts/UserContext'
 import RentOptions from './RentOptions/RentOptions'
 import CoordsContext from '../../contexts/CoordsContext'
 import { v4 } from 'uuid';
+import Logo from '../../assets/images/LogoO.png'
 
 const Rent = () => {
     const { coords } = useContext(CoordsContext)
@@ -215,7 +216,12 @@ const Rent = () => {
     }
     
     if (rentPlaces.length === 0) {
-        renterOption = <div>:( check back tomorrow</div>
+        renterOption = (
+        <>
+        <img alt="logo" src={Logo} style={{width: '100px'}}/>
+        <div className="mt-4">We ran out of potential matches in your area. Check back tomorrow.</div>
+        </>
+        )
     }   
 
     let userBookedStyle;
