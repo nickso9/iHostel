@@ -114,7 +114,8 @@ export default function Register() {
                   <div className="mt-5">
                       <span className="d-block">Avatar</span>
                       <div className='small-image-container m-2 d-block'>
-                         <img alt="profile" src={userRegistration.images} /></div>           
+                          {userRegistration.images &&  <img alt="profile" src={userRegistration.images} />}
+                        </div>           
                          <input className="" type='file' name='file' id="image" onChange={uploadImage} accept="image/*" />
                         
                     </div> 

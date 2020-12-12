@@ -168,6 +168,10 @@ const HostOptions = () => {
         let buttonChecker = true
         if (host.images !== imageRef.current) {
             buttonChecker = false
+
+            if (imageUpdateMsg !== '') {
+                setImageUpdateMsg('')
+            }
         }     
 
             updateCurrentState = (
@@ -275,13 +279,14 @@ const HostOptions = () => {
                 <Nav.Link eventKey="link-0" onClick={() => {
                     setUpdateState(1)
                     setImageUpdateMsg('')
+                    setDateUpdateMsg('')
                     }}>General Info</Nav.Link>
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link eventKey="link-1" onClick={() => {
                     setUpdateState(2)
                     setGenUpdateMsg('')
-
+                    setDateUpdateMsg('')
                     }}>Image</Nav.Link>
             </Nav.Item>
             <Nav.Item>

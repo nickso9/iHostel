@@ -27,10 +27,10 @@ const RentChart = () => {
     getGlance()
     },[setUserHistory, authToken, userData])
     
-   
+   let userHistoryData;
 
-   
-    return (
+   if (userHistoryData) {
+       userHistoryData = (
         <table className="mt-4">
             <tbody >
             <tr className="border border-bottom"> 
@@ -51,9 +51,15 @@ const RentChart = () => {
             })}
             </tbody> 
              </table>
-
-
-
+       )
+   } else {
+       userHistoryData = <div className="mt-5 text-center">No information to display</div>
+   }
+   
+    return (
+        <>
+        {userHistoryData}
+        </>
     )
 
 }
