@@ -69,7 +69,7 @@ function App() {
           }
 
           const tokenRes = await axios.post(
-            'http://localhost:5000/users/tokenIsValid', 
+            '/users/tokenIsValid', 
             null,
             { headers: {
                 'x-auth-token': token
@@ -77,7 +77,7 @@ function App() {
 
             if (tokenRes.data) {
                 const userRes = await axios.get(
-                    'http://localhost:5000/users/', 
+                    '/users/', 
                     { headers: {
                         'x-auth-token': token
                     }}
@@ -91,7 +91,7 @@ function App() {
 
                   const hostData = await axios({
                       method: 'GET',
-                      url: `http://localhost:5000/users/host/${userRes.data.id}`,
+                      url: `/users/host/${userRes.data.id}`,
                       headers: {
                           'x-auth-token': token
                       }     
