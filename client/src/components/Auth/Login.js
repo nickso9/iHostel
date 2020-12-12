@@ -5,13 +5,13 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import HostContext from '../../contexts/HostContext';
-// import ErrorHandler from '../misc/ErrorHandler'
+
 
 
 export default function Login() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    // const [error, setError] = useState()
+    const [error, setError] = useState()
 
     const { host, setHost } = useContext(HostContext)
     const { setUserData } = useContext(UserContext);
@@ -69,8 +69,7 @@ export default function Login() {
             
 
         } catch (error) {
-            console.log('wrong user creds')
-            // error.response.data.msg && setError(error.response.data.msg)
+            setError('Wrong user credentials')
         }
     
     };
@@ -80,9 +79,7 @@ export default function Login() {
         <div className='register-login-wrapper bg-light'>
             <h2 className="mb-4">Login</h2>
 
-            {
-                // error && <ErrorHandler message={error} clearError={() => setError(undefined)} />
-            }
+            
             
             <Form onSubmit={submit}>
                     <Form.Group>
@@ -91,7 +88,10 @@ export default function Login() {
                             type="email" 
                             placeholder="Enter email" 
                             id='register-email' 
-                            onChange={e => setEmail(e.target.value)}
+                            onChange={e => {
+                                setEmail(e.target.value)
+                                setError('')
+                            }}
                         />
                     </Form.Group>
                     <Form.Group>
@@ -101,7 +101,10 @@ export default function Login() {
                             autoComplete="on" 
                             placeholder="Password" 
                             id='register-password' 
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={e => {
+                                setPassword(e.target.value)
+                                setError('')
+                            }}
                         />
                     </Form.Group>   
                     <Button 
@@ -110,6 +113,11 @@ export default function Login() {
                         className="pr-4 pl-4 btn-dark mt-3 ml-auto" 
                         >Login</Button>
                     </Form>
+                    <div className="mt-2">
+                    {
+                        error && <span className="text-danger position-absolute">{error}</span>
+                    }
+                    </div>
         </div>
 
 

@@ -27,7 +27,7 @@ const RentChart = () => {
     getGlance()
     },[setUserHistory, authToken, userData])
     
-    console.log(userHistory)
+   
 
    
     return (

@@ -1,6 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react'
 import axios from 'axios'
-import { format } from 'date-fns'
 import HostContext from '../../../contexts/HostContext';
 import AddAddress from '../../Host/AddAddress/AddAddress';
 import AddImage from '../../Host/AddImage/AddImage';
@@ -65,9 +64,9 @@ const HostOptions = () => {
         .catch(err => console.log(err))
     }
     
-
-      
-
+      const [ dateUpdateMsg, setDateUpdateMsg ] = useState('')
+      const [ imageUpdateMsg, setImageUpdateMsg ] = useState('')
+      const [ genUpdateMsg, setGenUpdateMsg ] = useState('')
       let updateCurrentState;
 
       if (updateState === 1) {
@@ -113,6 +112,7 @@ const HostOptions = () => {
                     placeholder="Title" 
                     onChange={ele => {
                         updater(ele)
+                        setGenUpdateMsg('')
                     }}
                     value={generalInfo.title}
                 />
@@ -126,6 +126,7 @@ const HostOptions = () => {
                         placeholder="Description of home" 
                         onChange={ele => {
                             updater(ele)
+                            setGenUpdateMsg('')
                         }}
                         value={generalInfo.description}
                     />
@@ -153,14 +154,17 @@ const HostOptions = () => {
                     description: generalInfo.description
                 }))
 
+                setGenUpdateMsg('Changes accepted')    
             }}
             >Update Info</Button>
-            {/* <div className="text-right mt-1 text-success">info updated</div> */}
+            <div className="text-right mt-1 text-success" style={{height: '5px'}}><span>{genUpdateMsg}</span></div>
             </div>
           )
-          
+          console.log(genUpdateMsg)
       } else if (updateState === 2) {
     
+    
+
         let buttonChecker = true
         if (host.images !== imageRef.current) {
             buttonChecker = false
@@ -186,10 +190,12 @@ const HostOptions = () => {
                             ...prevState,
                             images: host.images
                         }))   
+
+                        setImageUpdateMsg('image updated')
                     }}
                 >Update Image
                 </Button>
-                {/* <div className="text-right mt-1 text-success">image updated</div> */}
+                <div className="text-right mt-1 text-success" style={{height: '5px'}}><span>{imageUpdateMsg}</span></div>
                 </div>
           )
       } else {
@@ -197,7 +203,13 @@ const HostOptions = () => {
         let buttonChecker = true
         if (timeState !== dateRef.current) {
             buttonChecker = false
+
+            if (dateUpdateMsg !== '') {
+                setDateUpdateMsg('')
+            }
+            
         }   
+
             updateCurrentState = (
             
                 <div className="text-center mt-4">
@@ -205,7 +217,7 @@ const HostOptions = () => {
                     <div className="mt-4">
                 <Calender 
                     timeState={timeState} 
-                    setTimeState={setTimeState}     
+                    setTimeState={setTimeState}  
                 />
                 <span></span>
                 <div className="d-flex justify-content-between mt-5">
@@ -240,10 +252,13 @@ const HostOptions = () => {
                         updaterDb(dataToPut)   
                         let num = updateState === 3 ? 4 : 3
                         setUpdateState(num)   
+                        setDateUpdateMsg('Date updated')
+
                      }}
                 >Update Date
-                </Button>
+                </Button> 
                 </div>
+                <div className="text-right mt-1 text-success" style={{height: '5px'}}><span>{dateUpdateMsg}</span></div>
                 </div>
             </div>
             
@@ -257,13 +272,24 @@ const HostOptions = () => {
         <div className="option-update-wrapper mb-5">
         <Nav variant="tabs" defaultActiveKey="link-0">
             <Nav.Item>
-                <Nav.Link eventKey="link-0" onClick={() => setUpdateState(1)}>General Info</Nav.Link>
+                <Nav.Link eventKey="link-0" onClick={() => {
+                    setUpdateState(1)
+                    setImageUpdateMsg('')
+                    }}>General Info</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="link-1" onClick={() => setUpdateState(2)}>Image</Nav.Link>
+                <Nav.Link eventKey="link-1" onClick={() => {
+                    setUpdateState(2)
+                    setGenUpdateMsg('')
+
+                    }}>Image</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="link-2" onClick={() => setUpdateState(3)}>Date</Nav.Link>
+                <Nav.Link eventKey="link-2" onClick={() => {
+                    setUpdateState(3)
+                    setGenUpdateMsg('')
+                    setImageUpdateMsg('')
+                }}>Date</Nav.Link>
             </Nav.Item>
         </Nav>
         <div>

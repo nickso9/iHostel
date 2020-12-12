@@ -19,7 +19,6 @@ const Rent = () => {
     let renterOption;
 
     useEffect(() => { 
-        console.log('hihiih')
         let convertedCoords = coords
         const searchLocation = async () => {
             
@@ -32,8 +31,7 @@ const Rent = () => {
                     date: convertedDate
             }}) 
             .then(async response => { 
-                if (await response.data.hosted) {
-                    console.log('already rent.js hosted')   
+                if (await response.data.hosted) { 
                     setRentPlaces(response.data.alreadyHosted)
                     setUserHasBooked(true)   
                 } else if (response.data.length === 0) {
@@ -69,7 +67,6 @@ const Rent = () => {
 
     /// working on this ///
     const userSaysNo = async (idOfRoom) => { 
-        console.log('hihi')
         const userSaysNo = {
             day: convertedDate,
             user: userData.user.id
@@ -82,8 +79,7 @@ const Rent = () => {
                 'x-auth-token': authToken
             } 
             })
-            .then(() => {     
-                console.log('set rent places')    
+            .then(() => {      
                 setLoading(true)
                 setRentPlaces(rentPlaces.slice(1)) 
 
