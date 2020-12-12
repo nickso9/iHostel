@@ -15,10 +15,11 @@ a {
   color: unset;
 }
 
+
 .backgroundLine {
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(to top left, #e394a3 50%, #8dd6a6 50%);
+  background-image: linear-gradient(to top left, #ffffff 40%, #eeebeb 50%);
 }
 
 button{
@@ -114,20 +115,6 @@ input[type="date"]:valid::before { display: none }
   max-height: 300px;
   margin: auto;
 }
-
-
-/* Footer */
-
-.footer-div {
-  /* height: 35px; */
-
-}
-
-/* Search */
-
-
-
-
 
 
 /* Host */

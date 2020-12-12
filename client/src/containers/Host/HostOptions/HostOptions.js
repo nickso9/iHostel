@@ -273,7 +273,7 @@ const HostOptions = () => {
 
 
     return (
-        <div className="option-update-wrapper mb-5">
+        <div className="option-update-wrapper mb-5 bg-light">
         <Nav variant="tabs" defaultActiveKey="link-0">
             <Nav.Item>
                 <Nav.Link eventKey="link-0" onClick={() => {

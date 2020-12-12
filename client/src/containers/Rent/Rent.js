@@ -239,7 +239,7 @@ const Rent = () => {
     
     return (
         
-        <div id="rent-wrapper" style={userBookedStyle}>
+        <div id="rent-wrapper" style={userBookedStyle} className="bg-light">
                 {renterOption} 
        
         </div>

@@ -264,7 +264,7 @@ const Host = () => {
 
     return (
         <>
-            <div className='host-container bg-light mb-5 pb-5'> 
+            <div className='host-container bg-light mb-5 pb-5 bg-light'> 
                 {currentState}       
             </div>  
         </>   

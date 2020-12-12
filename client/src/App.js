@@ -43,7 +43,6 @@ function App() {
         zip: null
     },
     images: [],
-    // range: [],
     startDate: null,
     endDate: null
 })
@@ -130,6 +129,7 @@ function App() {
     };
 
   return (
+    
    <BrowserRouter>
       <UserContext.Provider value={{userData, setUserData}}>
       <HostContext.Provider value={{host, setHost}}>
@@ -173,8 +173,8 @@ function App() {
       </CoordsContext.Provider>
       </HostContext.Provider> 
       </UserContext.Provider>
-
    </BrowserRouter>
+  
   );
 }
 

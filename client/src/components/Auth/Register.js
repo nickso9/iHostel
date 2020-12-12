@@ -111,7 +111,7 @@ export default function Register() {
             <div>
                 <ProgressBar now={100} variant="secondary"/>
                 {accountType === "renter" ? 
-                  <div className="mt-5">
+                  <div className="mt-1">
                       <span className="d-block">Avatar</span>
                       <div className='small-image-container m-2 d-block'>
                           {userRegistration.images &&  <img alt="profile" src={userRegistration.images} />}
@@ -311,12 +311,12 @@ export default function Register() {
     }
 
     return (
-    <div className='register-login-wrapper bg-light mt-5'>
+    <div className='register-login-wrapper bg-light'>
         
         <div className='register-login-div'>
     <h1 className={regClass}>{regTitle} Registration</h1>
             <div className='register-login-form'>
-            <Form className="mt-5">
+            <Form className="mt-4">
             {regProgress}
             </Form>
             </div>

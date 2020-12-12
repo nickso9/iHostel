@@ -15,7 +15,7 @@ const Home = () => {
     let landingPage;
     if (accountType === "renter") {
         landingPage = (
-        <div className="p-5 rent-chart-page-div">
+        <div className="p-5 rent-chart-page-div bg-light">
             <div className="">
                 {userData.user.images && <img alt="profile image" className="border border-1" src={userData.user.images} style={{width: "100px"}}/>}
                 <h1 className="text-left mt-4">Hi {userName} !</h1>
@@ -30,7 +30,7 @@ const Home = () => {
         )
     } else {
         landingPage = (
-            <div className="rent-chart-page-div p-5">
+            <div className="rent-chart-page-div p-5 bg-light">
             <div className="">
                 <h1 className="text-left">Hi {userName} !</h1>
             </div>

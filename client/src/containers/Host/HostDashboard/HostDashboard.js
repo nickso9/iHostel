@@ -84,7 +84,7 @@ const HostDashboard = () => {
                         userHistoryComp = (
                         userHistory[0].map((ele, index) => {
                             return (
-                                <div key={index} style={{width: '100px'}} className="text-center d-inline-block mx-3" >
+                                <div key={index} style={{width: '100px'}} className="text-center d-inline-block" >
                                     <div><img alt="avatarofuser" src={ele.images} style={{height: '60px', borderRadius: '25%'}}/></div>
                                     <div>{ele.userName}</div>
                                 </div>
@@ -111,7 +111,7 @@ const HostDashboard = () => {
                 <span>Current guests for tonight ({convertedDate}):</span>
             </div>
            
-            <div className="p-3 mt-3">
+            <div className="p-3 mt-2 d-flex align-items-start">
                 
                 {userHistoryComp}
             </div>
@@ -145,9 +145,9 @@ const HostDashboard = () => {
     }
 
     return (
-        <>
+        <div className="bg-light">
         {hostDash} 
-        </>
+        </div>
     )
 }
 
