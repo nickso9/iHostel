@@ -29,10 +29,6 @@ connection.once('open', () => {
 });
 
 
-
-
-
-
 app.use('/users', require('./routes/userRouter'))
 app.use('/users', require('./routes/userVerified'))
 app.use('/users', require('./routes/rentRoutes'))
