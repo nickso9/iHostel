@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom'
 import Backpack from '../../../assets/images/backpack.png'
 import Cellphone from '../../../assets/images/cellphone.png'
 import Sleeping from '../../../assets/images/Sleepinglogo.png'
-// import Register from '../../../components/Auth/Register'
 
 const Splash = () => {
     
     return (
         <>
         <div className="w-100 bg-light">
-            {/* <div className="d-block w-100 mx-auto bg-light"><span><h1>What are you?</h1></span></div> */}
             <div className="d-flex justify-content-between flex-wrap container-fluid mt-5 splash-div py-5">
             <div className="text-center align-self-end"><img alt="backpack" src={Backpack} className="d-block"/><span className="mt-3"><h1>Trek</h1></span></div>
             <div className="text-center"><img alt="cellphone" src={Cellphone} className="d-block"/><span className="mt-3"><h1>Connect</h1></span></div>
