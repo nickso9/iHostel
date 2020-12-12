@@ -29,7 +29,7 @@ const RentChart = () => {
     
    let userHistoryData;
 
-   if (userHistoryData) {
+   if (userHistory.length > 0) {
        userHistoryData = (
         <table className="mt-4">
             <tbody >
