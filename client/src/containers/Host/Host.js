@@ -42,10 +42,6 @@ const Host = () => {
                 ...prevState,
                 startDate: convertedStartDate,
                 endDate: convertedEndDate
-                // range: [
-                //     convertedStartDate,
-                //     convertedEndDate
-                // ]
             }))   
     }
 
