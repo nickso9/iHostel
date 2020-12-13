@@ -7,7 +7,7 @@ const path = require('path')
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+const port = process.env.PORT || 5000
 
 const URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_DATABASE}`;
 mongoose.connect( URI, 
@@ -21,7 +21,7 @@ mongoose.connect( URI,
         if (error) throw error;
     });
 
-const PORT = process.env.PORT || 5000
+
 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -41,6 +41,6 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-app.listen(PORT, () => {
-    console.log('server running on ' + PORT)
+app.listen(port, () => {
+    console.log('server running on ' + port)
 });
