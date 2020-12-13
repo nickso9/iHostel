@@ -11,7 +11,7 @@ router.post('/register', async (req, res) => {
     try {
 
         const { accountType, email, password, passwordCheck, userName, address, images } = req.body;
-        console.log(req.body)
+       
         if (!email || !password || !passwordCheck || !userName) {
             return res.status(400).json({msg: 'All fields required.'})
         };
