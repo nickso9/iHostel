@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 5000
 
-const URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_DATABASE}`;
-mongoose.connect( URI, 
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_DATABASE}`;
+mongoose.connect( uri, 
     { 
         useNewUrlParser: true, 
         useUnifiedTopology: true , 
