@@ -95,4 +95,4 @@ hostSchema.pre('save', async function(next) {
 })
 
 
-module.exports = Host = mongoose.model('host', hostSchema)
+module.exports = Host = mongoose.model('Host', hostSchema)
