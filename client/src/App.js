@@ -54,7 +54,7 @@ function App() {
      
         const getCoords = () => {
           // navigator.geolocation.getCurrentPosition(function(position) {
-            setCoords([position.coords.longitude,position.coords.latitude])    
+            // setCoords([position.coords.longitude,position.coords.latitude])    
           //   })
           setCoords(['-121.478851', '38.575764'])
         }
