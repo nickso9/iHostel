@@ -8,8 +8,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && npm install && npm run build"
-    
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/nsando84/ibnb#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "core-util-is": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
