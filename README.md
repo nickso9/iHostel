@@ -21,7 +21,7 @@
 
  #### [**iHostel**](https://ihostel.herokuapp.com/) <--- Demo the application here
  
- ### Video demo - [Right Here](put url here)
+ ### Video demo - [Right Here](https://drive.google.com/file/d/1oZ4EYii_EHg3h6-3tbNtDmOiFFlMmHnD/view)
  
   ### Features:
   
