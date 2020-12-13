@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const auth = require('../auth/auth');
-const Host = require('../models/HostModel')
+const Host = require('../models/hostModel')
 
 
 router.post('/host', auth, async (req, res) => {

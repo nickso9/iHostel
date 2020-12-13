@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const auth = require('../auth/auth');
-const User = require('../models/UserModel')
-const Host = require('../models/HostModel')
+const User = require('../models/userModel')
+const Host = require('../models/hostModel')
 
 router.post('/rent/add/:id', auth, async (req, res) => {
     
