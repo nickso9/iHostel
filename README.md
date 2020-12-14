@@ -21,7 +21,7 @@
   
   #### MERN - React.js, MongoDB with Mongoose, Express, & Node.js.
 
- #### [**iHostel**](https://ihostel.herokuapp.com/) <--- Demo the application here
+ #### [**iHostel**](https://ihostel.herokuapp.com/) <--- Demo the application here (Location set to Sacramento Area for demo purposes)
  
  ### Video demo - [Right Here](https://drive.google.com/file/d/1oZ4EYii_EHg3h6-3tbNtDmOiFFlMmHnD/view)
  
