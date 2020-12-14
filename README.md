@@ -3,7 +3,7 @@
 #### Main page.
 ![Screen Shot 2020-12-12 at 1 10 51 PM](https://user-images.githubusercontent.com/67135603/102004999-73df3380-3cca-11eb-882b-e7b6e8fe6e36.png)
  
- #### View page after selected to stay.
+ #### Rent page after selected to stay.
 ![Screen Shot 2020-12-12 at 1 08 53 PM](https://user-images.githubusercontent.com/67135603/102004990-64f88100-3cca-11eb-8637-6a3ce1acd50f.png)
 
 
@@ -75,7 +75,7 @@
 
 ### **Usage**
 
-#### This application is for avid traveler/backpacker to easily find a place to stay for the night. It also serves the Innkeeper whom loves to host travelers. 
+#### This application is for an avid traveler/backpacker to easily find a place to stay for the night. It also serves the Innkeeper whom loves to wants to host. 
 
 #### Yes/no page.
 ![Screen Shot 2020-12-12 at 1 10 26 PM](https://user-images.githubusercontent.com/67135603/102005594-dcc8aa80-3cce-11eb-9bf8-94dbe5d50278.png)
