@@ -1,9 +1,9 @@
 # **iHostel**   ![Github All Releases](https://img.shields.io/github/contributors/nsando84/iHostel)   
 
-# Main page.
+#### Main page.
 ![Screen Shot 2020-12-12 at 1 10 51 PM](https://user-images.githubusercontent.com/67135603/102004999-73df3380-3cca-11eb-882b-e7b6e8fe6e36.png)
  
- # View page after selected to stay.
+ #### View page after selected to stay.
 ![Screen Shot 2020-12-12 at 1 08 53 PM](https://user-images.githubusercontent.com/67135603/102004990-64f88100-3cca-11eb-8637-6a3ce1acd50f.png)
 
 
@@ -77,13 +77,13 @@
 
 #### This application is for avid traveler/backpacker to easily find a place to stay for the night. It also serves the Innkeeper whom loves to host travelers. 
 
-# Yes/no page.
+#### Yes/no page.
 ![Screen Shot 2020-12-12 at 1 10 26 PM](https://user-images.githubusercontent.com/67135603/102005594-dcc8aa80-3cce-11eb-9bf8-94dbe5d50278.png)
 
-# At a glance page for travelers.
+#### At a glance page for travelers.
 ![Screen Shot 2020-12-13 at 3 56 39 PM](https://user-images.githubusercontent.com/67135603/102027883-e51af700-3d5b-11eb-8255-f1708f9aa5a1.png)
 
-# At a glance page for innkeepers.
+#### At a glance page for innkeepers.
 ![Screen Shot 2020-12-13 at 3 56 12 PM](https://user-images.githubusercontent.com/67135603/102027893-f7953080-3d5b-11eb-8be1-3e78d2b5da7d.png)
 
 
