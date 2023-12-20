@@ -56,20 +56,9 @@
 
 ### **Installation**
  
-    npx create-react-app
-    npm react-bootstrap
-    npm react-date-range
-    npm install date-fns
-    npm react-charts
-    npm install axios
-    npm install uuid
-    
-    npm install bcrypy
-    npm install dotenv
-    npm install express
-    npm install jsonwebtoken
-    npm install mongoose
-    npm install node-geocoder
+```bash
+npm i
+```
      
 ---
 
@@ -99,12 +88,6 @@
 ### **Tests**
 
 ### N/A
-
----
-
-### **Questions?**
-
-www.github.com/nsando84
 
 ---
 
